@@ -13,7 +13,6 @@ public class SubTurmaView {
         Scanner scanner = new Scanner(System.in);
         SubTurmaController subTurmaController = new SubTurmaController();
         int opcao = 0;
-        int escolhaTipo = 0;
 
         String menu = """
                 \nMenu 
@@ -26,6 +25,7 @@ public class SubTurmaView {
 
         do {
             System.out.println(menu);
+            System.out.print("Digite o número:");
             opcao = scanner.nextInt();
             scanner.nextLine();
 
@@ -33,20 +33,11 @@ public class SubTurmaView {
                 case 1:
                     System.out.println("\nPreencha os dados a seguir: ");
                     System.out.print("Id: ");
-                    int id = scanner.nextInt();
+                    int idCadastrar = scanner.nextInt();
                     scanner.nextLine();
+                    SubTurma subTurmaCadastrar = dados();
+                    subTurmaCadastrar.setId(idCadastrar);
 
-                    System.out.print("Nome: ");
-                    String nome = scanner.nextLine();
-
-                    //TODO: lista alunos
-                    System.out.print("Alunos: ");
-                    int idAlunoCadastrar = scanner.nextInt();
-                    scanner.nextLine();
-
-                    List<Aluno> alunosCadastrar = new ArrayList<>();
-
-                    SubTurma subTurmaCadastrar = new SubTurma(id, nome, alunosCadastrar);
                     if(subTurmaController.cadastrarSubTurma(subTurmaCadastrar)){
                         System.out.println("SubTurma cadastrada com sucesso");
                     } else {
@@ -60,21 +51,13 @@ public class SubTurmaView {
                 case 3:
                     subTurmaController.listarSubTurmas().forEach(System.out::println);
                     System.out.print("\nEscolha uma sub turma para atualizar (id): ");
-                    id = scanner.nextInt();
+                    int idAtualizar = scanner.nextInt();
                     scanner.nextLine();
 
                     System.out.println("Atualize as seguintes informações: ");
-                    System.out.print("Nome: ");
-                    nome = scanner.nextLine();
+                    SubTurma subTurmaAtualizar = dados();
+                    subTurmaAtualizar.setId(idAtualizar);
 
-                    //TODO: lista alunos
-                    System.out.print("Alunos: ");
-                    int idAlunoAtualizar = scanner.nextInt();
-                    scanner.nextLine();
-
-                    List<Aluno> alunosAtualizar = new ArrayList<>();
-
-                    SubTurma subTurmaAtualizar = new SubTurma(id, nome, alunosAtualizar);
                     if(subTurmaController.atualizarSubTurmas(subTurmaAtualizar)){
                         System.out.println("SubTurma atualizada com sucesso");
                     } else {
@@ -84,9 +67,9 @@ public class SubTurmaView {
                 case 4:
                     subTurmaController.listarSubTurmas().forEach(System.out::println);
                     System.out.print("\nEscolha uma sub turma para deletar (id): ");
-                    id = scanner.nextInt();
+                    int idDeletar = scanner.nextInt();
                     scanner.nextLine();
-                    if(subTurmaController.deletarSubTurma(id)){
+                    if(subTurmaController.deletarSubTurma(idDeletar)){
                         System.out.println("Sub turma deletado com sucesso");
                     } else {
                         System.out.println("Nao foi possivel deletar");
@@ -100,5 +83,22 @@ public class SubTurmaView {
                     System.out.println("Opcao invalida");
             }
         }while (opcao != 5);
+    }
+
+    public static SubTurma dados(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+
+        //TODO: lista alunos
+        System.out.print("Alunos: ");
+        int idAlunoCadastrar = scanner.nextInt();
+        scanner.nextLine();
+
+        List<Aluno> alunosCadastrar = new ArrayList<>();
+
+        SubTurma subTurma = new SubTurma(0, nome, alunosCadastrar);
+        return subTurma;
     }
 }

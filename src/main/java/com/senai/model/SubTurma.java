@@ -8,6 +8,9 @@ public class SubTurma {
     //private Horario horario;
     private List<Aluno> alunos;
 
+    public SubTurma() {
+    }
+
     public SubTurma(int id, String nome, List<Aluno> alunos) {
         this.id = id;
         this.nome = nome;

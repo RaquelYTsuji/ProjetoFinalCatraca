@@ -70,4 +70,15 @@ public class SubTurmaDAO {
         }
         return false;
     }
+
+    public SubTurma procurar(int id){
+        SubTurma subTurma = null;
+        for (SubTurma s : subTurmas) {
+            if (s.getId() == id) {
+                subTurma = new SubTurma(s.getId(), s.getNome(), s.getAlunos());
+                break;
+            }
+        }
+        return subTurma;
+    }
 }

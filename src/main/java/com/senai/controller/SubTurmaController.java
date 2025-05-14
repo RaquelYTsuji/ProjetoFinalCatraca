@@ -35,4 +35,8 @@ public class SubTurmaController {
         }
         return false;
     }
+
+    public SubTurma procurarSubTurmas(int id){
+        return subTurmaDAO.procurar(id);
+    }
 }
