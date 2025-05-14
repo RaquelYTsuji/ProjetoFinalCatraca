@@ -18,9 +18,7 @@ public class MainOcorrencia {
                     2 - Deletar Usuario
                     3 - Atualizar Usuario
                     4 - Exibir Usuarios
-                    5 - Ligar Maquina
-                    6 - Demitir Operador
-                    7 - Sair
+                    5 - Sair
                 """;
 
     }
