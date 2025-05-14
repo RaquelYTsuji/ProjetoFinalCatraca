@@ -12,5 +12,7 @@ public class AlunoDAO {
     public AlunoDAO(){
         alunos = pedirEntrada;
     }
-    public void listarPedidosEntrada;
+    public void criarOcorrência(){
+
+    }
 }
