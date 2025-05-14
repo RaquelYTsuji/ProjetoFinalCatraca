@@ -1,6 +1,4 @@
 package com.senai.model;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Ocorrencia {
@@ -70,15 +68,6 @@ public class Ocorrencia {
 
     @Override
     public String
-
-
-
-
-
-
-
-
-
 
     toString() {
         return "Ocorrencia{" +

@@ -4,18 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class OcorrenciaDAO {
     private List<Ocorrencia> ocorrencias;
     private final String FILE_PATH = "ocorrencias.json";
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create(); //biblioteca json
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private List<Ocorrencia> carregar() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
