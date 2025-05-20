@@ -32,7 +32,7 @@ public class OcorrenciaDAO {
     }
 
     public void salvar(Ocorrencia ocorrencia) {
-        ocorrencias.add(ocorrencia.toString());
+        ocorrencias.add(ocorrencia);
         salvarJson();
     }
 
@@ -51,9 +51,9 @@ public class OcorrenciaDAO {
     public void atualizar(Ocorrencia ocorrencia) {
         ocorrencias.forEach(o -> {
             if (o.getId() == ocorrencia.getId()) {
-                o.getTipo(ocorrencia.getTipo());
-                o.getDescricao(ocorrencia.getDescricao());
-                o.getDataHora(ocorrencia.getDataHora());
+                o.setTipo(ocorrencia.getTipo());
+                o.setDescricao(ocorrencia.getDescricao());
+                o.setDataHora(ocorrencia.getDataHora());
                 salvarJson();
             }
         });

@@ -13,7 +13,7 @@ public class OcorrenciaController {
         return (List<Ocorrencia>) ocorrenciaDAO.listar();
     }
 
-    public boolean cadastrarOperador(Ocorrencia ocorrencia){
+    public boolean cadastrarOcorrencias(Ocorrencia ocorrencia){
         if (ocorrencia != null){
             ocorrenciaDAO.salvar(ocorrencia);
             return true;
