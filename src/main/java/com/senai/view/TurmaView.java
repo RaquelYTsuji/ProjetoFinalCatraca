@@ -17,7 +17,6 @@ public class TurmaView {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TurmaController turmaController = new TurmaController();
-        SubTurmaController subTurmaController = new SubTurmaController();
         int opcao = 0;
 
         String menu = """
@@ -71,12 +70,12 @@ public class TurmaView {
                     }
                     break;
                 case 4:
-                    subTurmaController.listarSubTurmas().forEach(System.out::println);
-                    System.out.print("\nEscolha uma sub turma para deletar (id): ");
+                    turmaController.listarTurmas().forEach(System.out::println);
+                    System.out.print("\nEscolha uma turma para deletar (id): ");
                     int idDeletar = scanner.nextInt();
                     scanner.nextLine();
                     if(turmaController.deletarTurma(idDeletar)){
-                        System.out.println("Sub turma deletado com sucesso");
+                        System.out.println("Turma deletada com sucesso");
                     } else {
                         System.out.println("Nao foi possivel deletar");
                     }

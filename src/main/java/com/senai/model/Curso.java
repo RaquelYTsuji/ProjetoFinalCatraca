@@ -78,6 +78,7 @@ public class Curso {
                 ", unidadeCurriculars=" + unidadeCurriculares +
                 ", cargaHoraria=" + cargaHoraria +
                 ", tipo=" + tipo +
+                ", tolerancia=" + tolerancia +
                 '}';
     }
 }
