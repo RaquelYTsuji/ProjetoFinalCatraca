@@ -1,8 +1,9 @@
-package com.senai.model;
+package com.senai.model.justificativa;
 
 import java.time.LocalDateTime;
 
-public class Justificativa  {
+public class Justificativa {
+
     private int id;
     private String tipo;
     private String descricao;
@@ -10,11 +11,12 @@ public class Justificativa  {
     private int quantidadeDias;
     private int prazoDeAceite;
     private String anexo;
-    private Enum status;
+    private Status status;  // Usar o enum Status em vez de Enum genérico
     private boolean cancelar;
 
-
-    public Justificativa(int id, String tipo, String descricao, LocalDateTime dataHoraJustificatida, int quantidadeDias, int prazoDeAceite, String anexo, Enum status, boolean cancelar) {
+    // Construtor
+    public Justificativa(int id, String tipo, String descricao, LocalDateTime dataHoraJustificatida,
+                         int quantidadeDias, int prazoDeAceite, String anexo, Status status, boolean cancelar) {
         this.id = id;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -26,6 +28,7 @@ public class Justificativa  {
         this.cancelar = cancelar;
     }
 
+    // Métodos getters e setters
     public int getId() {
         return id;
     }
@@ -82,11 +85,11 @@ public class Justificativa  {
         this.anexo = anexo;
     }
 
-    public Enum getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -97,6 +100,20 @@ public class Justificativa  {
     public void setCancelar(boolean cancelar) {
         this.cancelar = cancelar;
     }
+
+    // Metodo toString para facilitar a visualização do objeto
+    @Override
+    public String toString() {
+        return "Justificativa{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", dataHoraJustificatida=" + dataHoraJustificatida +
+                ", quantidadeDias=" + quantidadeDias +
+                ", prazoDeAceite=" + prazoDeAceite +
+                ", anexo='" + anexo + '\'' +
+                ", status=" + status +
+                ", cancelar=" + cancelar +
+                '}';
+    }
 }
-
-
