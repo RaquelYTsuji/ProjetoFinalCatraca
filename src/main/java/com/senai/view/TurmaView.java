@@ -1,5 +1,6 @@
 package com.senai.view;
 
+import com.senai.controller.CursoController;
 import com.senai.controller.SubTurmaController;
 import com.senai.controller.TurmaController;
 import com.senai.model.Curso;
@@ -93,16 +94,16 @@ public class TurmaView {
     public static Turma dados(){
         Scanner scanner = new Scanner(System.in);
         SubTurmaController subTurmaController = new SubTurmaController();
+        CursoController cursoController = new CursoController();
 
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
 
-        //TODO: lista cursos
+        cursoController.listarCurso().forEach(System.out::println);
         System.out.print("Curso: ");
         int idCursoCadastrar = scanner.nextInt();
         scanner.nextLine();
-
-        Curso cursoCadastrar = new Curso();
+        Curso cursoCadastrar = cursoController.procurarCursos(idCursoCadastrar);
 
         System.out.print("SubTurmas: \n");
         subTurmaController.listarSubTurmas().forEach(System.out::println);
