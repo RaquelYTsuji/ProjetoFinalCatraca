@@ -5,11 +5,9 @@ public class Aluno extends Usuario{
     String ocorrencias;
     String justificativas;
 
-    public Aluno(String nome, String login, String senha, int idAluno, String ocorrencias, String justificativas) {
+    public Aluno(String nome, String login, String senha, int idAluno) {
         super(nome, login, senha);
         this.idAluno = idAluno;
-        this.ocorrencias = ocorrencias;
-        this.justificativas = justificativas;
     }
 
     public int getIdAluno() {
@@ -20,19 +18,4 @@ public class Aluno extends Usuario{
         this.idAluno = idAluno;
     }
 
-    public String getOcorrencias() {
-        return ocorrencias;
-    }
-
-    public void setOcorrencias(String ocorrencias) {
-        this.ocorrencias = ocorrencias;
-    }
-
-    public String getJustificativas() {
-        return justificativas;
-    }
-
-    public void setJustificativas(String justificativas) {
-        this.justificativas = justificativas;
-    }
 }
