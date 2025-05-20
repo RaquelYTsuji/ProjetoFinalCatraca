@@ -2,8 +2,6 @@ package com.senai.model;
 
 public class Aluno extends Usuario{
     int idAluno;
-    String ocorrencias;
-    String justificativas;
 
     public Aluno(String nome, String login, String senha, int idAluno) {
         super(nome, login, senha);
@@ -18,4 +16,10 @@ public class Aluno extends Usuario{
         this.idAluno = idAluno;
     }
 
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "idAluno=" + idAluno +
+                '}';
+    }
 }
