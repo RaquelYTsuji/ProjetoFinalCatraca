@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "tipo": "saida",
+    "descricao": "quero sair",
+    "dataHoraJustificatida": "2025-05-21T09:17:49.870092",
+    "quantidadeDias": 0,
+    "prazoDeAceite": 0,
+    "status": "p",
+    "cancelar": false
+  },
+  {
+    "id": 2,
+    "tipo": "Saida",
+    "descricao": "preciso sair",
+    "dataHoraJustificatida": "2025-05-21T09:54:25.3424772",
+    "quantidadeDias": 0,
+    "prazoDeAceite": 0,
+    "status": "pendente",
+    "cancelar": false
+  },
+  {
+    "id": 3,
+    "tipo": "atraso",
+    "descricao": "eu cheguei atrasada",
+    "dataHoraJustificatida": "2025-05-21T09:54:49.3820636",
+    "quantidadeDias": 0,
+    "prazoDeAceite": 0,
+    "status": "aprovado",
+    "cancelar": true
+  },
+  {
+    "id": 4,
+    "tipo": "saida",
+    "descricao": "quero sair",
+    "dataHoraJustificatida": "2025-05-21T10:10:38.974567",
+    "quantidadeDias": 0,
+    "prazoDeAceite": 0,
+    "status": "aprovado",
+    "cancelar": false
+  }
+]

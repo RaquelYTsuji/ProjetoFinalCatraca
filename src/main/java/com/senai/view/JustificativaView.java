@@ -1,17 +1,23 @@
 package com.senai.view;
 
+import com.senai.model.justificativa.Justificativa;
+
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
 
 public class JustificativaView {
+
     private final Scanner scanner = new Scanner(System.in);
     //private final HorarioController controller = new HorarioController();
-
+    public static void main(String[] args) {
+        JustificativaView justificativaView=new JustificativaView();
+        justificativaView.menu();
+    }
     public void menu() {
         String opcao;
         String menuJustificativa = """
                 ---- MENU DE JUSTIFICATIVA ----
-                
                     1. Cadastrar justificativa
                     2. Atualizar Justificativa
                     3. Remover justificativa
@@ -35,10 +41,12 @@ public class JustificativaView {
     }
 
     private void cadastrar() {
+        int id = scannerPromptInt("ID do horário: ");
         String tipo = scannerPrompt("ID do aluno: ");
-        int idProfessor = scannerPromptInt("ID do professor: ");
-        LocalTime hora = scannerPromptHora("Hora de início (HH:mm): ");
-        System.out.println(controller.cadastrarHorario(idAluno, idProfessor, hora));
+        String descricao = scannerPrompt("ID do professor: ");
+        LocalDateTime dataHoraJustificada = scannerPromptHora("Hora de início (HH:mm): ");
+        Justificativa justificativa = new Justificativa(id,tipo,descricao,)
+        controller.cadastrarHorario(idAluno, idProfessor, hora);
     }
 
     private void atualizar() {
@@ -61,22 +69,25 @@ public class JustificativaView {
         }
     }
 
-    private int scannerPromptInt(String msg) {
-        System.out.print(msg);
-        return Integer.parseInt(scanner.nextLine());
-    }
 
     private LocalTime scannerPromptHora(String msg) {
         System.out.print(msg);
         return LocalTime.parse(scanner.nextLine());
     }
 
+
+    private String scannerPrompt(String msg) {
+        System.out.print(msg);
+        return scanner.nextLine();
+    }
+
     private int scannerPromptInt(String msg) {
         System.out.print(msg);
         return Integer.parseInt(scanner.nextLine());
     }
 
 
-}
 
 }
+
+
