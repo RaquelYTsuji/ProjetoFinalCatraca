@@ -50,6 +50,8 @@ public class CoordenadorView {
         String email = scanner.nextLine();
 
         controller.adicionarCoordenador(id, nome, email);
+
+        System.out.println("Coordenador adicionado com sucesso!");
     }
 
     private void listar() {
