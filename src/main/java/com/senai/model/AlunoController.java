@@ -3,15 +3,16 @@ package com.senai.model;
 import java.util.List;
 
 public class AlunoController {
-    private AlunoDAO alunoDAO = new AlunoDAO();
+    private AlunoDAO alunoDAO = new AlunoDAO();//permite que a AlunoController use os métodos de acesso ao banco de dados
+    // ou à lista onde os dados dos alunos são armazenados.
 
-
-    public List<Aluno> listarAlunos() {
+    public List<Aluno> listarAlunos() {//Método público que retorna uma lista de alunos (List<Aluno>).
+        // Ele simplesmente chama o método listar() da AlunoDAO e retorna o resultado.
         return alunoDAO.listar();
     }
 
     public boolean cadastrarAluno(Aluno aluno){
-        if(aluno!= null) {
+        if(aluno!= null) {//verifica se o objeto aluno não está vazio
             alunoDAO.salvar(aluno);
             return true;//
         }
@@ -25,7 +26,7 @@ public class AlunoController {
         return false;
     }
     public boolean deletarAlunoPorID(int id){
-        if(id >= 0){
+        if(id >= 0){//detecta se o id é maior ou igual a zero
             alunoDAO.deletar(id);
             return true;
         }
