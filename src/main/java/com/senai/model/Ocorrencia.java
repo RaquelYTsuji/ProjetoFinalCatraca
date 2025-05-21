@@ -18,6 +18,14 @@ public class Ocorrencia {
         this.status = status;
     }
 
+    public Ocorrencia(int id, String tipo, String descricao, LocalDateTime dataHora) {
+        this.id = id;
+        this.tipo = tipo;
+        this.descricao = descricao;
+        this.dataHora = dataHora;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -64,20 +72,6 @@ public class Ocorrencia {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @Override
-    public String
-
-    toString() {
-        return "Ocorrencia{" +
-                "id=" + id +
-                ", tipo='" + tipo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", dataHora=" + dataHora +
-                ", cancelar=" + cancelar +
-                ", status=" + status +
-                '}';
     }
 }
 
