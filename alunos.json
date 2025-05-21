@@ -1,9 +1,9 @@
 [
   {
     "idAluno": 15,
-    "nome": "Nicoly",
+    "nome": "Nicoly Machado",
     "login": "nicolymachado",
-    "senha": "132345",
+    "senha": "12345",
     "ativado": true
   }
 ]

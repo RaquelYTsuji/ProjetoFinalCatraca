@@ -1,6 +1,6 @@
 package com.senai.model;
 
-public class Aluno extends Usuario{
+public class Aluno extends Usuario {
     int idAluno;
 
     public Aluno(String nome, String login, String senha, int idAluno) {
@@ -19,7 +19,10 @@ public class Aluno extends Usuario{
     @Override
     public String toString() {
         return "Aluno{" +
-                "idAluno=" + idAluno +
+                "ID=" + idAluno +
+                ", Nome='" + getNome() +  '\'' +
+                ", Login='" + getLogin() + '\'' +
+                ", Senha='" + getSenha() + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,5 @@
 package com.senai.model;
 
-
 import java.util.List;
 
 public class AlunoController {

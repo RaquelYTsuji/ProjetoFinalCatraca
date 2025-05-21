@@ -12,7 +12,6 @@ public class AlunoView {
         menuAluno(scanner, controller); // Passando o scanner e o controller como parâmetros para o menuAluno
     }
 
-    // Método menuAluno agora recebe o Scanner e o AlunoController como parâmetros
     public static void menuAluno(Scanner scanner, AlunoController controller) {
         String opcao;
         String menuAluno = """
