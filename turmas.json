@@ -1,3 +1,20 @@
 [
-  {}
+  {
+    "id": 2,
+    "nome": "Turma 2",
+    "curso": {
+      "id": 2,
+      "titulo": "Curso 2",
+      "unidadeCurriculares": [],
+      "cargaHoraria": 20,
+      "tipo": true,
+      "tolerancia": 15
+    },
+    "subTurmas": [
+      null
+    ],
+    "dataInicio": "20/10/2024",
+    "quantidadeSemestre": 8,
+    "horarioEntrada": "07:00"
+  }
 ]

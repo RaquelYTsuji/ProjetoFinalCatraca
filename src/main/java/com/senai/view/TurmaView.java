@@ -8,7 +8,9 @@ import com.senai.model.SubTurma;
 import com.senai.model.Turma;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -116,30 +118,31 @@ public class TurmaView {
         } while(idSubTurmaCadastrar != -1);
         scanner.nextLine();
 
-        System.out.println("Data: ");
-        System.out.print("Dia: ");
-        int dia = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Mes: ");
-        int mes = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Ano: ");
-        int ano = scanner.nextInt();
-        scanner.nextLine();
+        System.out.print("Data (dd/MM/yyyy): ");
+        String data = scanner.nextLine();
+        LocalDate localDate = formatDate(data);
 
         System.out.print("Quantidade de semestres: ");
         int semestres = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Horario de entrada: ");
-        System.out.print("Hora: ");
-        int hora = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Minuto: ");
-        int minuto = scanner.nextInt();
-        scanner.nextLine();
+        System.out.print("Horario de entrada (HH:mm): ");
+        String hora = scanner.nextLine();
+        LocalTime localTime = formatTime(hora);
 
-        Turma turma = new Turma(0, nome, cursoCadastrar, subTurmas, LocalDate.of(ano, mes, dia), semestres, LocalTime.of(hora, minuto));
+        Turma turma = new Turma(0, nome, cursoCadastrar, subTurmas, localDate, semestres, localTime);
         return turma;
+    }
+
+    private static LocalDate formatDate(String data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(data, formatter);
+        return localDate;
+    }
+
+    private static LocalTime formatTime(String hora){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime localTime = LocalTime.parse(hora, formatter);
+        return localTime;
     }
 }

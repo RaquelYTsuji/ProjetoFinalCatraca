@@ -1,10 +1,10 @@
 [
   {
-    "id": 123,
-    "titulo": "curso 1",
+    "id": 2,
+    "titulo": "Curso 2",
     "unidadeCurriculares": [],
-    "cargaHoraria": 15,
-    "tipo": false,
-    "tolerancia": 20
+    "cargaHoraria": 20,
+    "tipo": true,
+    "tolerancia": 15
   }
 ]

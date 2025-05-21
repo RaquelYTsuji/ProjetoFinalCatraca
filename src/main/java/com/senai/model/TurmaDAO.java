@@ -3,11 +3,15 @@ package com.senai.model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.util.LocalDateAdapter;
+import com.senai.util.LocalTimeAdapter;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +19,11 @@ import java.util.List;
 public class TurmaDAO {
     private List<Turma> turmas;
     private final String FILE_PATH = "turmas.json";
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    private final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
+            .create();
 
     private List<Turma> carregar(){
         try (FileReader reader = new FileReader(FILE_PATH)){

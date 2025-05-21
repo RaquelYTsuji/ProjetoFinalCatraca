@@ -98,14 +98,14 @@ public class CursoView {
 
         List<UnidadeCurricular> unidadeCurriculares = new ArrayList<>();
 
-        System.out.print("Carga Horaria: ");
+        System.out.print("Carga Horaria (horas): ");
         int cargaHoraria = scanner.nextInt();
         scanner.nextLine();
 
         System.out.print("Tipo (CAI=true, Tecnico=false): ");
         boolean tipo = scanner.nextBoolean();
 
-        System.out.print("Tolerancia: ");
+        System.out.print("Tolerancia (minutos): ");
         int tolerancia = scanner.nextInt();
         scanner.nextLine();
 
