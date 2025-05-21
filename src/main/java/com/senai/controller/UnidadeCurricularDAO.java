@@ -39,7 +39,7 @@ public class UnidadeCurricularDAO {
     public void salvar (List<UnidadeCurricular> unidadesCurriculares){
         for (int i = 0; i < unidadesCurriculares.size(); i++) {
             if (unidadesCurriculares.get(i).getDisciplina() == unidadesCurriculares.get()) {
-                unidadesCurriculares.set(i);
+                unidadesCurriculares.set(i j);
                 break;
             }
         }
