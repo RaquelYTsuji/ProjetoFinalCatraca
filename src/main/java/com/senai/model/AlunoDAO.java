@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class AlunoDAO {
@@ -43,10 +44,19 @@ public class AlunoDAO {
             e.printStackTrace();
         }
     }
-    public List<Aluno> listar() {
+    public List<Aluno>listar() {
         return alunos;
     }
+    public void atualizar(Aluno aluno) {
+        for (int i = 0; i < alunos.size(); i++) {
+            Aluno a = alunos.get(i);
+            if (a.getIdAluno() == aluno.getIdAluno()) {
+                alunos.set(i, aluno); // Atualiza o aluno na lista
+                salvarJson(); // Grava a lista atualizada no arquivo
+                break;
+            }
+        }
 
-
-
+    }
 }
+

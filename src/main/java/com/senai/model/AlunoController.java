@@ -1,4 +1,5 @@
 package com.senai.model;
+import com.senai.dao.AlunoDAO;
 
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class AlunoController {
 
 
     public List<Aluno> listarAlunos() {
-        return alunoDAO.listar;
+        return alunoDAO.listar();
     }
 
     public boolean cadastrarAluno(Aluno aluno){
