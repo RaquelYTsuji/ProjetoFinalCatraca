@@ -1,4 +1,4 @@
 package com.senai.model;
 
-public class Aluno extends Usuario{
-}
+//public class Aluno extends Usuario{
+//}

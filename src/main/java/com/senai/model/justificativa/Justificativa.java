@@ -11,24 +11,33 @@ public class Justificativa {
     private int quantidadeDias;
     private int prazoDeAceite;
     private String anexo;
-    private Status status;  // Usar o enum Status em vez de Enum genérico
+    private String status;
     private boolean cancelar;
 
-    // Construtor
-    public Justificativa(int id, String tipo, String descricao, LocalDateTime dataHoraJustificatida,
-                         int quantidadeDias, int prazoDeAceite, String anexo, Status status, boolean cancelar) {
+
+    public Justificativa(int id, String tipo, String descricao,
+                         LocalDateTime now, int quantidadeDias, int prazoDeAceite,
+                         String anexo, String status, boolean cancelar) {
         this.id = id;
         this.tipo = tipo;
         this.descricao = descricao;
-        this.dataHoraJustificatida = dataHoraJustificatida;
-        this.quantidadeDias = quantidadeDias;
-        this.prazoDeAceite = prazoDeAceite;
+        this.dataHoraJustificatida = LocalDateTime.now();
+        this.quantidadeDias = quantidadeDias; //quantidade de dias que a justificativa vale
+        this.prazoDeAceite = prazoDeAceite; //o maximo de dias que aqv tem que aceitar
         this.anexo = anexo;
         this.status = status;
         this.cancelar = cancelar;
     }
 
-    // Métodos getters e setters
+//    public Justificativa(int id, String tipo, String descricao,LocalDateTime dataHoraJustificatida, String status){
+//        this.id=id;
+//        this.tipo=tipo;
+//        this.descricao=descricao;
+//        this.dataHoraJustificatida=dataHoraJustificatida;
+//        this.status=status;
+//    }
+
+
     public int getId() {
         return id;
     }
@@ -85,11 +94,11 @@ public class Justificativa {
         this.anexo = anexo;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -101,19 +110,22 @@ public class Justificativa {
         this.cancelar = cancelar;
     }
 
-    // Metodo toString para facilitar a visualização do objeto
-    @Override
-    public String toString() {
-        return "Justificativa{" +
-                "id=" + id +
-                ", tipo='" + tipo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", dataHoraJustificatida=" + dataHoraJustificatida +
-                ", quantidadeDias=" + quantidadeDias +
-                ", prazoDeAceite=" + prazoDeAceite +
-                ", anexo='" + anexo + '\'' +
-                ", status=" + status +
-                ", cancelar=" + cancelar +
-                '}';
-    }
+
+
+
+//    // Metodo toString para facilitar a visualização do objeto
+//    @Override
+//    public String toString() {
+//        return "Justificativa{" +
+//                "id=" + id +
+//                ", tipo='" + tipo + '\'' +
+//                ", descricao='" + descricao + '\'' +
+//                ", dataHoraJustificatida=" + dataHoraJustificatida +
+//                ", quantidadeDias=" + quantidadeDias +
+//                ", prazoDeAceite=" + prazoDeAceite +
+//                ", anexo='" + anexo + '\'' +
+//                ", status=" + status +
+//                ", cancelar=" + cancelar +
+//                '}';
+//    }
 }
