@@ -95,15 +95,19 @@ public class UnidadeCurricularView {
 
     //uso do boolean para haver algum tipo de confirmação ao remover.
     private static boolean remover() {
-        String nomeUC = scannerPrompt("Digite o nome da UC a remover: ");
-        boolean sucesso = Controller.removerUC(nomeUC);
-        if (sucesso) {
-            System.out.println("Unidade Curricular removida com sucesso.");
-            return true;
-        } else {
-            System.out.println("Unidade Curricular não encontrada.");
-        }
-        return false;
+            String nome = scannerPrompt("Digite o nome da UC que deseja remover: ");
+            String confirmacao = scannerPrompt("Tem certeza que deseja remover \"" + nome + "\"? (s/n): ");
+
+            boolean sucesso = Controller.removerUC(nome, confirmacao);
+
+            if (sucesso) {
+                System.out.println("Unidade Curricular removida com sucesso.");
+
+                return true;
+            } else {
+                System.out.println("Remoção cancelada ou UC não encontrada.");
+            }
+            return false;
     }
 
     private static void listar() {

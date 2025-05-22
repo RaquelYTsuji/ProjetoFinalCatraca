@@ -55,6 +55,7 @@ public class UnidadeCurricular {
         this.metodoAvaliacao = metodoAvaliacao;
     }
 
+    //ToString usando o StringFormat para deixar "bonito"
     @Override
     public String toString() {
         return String.format(
