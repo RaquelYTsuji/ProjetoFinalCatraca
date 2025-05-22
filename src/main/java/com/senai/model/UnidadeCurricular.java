@@ -1,18 +1,26 @@
 package com.senai.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UnidadeCurricular {
+    private String nome;
     private String disciplina;
-    private double cargaHoraria;
-    private String subTurma;
-    private List<UnidadeCurricular> unidades;
+    private String professorResponsavel;
+    private String cargaHoraria;
+    private String metodoAvaliacao;
 
-    public UnidadeCurricular(String disciplina, double cargaHoraria, String subTurma) {
+    public UnidadeCurricular(String nome, String disciplina, String professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
+        this.nome = nome;
         this.disciplina = disciplina;
+        this.professorResponsavel = professorResponsavel;
         this.cargaHoraria = cargaHoraria;
-        this.subTurma = subTurma;
+        this.metodoAvaliacao = metodoAvaliacao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDisciplina() {
@@ -23,23 +31,42 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
     }
 
-    public double getCargaHoraria() {
+    public String getProfessorResponsavel() {
+        return professorResponsavel;
+    }
+
+    public void setProfessorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
+    }
+
+    public String getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(double cargaHoraria) {
+    public void setCargaHoraria(String cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getSubTurma() {
-        return subTurma;
+    public String getMetodoAvaliacao() {
+        return metodoAvaliacao;
     }
 
-    public void setSubTurma(String subTurma) {
-        this.subTurma = subTurma;
+    public void setMetodoAvaliacao(String metodoAvaliacao) {
+        this.metodoAvaliacao = metodoAvaliacao;
     }
 
-    public List<UnidadeCurricular> listarUnidades() {
-        return unidades;
+    @Override
+    public String toString() {
+        return String.format(
+                """
+                Nome da UC:           %s
+                Disciplina:           %s
+                Professor Responsável:%s
+                Carga Horária:        %s
+                Método de Avaliação:  %s
+                """,
+                nome, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao
+        );
     }
+
 }
