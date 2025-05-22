@@ -1,7 +1,9 @@
 package com.senai.view;
 
 import com.senai.controller.UnidadeCurricularController;
+import com.senai.model.UnidadeCurricular;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UnidadeCurricularView {
@@ -23,7 +25,7 @@ public class UnidadeCurricularView {
                 4 - Listar unidades
                 0 - Retorna á tela anterior
                 """;
-//Switch com o menu
+         //Switch com o menu
         do {
             System.out.print(menuUC);
             opcao = scanner.nextLine();
@@ -45,30 +47,63 @@ public class UnidadeCurricularView {
         String professorResponsavel = scannerPrompt("Qual é o professor responsavel por está UC?");
         String cargaHoraria = scannerPrompt("Qual é a carga horaria desta Unidade Curricular?");
         String metodoAvaliacao = scannerPrompt("Qual será o metodo de avaliação?");
-      //  System.out.println(unidadeCurricularController.cadastarUC()(;nomeUC, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao;)
+      // System.out.println(unidadeCurricularController.cadastarUC()(;nomeUC, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao;)
     }
 
     private static void atualizar(){
         String questionamento = scannerPrompt("O que deseja atualizar?");
+        String opcoesAtt = """
+                1 - Unidade Curriculares
+                2 - Disciplinas
+                3 - Professor Responsavel
+                4 - Metodo de avaliação
+                0 - voltar
+                """;
 
+        do {
+            System.out.print(questionamento);
+            questionamento = scanner.nextLine();
 
+            switch (opcoesAtt) {
+                case 1:
+                    String nomeUC2 = scannerPrompt("Digite o nome da nova UC: ");
+                    //System.out.println(unidadeCurricularController.atualizarUC();(nomeUC2))
+                    break;
+
+                case 2:
+                    String nomeDisci = scannerPrompt("Digite o novo nome da disciplina: ");
+                    //System.out.println(unidadeCurricularController.atualizarUC();(nomeDisci))
+                    break;
+                case 3:
+                    String nomePR = scannerPrompt("Digite o nome do novo professor responsavel: ");
+                    //System.out.println(unidadeCurricularController.atualizarUC();(nomePR))
+                    break;
+                case 4:
+                    String novoMA = scannerPrompt("Digite a nova forma de avaliação: ");
+                    //System.out.println(unidadeCurricularController.atualizarUC();(novoMA))
+                    break;
+                case 0:
+                    System.out.println("Voltando");
+                default:
+                    System.out.println("Opção invalida");
+            }
+        } while (!opcoesAtt.equals("0"));
     }
 
-    private static void remover(){
-
+    private static boolean remover(){
+        System.out.println("Digite o nome da UC que deseja deletar: ");
+        //return unidadeCurricularController.deletarUC();
     }
 
     private static void listar(){
-
+        List<UnidadeCurricularController> listaUC = UnidadeCurricularController.listaUC;
+        for (UnidadeCurricular UC : listaUC){
+            System.out.println(UC);
+        }
     }
 
     private static String scannerPrompt(String msg) {
         System.out.print(msg);
         return scanner.nextLine();
-    }
-
-    private static int scannerPromptInt(String msg) {
-        System.out.print(msg);
-        return Integer.parseInt(scanner.nextLine());
     }
 }
