@@ -42,14 +42,13 @@ public class UnidadeCurricularView {
     }
 
     private static void cadastrar() {
-        String ID = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String disciplina = scannerPrompt("Digite as disciplinas presentes da UC: ");
         String professor = scannerPrompt("Professor responsável: ");
         String cargaHoraria = scannerPrompt("Carga horária: ");
         String metodoAvaliacao = scannerPrompt("Método de avaliação: ");
 
-        Controller.cadastrarUC(ID,nomeUC, disciplina, professor, cargaHoraria, metodoAvaliacao);
+        Controller.cadastrarUC(nomeUC, disciplina, professor, cargaHoraria, metodoAvaliacao);
     }
 
     //No atualizar, o uso de Menu, foi escolhido para que o usuário escolha o que ele quer editar.

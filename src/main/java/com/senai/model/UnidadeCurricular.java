@@ -1,18 +1,15 @@
 package com.senai.model;
 
-import java.util.UUID;
-
 //Aqui segue o mesmo padrão do POO, onde criamos os atributos e chamos construtores, getter e setters e fazemos o toString
 public class UnidadeCurricular {
-    private final String id;
+
     private String nome;
     private String disciplina;
     private String professorResponsavel;
     private String cargaHoraria;
     private String metodoAvaliacao;
 
-    public UnidadeCurricular(String id, String nome, String disciplina, String professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
-        this.id = UUID.randomUUID().toString();;
+    public UnidadeCurricular(String nome, String disciplina, String professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
         this.nome = nome;
         this.disciplina = disciplina;
         this.professorResponsavel = professorResponsavel;
@@ -20,9 +17,6 @@ public class UnidadeCurricular {
         this.metodoAvaliacao = metodoAvaliacao;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public String getNome() {
         return nome;
@@ -67,12 +61,11 @@ public class UnidadeCurricular {
     @Override
     public String toString() {
         return String.format("""
-            ID:                   %s
             Nome da UC:           %s
             Disciplina:           %s
             Professor Responsável:%s
             Carga Horária:        %s
             Método de Avaliação:  %s
-            """, id, nome, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao);
+            """, nome, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao);
     }
 }
