@@ -7,17 +7,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UnidadeCurricularView {
-    //Essas duas classes estão estaticas para serem acessadas no codigo por completo.
+    //Essas duas classes estão estáticas para serem acessadas no código por completo.
     static Scanner scanner = new Scanner(System.in);
     static UnidadeCurricularController Controller = new UnidadeCurricularController();
 
-    //PSVM para ser póssivel dar play
     public static void main(String[] args) {
-        //Classe do scanner prompt para deixar o código mais clean.
-        String login = scannerPrompt("Digite o seu login: ");
+        String login = scannerPrompt("Digite o seu login: "); //Uso de scannerPrompt (orientações do professor) para evitar repetições de scanner.nextLine e vários souts
         System.out.println("Bem-vindo(a), " + login + "!");
 
         String opcao;
+        //Menu para interação com o usuário, onde ele escolhe o que deseja fazer.
         String menuUC = """
                 \n Opções:
                 1 - Adicionar Unidade Curricular
@@ -43,18 +42,19 @@ public class UnidadeCurricularView {
     }
 
     private static void cadastrar() {
-        String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular que deseja cadastrar: ");
+        String ID = scannerPrompt("Digite o nome da Unidade Curricular: ");
+        String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String disciplina = scannerPrompt("Digite as disciplinas presentes da UC: ");
-        String professor = scannerPrompt("Professor responsável pela UC: ");
+        String professor = scannerPrompt("Professor responsável: ");
         String cargaHoraria = scannerPrompt("Carga horária: ");
         String metodoAvaliacao = scannerPrompt("Método de avaliação: ");
 
-        Controller.cadastrarUC(nomeUC, disciplina, professor, cargaHoraria, metodoAvaliacao);
+        Controller.cadastrarUC(ID,nomeUC, disciplina, professor, cargaHoraria, metodoAvaliacao);
     }
 
-    //Uso do Menu no atualizar para que a pessoa atualize apenas o que deseja.
+    //No atualizar, o uso de Menu, foi escolhido para que o usuário escolha o que ele quer editar.
     private static void atualizar() {
-        String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular que deseja atualizar: ");
+        String nomeUC = scannerPrompt("Digite o nome da UC que deseja atualizar: ");
 
         String opcao;
         String opcoesAtt = """
@@ -71,60 +71,41 @@ public class UnidadeCurricularView {
             opcao = scanner.nextLine();
 
             switch (opcao) {
-                case "1" -> {
-                    String novoNome = scannerPrompt("Novo nome da UC: ");
-                    Controller.atualizarNomeUC(nomeUC, novoNome);
-                }
-                case "2" -> {
-                    String novaDisciplina = scannerPrompt("Nova disciplina: ");
-                    Controller.atualizarDisciplina(nomeUC, novaDisciplina);
-                }
-                case "3" -> {
-                    String novoProfessor = scannerPrompt("Novo professor responsável: ");
-                    Controller.atualizarProfessor(nomeUC, novoProfessor);
-                }
-                case "4" -> {
-                    String novoMetodo = scannerPrompt("Novo método de avaliação: ");
-                    Controller.atualizarMetodo(nomeUC, novoMetodo);
-                }
+                case "1" -> Controller.atualizarNomeUC(nomeUC, scannerPrompt("Novo nome: "));
+                case "2" -> Controller.atualizarDisciplina(nomeUC, scannerPrompt("Nova disciplina: "));
+                case "3" -> Controller.atualizarProfessor(nomeUC, scannerPrompt("Novo professor: "));
+                case "4" -> Controller.atualizarMetodo(nomeUC, scannerPrompt("Novo método: "));
                 case "0" -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");
             }
         } while (!opcao.equals("0"));
     }
 
-    //uso do boolean para haver algum tipo de confirmação ao remover.
     private static boolean remover() {
-            String nome = scannerPrompt("Digite o nome da UC que deseja remover: ");
-            String confirmacao = scannerPrompt("Tem certeza que deseja remover \"" + nome + "\"? (s/n): ");
+        String nome = scannerPrompt("Digite o nome da UC a remover: ");
+        String confirmacao = scannerPrompt("Tem certeza que deseja remover \"" + nome + "\"? (s/n): ");
+        boolean sucesso = Controller.removerUC(nome, confirmacao);
 
-            boolean sucesso = Controller.removerUC(nome, confirmacao);
-
-            if (sucesso) {
-                System.out.println("Unidade Curricular removida com sucesso.");
-
-                return true;
-            } else {
-                System.out.println("Remoção cancelada ou UC não encontrada.");
-            }
+        if (sucesso) {
+            System.out.println("UC removida com sucesso.");
+            return true;
+        } else {
+            System.out.println("Remoção cancelada ou UC não encontrada.");
             return false;
+        }
     }
 
     private static void listar() {
         List<UnidadeCurricular> listaUC = Controller.listarUC();
-        //if e else para procurar antes de listar as UCs
         if (listaUC.isEmpty()) {
             System.out.println("Nenhuma UC cadastrada.");
         } else {
-            for (UnidadeCurricular uc : listaUC) {
-                System.out.println(uc);
-            }
+            listaUC.forEach(System.out::println);
         }
     }
 
-    //Metodo para não repetir o scanner.nextline a todo momento
-    private static String scannerPrompt(String print) {
-        System.out.print(print);
+    private static String scannerPrompt(String prompt) {
+        System.out.print(prompt);
         return scanner.nextLine();
     }
 }

@@ -8,32 +8,30 @@ import java.util.List;
 
 public class UnidadeCurricularController {
     //Final, já que não haverá alterações sobre essas variaveis.
-    private List<UnidadeCurricular> listaUC = new ArrayList<>();
-    private final UnidadeCurricularDAO UCdao = new UnidadeCurricularDAO(listaUC);
+    private List<UnidadeCurricular> listaUC;
+    private final UnidadeCurricularDAO UCdao;
 
-    //O carregar, para que os dados sejam carregados
     public UnidadeCurricularController() {
+        UCdao = new UnidadeCurricularDAO();
         listaUC = UCdao.carregarUC();
     }
 
-    public void cadastrarUC(String nome, String disciplina, String professor, String cargaHoraria, String metodoAvaliacao) {
-        UnidadeCurricular novaUC = new UnidadeCurricular(nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
-        listaUC.add(novaUC); //Aqui a UC que for cadastrada, entrará na lista de UCs
-        System.out.println("Unidade Curricular cadastrada com sucesso!");
+    public void cadastrarUC(String id,String nome, String disciplina, String professor, String cargaHoraria, String metodoAvaliacao) {
+        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
+        listaUC.add(novaUC);
         UCdao.salvarUC(listaUC);
+        System.out.println("Unidade Curricular cadastrada com sucesso!");
     }
 
-    //Aqui ele retorna a lista.
     public List<UnidadeCurricular> listarUC() {
-        return listaUC;
+        return new ArrayList<>(listaUC);
     }
 
-    //A partir daqui inicia a parte de atualizações, onde faço o uso de um boolean para obter retorno sobre a ação
     public boolean atualizarNomeUC(String nomeAntigo, String novoNome) {
         for (UnidadeCurricular uc : listaUC) {
-            if (uc.getNome().equalsIgnoreCase(nomeAntigo)) { //ignoreCase para que a forma em que forem escritas pelo usuario não interfira no rodar do código
+            if (uc.getNome().equalsIgnoreCase(nomeAntigo)) {
                 uc.setNome(novoNome);
-                UCdao.salvar(listaUC);
+                UCdao.salvarUC(listaUC);
                 return true;
             }
         }
@@ -43,20 +41,19 @@ public class UnidadeCurricularController {
     public boolean atualizarDisciplina(String nomeUC, String novaDisciplina) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setNome(novaDisciplina);
-                UCdao.salvar(listaUC);
+                uc.setDisciplina(novaDisciplina);
+                UCdao.salvarUC(listaUC);
                 return true;
             }
         }
         return false;
     }
 
-
     public boolean atualizarProfessor(String nomeUC, String novoProfessor) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setNome(novoProfessor);
-                UCdao.salvarlistaUC);
+                uc.setProfessorResponsavel(novoProfessor);
+                UCdao.salvarUC(listaUC);
                 return true;
             }
         }
@@ -66,8 +63,8 @@ public class UnidadeCurricularController {
     public boolean atualizarMetodo(String nomeUC, String novoMetodo) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setNome(novoMetodo);
-                UCdao.salvar(listaUC);
+                uc.setMetodoAvaliacao(novoMetodo);
+                UCdao.salvarUC(listaUC);
                 return true;
             }
         }
@@ -75,11 +72,9 @@ public class UnidadeCurricularController {
     }
 
     public boolean removerUC(String nome, String confirmacao) {
-        if (!confirmacao) return false;
+        if (!confirmacao.equalsIgnoreCase("s")) return false;
         boolean removido = listaUC.removeIf(uc -> uc.getNome().equalsIgnoreCase(nome));
-        if (removido) {
-            UCdao.salvar(listaUC);
-        }
+        if (removido) UCdao.salvarUC(listaUC);
         return removido;
     }
 }
