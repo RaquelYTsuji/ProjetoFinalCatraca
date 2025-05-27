@@ -1,5 +1,6 @@
-package com.senai.model;
+package com.senai.view;
 import com.senai.controller.CoordenadorController;
+import com.senai.model.Coordenador;
 
 import java.util.List;
 import java.util.Scanner;
