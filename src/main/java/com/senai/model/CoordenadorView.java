@@ -1,4 +1,6 @@
 package com.senai.model;
+import com.senai.controller.CoordenadorController;
+
 import java.util.List;
 import java.util.Scanner;
 

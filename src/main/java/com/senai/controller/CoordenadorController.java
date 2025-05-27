@@ -1,4 +1,7 @@
-package com.senai.model;
+package com.senai.controller;
+import com.senai.model.Coordenador;
+import com.senai.model.CoordenadorDAO;
+
 import java.util.List;
 
 public class CoordenadorController {
