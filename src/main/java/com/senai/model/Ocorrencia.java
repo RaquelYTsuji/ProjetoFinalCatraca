@@ -61,3 +61,16 @@ public class Ocorrencia {
     public boolean isCancelar() {
         return cancelar;
     }
+
+    public void setCancelar(boolean cancelar) {
+        this.cancelar = cancelar;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+}
