@@ -3,6 +3,7 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Coordenador;
 import com.senai.model.Professor;
 
 import java.io.FileReader;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProfessorDAO {
     private List<Professor> professores;
@@ -72,4 +74,7 @@ public class ProfessorDAO {
         return false;
     }
 
+    public Optional<Professor> buscarPorLogin(String login) {
+        return professores.stream().filter(p -> p.getLogin().equals(login)).findFirst();
+    }
 }

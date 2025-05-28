@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class AlunoDAO {
     private List<Aluno> alunos;//armazena o objeto em aluno
@@ -74,6 +75,10 @@ public class AlunoDAO {
             }
         }
         return false;
+    }
+
+    public Optional<Aluno> buscarPorLogin(String login) {
+        return alunos.stream().filter(a -> a.getLogin().equals(login)).findFirst();
     }
 }
 
