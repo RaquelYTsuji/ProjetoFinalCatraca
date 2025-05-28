@@ -74,4 +74,3 @@ public class Ocorrencia {
         this.status = status;
     }
 }
-
