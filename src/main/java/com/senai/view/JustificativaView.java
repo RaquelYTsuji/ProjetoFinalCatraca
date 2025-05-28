@@ -1,7 +1,7 @@
 package com.senai.view;
 
 import com.senai.controller.JustificativaController;
-import com.senai.model.justificativa.Justificativa;
+import com.senai.model.Justificativa;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.AQV;
-import com.senai.model.AQVdao;
+import com.senai.model.dao.json.AQVdao;
 
 import java.util.List;
 

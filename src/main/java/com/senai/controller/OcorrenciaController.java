@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.Ocorrencia;
-import com.senai.model.OcorrenciaDAO;
+import com.senai.model.dao.json.OcorrenciaDAO;
 
 import java.util.List;
 

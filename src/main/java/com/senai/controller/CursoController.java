@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.Curso;
-import com.senai.model.CursoDAO;
+import com.senai.model.dao.json.CursoDAO;
 
 import java.util.List;
 

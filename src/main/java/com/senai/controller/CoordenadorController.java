@@ -1,6 +1,6 @@
 package com.senai.controller;
 import com.senai.model.Coordenador;
-import com.senai.model.CoordenadorDAO;
+import com.senai.model.dao.json.CoordenadorDAO;
 
 import java.util.List;
 

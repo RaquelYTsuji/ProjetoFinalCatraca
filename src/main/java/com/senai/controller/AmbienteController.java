@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.Ambiente;
-import com.senai.model.AmbienteDAO;
+import com.senai.model.dao.json.AmbienteDAO;
 
 import java.util.List;
 

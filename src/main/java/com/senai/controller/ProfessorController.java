@@ -1,4 +1,7 @@
-package com.senai.model;
+package com.senai.controller;
+
+import com.senai.model.Professor;
+import com.senai.model.dao.json.ProfessorDAO;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
-package com.senai.model;
+package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Coordenador;
 
 import java.io.FileWriter;
 import java.io.FileReader;

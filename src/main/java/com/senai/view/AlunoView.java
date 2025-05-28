@@ -1,7 +1,7 @@
 package com.senai.view;
 
 import com.senai.model.Aluno;
-import com.senai.model.AlunoController;
+import com.senai.controller.AlunoController;
 
 import java.util.Scanner;
 

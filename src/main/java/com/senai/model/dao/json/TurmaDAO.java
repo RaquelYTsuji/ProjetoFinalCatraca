@@ -1,8 +1,9 @@
-package com.senai.model;
+package com.senai.model.dao.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Turma;
 import com.senai.util.LocalDateAdapter;
 import com.senai.util.LocalTimeAdapter;
 

@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.Turma;
-import com.senai.model.TurmaDAO;
+import com.senai.model.dao.json.TurmaDAO;
 
 import java.util.List;
 
