@@ -13,6 +13,9 @@ public abstract class Usuario {
         this.ativado = true;
     }
 
+    protected Usuario() {
+    }
+
     public String getNome() {
         return nome;
     }
