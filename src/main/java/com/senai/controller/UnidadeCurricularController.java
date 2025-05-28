@@ -16,8 +16,8 @@ public class UnidadeCurricularController {
         listaUC = UCdao.carregarUC();
     }
 
-    public void cadastrarUC(String nome, String disciplina, String professor, String cargaHoraria, String metodoAvaliacao) {
-        UnidadeCurricular novaUC = new UnidadeCurricular(nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
+    public void cadastrarUC(int id, String nome, String disciplina, String professor, String cargaHoraria, String metodoAvaliacao) {
+        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
         listaUC.add(novaUC);
         UCdao.salvarUC(listaUC);
         System.out.println("Unidade Curricular cadastrada com sucesso!");
