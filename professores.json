@@ -1,0 +1,26 @@
+[
+  {
+    "idProfessor": 15,
+    "unidadeCurricular": "TI",
+    "nome": "Nicoly",
+    "login": "nickmachado",
+    "senha": "12345",
+    "ativado": true
+  },
+  {
+    "idProfessor": 26,
+    "unidadeCurricular": "Eletrônica",
+    "nome": "Guilherme",
+    "login": "guioliveira",
+    "senha": "12345",
+    "ativado": true
+  },
+  {
+    "idProfessor": 14,
+    "unidadeCurricular": "Eletrônica",
+    "nome": "ìetra",
+    "login": "pietrarocha",
+    "senha": "12345",
+    "ativado": true
+  }
+]
