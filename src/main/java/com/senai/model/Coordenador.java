@@ -29,4 +29,9 @@ public class Coordenador extends Usuario {
                     ", ativado=" + isAtivado() +
                     '}';
         }
+
+        @Override
+        public String getTipo() {
+            return "Coordenador";
+        }
     }

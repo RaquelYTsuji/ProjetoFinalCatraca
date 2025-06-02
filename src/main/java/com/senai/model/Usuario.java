@@ -57,4 +57,6 @@ public abstract class Usuario {
                 ", ativado=" + ativado +
                 '}';
     }
+
+    public abstract String getTipo();
 }

@@ -1,27 +1,21 @@
 package com.senai.view;
 
-import com.senai.model.Administrador;
-import com.senai.model.Aluno;
-import com.senai.model.Coordenador;
-import com.senai.model.Professor;
-import com.senai.model.Usuario;
-import com.senai.model.dao.json.AdministradorDAO;
+import com.senai.model.*;
 import com.senai.model.dao.json.CoordenadorDAO;
 import com.senai.util.CriptografiaUtil;
-import com.senai.websocket.WebSocketClienteConsole;
 
 import java.util.Optional;
 import java.util.Scanner;
-
-import static com.senai.mqtt.MqttSubscriber.iniciarMqtt;
-import static com.senai.websocket.WebSocketSender.iniciarWebSocket;
 
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        criarCoordenador();
+        CoordenadorDAO coordenadorDAO = new CoordenadorDAO();
+        if(coordenadorDAO.listarTodos().isEmpty()){
+            criarCoordenador();
+        }
         logar();
     }
 
@@ -31,7 +25,7 @@ public class Main {
     }
 
     public static void criarCoordenador(){
-        Coordenador coordenador = new Coordenador(1,"Coordenador","coordenador", "1234");
+        Coordenador coordenador = new Coordenador(1,"Coordenador","coordenador", CriptografiaUtil.hash("1234"));
         CoordenadorDAO coordenadorDAO = new CoordenadorDAO();
         if(coordenadorDAO.listarTodos().isEmpty()){
             coordenadorDAO.criar(coordenador);
@@ -40,26 +34,44 @@ public class Main {
 
     private static void redirecionarMenu(Usuario usuario) {
         switch (usuario.getTipo()) {
-            case "Administrador" -> menuAdministrador((Administrador) usuario);
-            case "Professor"     -> menuProfessor((Professor) usuario);
-            case "Aluno"         -> menuAluno((Aluno) usuario);
+            case "Coordenador" -> menuCoordenador((Coordenador) usuario);
+            case "AQV" -> menuAQV((AQV) usuario);
+            case "Professor" -> menuProfessor((Professor) usuario);
+            case "Aluno" -> menuAluno((Aluno) usuario);
             default -> System.out.println("Tipo de usuário desconhecido.");
         }
     }
 
-    private static void menuAdministrador(Administrador administrador) {
-        UsuarioView usuarioView = new UsuarioView();
-        System.out.printf("Bem vind@ %s \n",administrador.getNome());
+    private static void menuCoordenador(Coordenador coordenador) {
+    }
+
+    private static void menuAQV(AQV aqv) {
+        AlunoView alunoView = new AlunoView();
+        ProfessorView professorView = new ProfessorView();
+        OcorrenciaView ocorrenciaView = new OcorrenciaView();
+        JustificativaView justificativaView = new JustificativaView();
+
+        System.out.printf("Bem vind@ %s \n", aqv.getNome());
         executarMenu("""               
-                    ===== MENU ADMINISTRADOR =====
-                    1. Gerenciar Usuários (Aluno/Professor)
-                    2. Deslogar
+                    ===== MENU AQV =====
+                    1. Gerenciar Aluno
+                    2. Gerenciar Professor
+                    3. Listar Ocorrência
+                    4. Aceitar Ocorrência
+                    5. Listar Justificativa
+                    6. Aceitar Justificativa
+                    7. Deslogar
                     0. Sair
                     """,
                 opcao -> {
                     switch (opcao) {
-                        case "1" -> usuarioView.menu();
-                        case "2" -> logar();
+                        case "1" -> alunoView.menuAluno();
+                        case "2" -> professorView.menuProfessor();
+                        case "3" -> ocorrenciaView.listar();
+                        case "4" -> ocorrenciaView.aceitar();
+                        case "5" -> justificativaView.listar();
+                        case "6" -> justificativaView.aceitar();
+                        case "7" -> logar();
                         case "0" -> {
                             System.out.println("Saindo...");
                             System.exit(0);
@@ -70,50 +82,24 @@ public class Main {
     }
 
     private static void menuProfessor(Professor professor) {
-
-        System.out.printf("Bem vind@ %s \n",professor.getNome());
-        HorarioView horarioView = new HorarioView();
-        executarMenu("""
-                    ===== MENU PROFESSOR =====
-                    1. Gerenciar Horários
-                    2. Receber notificações de atraso
-                    3. Deslogar
-                    0. Sair
-                    """,
-                opcao -> {
-                    switch (opcao) {
-                        case "1" -> horarioView.menu();
-                        case "2" -> WebSocketClienteConsole.conectar();
-                        case "3" -> {
-                            WebSocketClienteConsole.desconectar();
-                            logar();
-                        }
-                        case "0" -> {
-                            System.out.println("Saindo...");
-                            WebSocketClienteConsole.desconectar();
-                            System.exit(0);
-                        }
-                        default  -> System.out.println("Opção inválida.");
-                    }
-                });
     }
 
     private static void menuAluno(Aluno aluno) {
+        OcorrenciaView ocorrenciaView = new OcorrenciaView();
+        JustificativaView justificativaView = new JustificativaView();
 
         System.out.printf("Bem vind@ %s \n",aluno.getNome());
-        HorarioView horarioView = new HorarioView();
-        UsuarioView usuarioView = new UsuarioView();
         executarMenu("""
                     ===== MENU ALUNO =====
-                    1. Visualizar Horários
-                    2. Mudar RFID
+                    1. Gerenciar Ocorrência
+                    2. Gerenciar Justificativa
                     3. Deslogar
                     0. Sair
                     """,
                 opcao -> {
                     switch (opcao) {
-                        case "1" -> horarioView.listar();
-                        case "2" -> usuarioView.mudarRfid(aluno);
+                        case "1" -> ocorrenciaView.menu();
+                        case "2" -> justificativaView.menu();
                         case "3" -> logar();
                         case "0" -> {
                             System.out.println("Saindo...");

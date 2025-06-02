@@ -25,4 +25,9 @@ public class Aluno extends Usuario {
                 ", Senha='" + getSenha() + '\'' +
                 '}';
     }
+
+    @Override
+    public String getTipo() {
+        return "Aluno";
+    }
 }

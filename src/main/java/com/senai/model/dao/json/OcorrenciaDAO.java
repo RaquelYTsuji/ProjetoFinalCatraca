@@ -77,6 +77,15 @@ public class OcorrenciaDAO {
         }
         return false;
     }
+
+    public void aceitar(int id) {
+        ocorrencias.forEach(o -> {
+            if (o.getId() == id) {
+                o.setStatus(true);
+                salvarJson();
+            }
+        });
+    }
 }
 
 

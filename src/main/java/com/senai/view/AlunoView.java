@@ -2,17 +2,15 @@ package com.senai.view;
 
 import com.senai.model.Aluno;
 import com.senai.controller.AlunoController;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.Scanner;
 
 public class AlunoView {
-    public static void main(String[] args) {
-        final AlunoController controller = new AlunoController();
-        Scanner scanner = new Scanner(System.in); // Instanciando o Scanner no main
-        menuAluno(scanner, controller); // Passando o scanner e o controller como parâmetros para o menuAluno
-    }
+    private static final AlunoController controller = new AlunoController();
+    private static final Scanner scanner = new Scanner(System.in); // Instanciando o Scanner no main
 
-    public static void menuAluno(Scanner scanner, AlunoController controller) {
+    public static void menuAluno() {
         String opcao;
         String menuAluno = """
                 --- MENU DE ALUNO ---
@@ -49,7 +47,7 @@ public class AlunoView {
         System.out.println("Digite o ID do aluno:");
         int idAluno = Integer.parseInt(scanner.nextLine());
 
-        Aluno aluno = new Aluno(nome, login, senha, idAluno);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno);
         if (controller.cadastrarAluno(aluno)) {
             System.out.println("Aluno cadastrado com sucesso!");
         } else {
@@ -68,13 +66,14 @@ public class AlunoView {
         System.out.println("Digite a nova senha do aluno:");
         String senha = scanner.nextLine();
 
-        Aluno aluno = new Aluno(nome, login, senha, idAluno);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno);
         if (controller.atualizarAluno(aluno)) {
             System.out.println("Aluno atualizado com sucesso!");
         } else {
             System.out.println("Erro ao atualizar o aluno.");
         }
     }
+
     public static void deletarAluno(Scanner scanner, AlunoController controller) {
         System.out.println("Digite o ID do aluno que deseja remover:");
         int idAluno = Integer.parseInt(scanner.nextLine());

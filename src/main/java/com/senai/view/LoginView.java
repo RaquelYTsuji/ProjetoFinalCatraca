@@ -3,6 +3,7 @@ package com.senai.view;
 
 import com.senai.controller.LoginController;
 import com.senai.model.Usuario;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class LoginView {
         System.out.print("Senha: ");
         String senha = scanner.nextLine();
 
-        Optional<Usuario> usuario = controller.autenticar(login, senha);
+        Optional<Usuario> usuario = controller.autenticar(login, CriptografiaUtil.hash(senha));
         if (usuario.isEmpty()) {
             System.out.println("\nCredenciais inválidas. Tente novamente.\n");
         }

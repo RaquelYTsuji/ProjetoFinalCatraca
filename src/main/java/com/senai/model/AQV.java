@@ -17,5 +17,10 @@ public class AQV extends Usuario {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String getTipo() {
+        return "AQV";
+    }
 }
 

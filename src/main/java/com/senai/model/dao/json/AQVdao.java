@@ -15,7 +15,7 @@ public class AQVdao {
         private final String ARQUIVO = "aqvs.json";
         private List<AQV> aqvs = new ArrayList<>();
 
-        public void AQVdao() {
+        public AQVdao() {
             carregar();
         }
 
@@ -82,5 +82,5 @@ public class AQVdao {
     public Optional<AQV> buscarPorLogin(String login) {
         return aqvs.stream().filter(a -> a.getLogin().equals(login)).findFirst();
     }
-    }
+}
 

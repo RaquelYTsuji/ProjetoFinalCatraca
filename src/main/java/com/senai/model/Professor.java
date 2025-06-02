@@ -37,4 +37,9 @@ public class Professor extends Usuario{
                 ", Senha='" + getSenha() + '\'' +
                 '}';
     }
+
+    @Override
+    public String getTipo() {
+        return "Professor";
+    }
 }
