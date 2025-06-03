@@ -2,16 +2,22 @@ package com.senai.view;
 
 import com.senai.model.*;
 import com.senai.model.dao.json.CoordenadorDAO;
+import com.senai.model.dao.json.HorarioDAO;
 import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
 import java.util.Scanner;
+
+import static com.senai.mqtt.MqttSubscriber.iniciarMqtt;
+import static com.senai.websocket.WebSocketSender.iniciarWebSocket;
 
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
+        iniciarMqtt();
+        iniciarWebSocket();
         CoordenadorDAO coordenadorDAO = new CoordenadorDAO();
         if(coordenadorDAO.listarTodos().isEmpty()){
             criarCoordenador();
@@ -50,6 +56,7 @@ public class Main {
         ProfessorView professorView = new ProfessorView();
         OcorrenciaView ocorrenciaView = new OcorrenciaView();
         JustificativaView justificativaView = new JustificativaView();
+        HorarioView horarioView = new HorarioView();
 
         System.out.printf("Bem vind@ %s \n", aqv.getNome());
         executarMenu("""               
@@ -60,7 +67,8 @@ public class Main {
                     4. Aceitar Ocorrência
                     5. Listar Justificativa
                     6. Aceitar Justificativa
-                    7. Deslogar
+                    7. Gerenciar Horarios
+                    8. Deslogar
                     0. Sair
                     """,
                 opcao -> {
@@ -71,7 +79,8 @@ public class Main {
                         case "4" -> ocorrenciaView.aceitar();
                         case "5" -> justificativaView.listar();
                         case "6" -> justificativaView.aceitar();
-                        case "7" -> logar();
+                        case "7" -> horarioView.menu();
+                        case "8" -> logar();
                         case "0" -> {
                             System.out.println("Saindo...");
                             System.exit(0);
@@ -87,20 +96,23 @@ public class Main {
     private static void menuAluno(Aluno aluno) {
         OcorrenciaView ocorrenciaView = new OcorrenciaView();
         JustificativaView justificativaView = new JustificativaView();
+        HorarioView horarioView = new HorarioView();
 
         System.out.printf("Bem vind@ %s \n",aluno.getNome());
         executarMenu("""
                     ===== MENU ALUNO =====
                     1. Gerenciar Ocorrência
                     2. Gerenciar Justificativa
-                    3. Deslogar
+                    3. Listar Horarios
+                    4. Deslogar
                     0. Sair
                     """,
                 opcao -> {
                     switch (opcao) {
                         case "1" -> ocorrenciaView.menu();
                         case "2" -> justificativaView.menu();
-                        case "3" -> logar();
+                        case "3" -> horarioView.listar();
+                        case "4" -> logar();
                         case "0" -> {
                             System.out.println("Saindo...");
                             System.exit(0);

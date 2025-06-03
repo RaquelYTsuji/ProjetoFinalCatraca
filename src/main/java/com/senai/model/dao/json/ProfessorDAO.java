@@ -77,4 +77,8 @@ public class ProfessorDAO {
     public Optional<Professor> buscarPorLogin(String login) {
         return professores.stream().filter(p -> p.getLogin().equals(login)).findFirst();
     }
+
+    public Optional<Professor> buscarPorId(int id) {
+        return carregar().stream().filter(p -> p.getIdProfessor() == id).findFirst();
+    }
 }

@@ -4,6 +4,8 @@ import com.senai.model.Aluno;
 import com.senai.controller.AlunoController;
 import com.senai.util.CriptografiaUtil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AlunoView {
@@ -46,8 +48,13 @@ public class AlunoView {
         String senha = scanner.nextLine();
         System.out.println("Digite o ID do aluno:");
         int idAluno = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite a data de nascimento (dd/MM/yyyy):");
+        String data = scanner.nextLine();
+        LocalDate localDate = formatDate(data);
+        System.out.println("Digite o RFID:");
+        String rfid = scanner.nextLine();
 
-        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, rfid, localDate);
         if (controller.cadastrarAluno(aluno)) {
             System.out.println("Aluno cadastrado com sucesso!");
         } else {
@@ -65,8 +72,13 @@ public class AlunoView {
         String login = scanner.nextLine();
         System.out.println("Digite a nova senha do aluno:");
         String senha = scanner.nextLine();
+        System.out.println("Digite a nova data de nascimento (dd/MM/yyyy):");
+        String data = scanner.nextLine();
+        LocalDate localDate = formatDate(data);
+        System.out.println("Digite o novo RFID:");
+        String rfid = scanner.nextLine();
 
-        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, rfid, localDate);
         if (controller.atualizarAluno(aluno)) {
             System.out.println("Aluno atualizado com sucesso!");
         } else {
@@ -91,5 +103,11 @@ public class AlunoView {
         for (Aluno aluno : controller.listarAlunos()) {
             System.out.println(aluno);
         }
+    }
+
+    private static LocalDate formatDate(String data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(data, formatter);
+        return localDate;
     }
 }

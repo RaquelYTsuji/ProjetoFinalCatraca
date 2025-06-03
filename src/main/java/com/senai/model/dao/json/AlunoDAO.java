@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.senai.model.Aluno;
+import com.senai.util.LocalDateAdapter;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.Optional;
 public class AlunoDAO {
     private List<Aluno> alunos;//armazena o objeto em aluno
     private final String ARQUIVO = "alunos.json";
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
     private List<Aluno> carregar() { //Lê o arquivo "alunos.json" e converte os dados em uma lista
         try (FileReader reader = new FileReader(ARQUIVO)) {
@@ -80,5 +82,14 @@ public class AlunoDAO {
     public Optional<Aluno> buscarPorLogin(String login) {
         return alunos.stream().filter(a -> a.getLogin().equals(login)).findFirst();
     }
+
+    public Optional<Aluno> buscarPorId(int id) {
+        return alunos.stream().filter(a -> a.getIdAluno() == id).findFirst();
+    }
+
+    public Optional<Aluno> buscarPorRfid(String rfid) {
+        return alunos.stream().filter(a -> rfid.equals(a.getIdCartaoRfid())).findFirst();
+    }
+
 }
 
