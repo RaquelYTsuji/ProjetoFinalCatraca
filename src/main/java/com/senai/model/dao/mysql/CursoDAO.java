@@ -82,12 +82,12 @@ public class CursoDAO {
 
     private Curso mapResultSet(ResultSet rs) throws SQLException {
         return new Curso(
+                rs.getInt("id"),
                 rs.getString("titulo"),
                 rs.getString("unidadesCurriculares"),
-                rs.getInt("cargaHoraria"),
-                rs.getBoolean("tipo"),
                 rs.getInt("tolerancia"),
-                rs.getInt("id")
+                rs.getBoolean("tipo"),
+                rs.getInt("cargaHoraria")
         );
     }
 }
