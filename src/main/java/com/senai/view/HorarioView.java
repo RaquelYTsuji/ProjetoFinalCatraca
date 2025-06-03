@@ -1,11 +1,12 @@
 package com.senai.view;
 
+import com.senai.controller.UsuarioController;
 import com.senai.model.Aluno;
 import com.senai.model.Professor;
 
 import java.util.Scanner;
 
-public class HorarioVIEW {
+public class HorarioView {
     private final Scanner scanner = new Scanner(System.in);
     private final UsuarioController controller = new UsuarioController();
 
@@ -30,7 +31,6 @@ public class HorarioVIEW {
                 case "2" -> atualizar();
                 case "3" -> remover();
                 case "4" -> listar();
-                case "5" -> atribuirRfid();
                 case "0" -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -66,23 +66,12 @@ public class HorarioVIEW {
     private void listar() {
         System.out.println("--- Alunos ---");
         for (Aluno a : controller.listarAlunos()) {
-            System.out.printf("ID: %d | Nome: %s | RFID: %s\n", a.getId(), a.getNome(), a.getIdCartaoRfid());
+            System.out.printf("ID: %d | Nome: %s | RFID: %s\n", a.getIdAluno(), a.getNome());
         }
         System.out.println("--- Professores ---");
         for (Professor p : controller.listarProfessores()) {
-            System.out.printf("ID: %d | Nome: %s | Disciplina: %s\n", p.getId(), p.getNome(), p.getDisciplina());
+            System.out.printf("ID: %d | Nome: %s | Disciplina: %s\n", p.getIdProfessor(), p.getNome());
         }
-    }
-
-    public void atribuirRfid() {
-        int id = scannerPromptInt("ID do aluno: ");
-        String rfid = scannerPrompt("Novo RFID: ");
-        System.out.println(controller.atribuirRfid(id, rfid));
-    }
-
-    public void mudarRfid(Aluno aluno) {
-        String rfid = scannerPrompt("Novo RFID: ");
-        System.out.println(controller.atribuirRfid(aluno.getId(), rfid));
     }
 
     private String scannerPrompt(String msg) {
