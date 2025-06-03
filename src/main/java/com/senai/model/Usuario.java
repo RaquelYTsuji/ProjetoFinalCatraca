@@ -1,16 +1,25 @@
 package com.senai.model;
 
 public abstract class Usuario {
+    private int id;
     private String nome;
     private String login;
     private String senha;
     private boolean ativado;
 
-    public Usuario(String nome, String login, String senha) {
+    public Usuario( String nome, String login, String senha) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.ativado = true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     protected Usuario() {

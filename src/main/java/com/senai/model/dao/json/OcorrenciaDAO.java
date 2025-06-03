@@ -3,6 +3,7 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Aluno;
 import com.senai.model.Ocorrencia;
 import com.senai.util.LocalDateTimeAdapter;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class OcorrenciaDAO {
     private List<Ocorrencia> ocorrencias;
@@ -77,6 +79,10 @@ public class OcorrenciaDAO {
         }
         return false;
     }
+    public Optional<Ocorrencia> buscarPorStatusAguardando(String status) {
+        return ocorrencias.stream().filter(o -> status.equals(o.getStatus())).findFirst();
+    }
+
 }
 
 

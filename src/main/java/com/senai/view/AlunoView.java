@@ -47,7 +47,7 @@ public class AlunoView {
         System.out.println("Digite a senha do aluno:");
         String senha = scanner.nextLine();
         System.out.println("Digite o ID do aluno:");
-        int idAluno = Integer.parseInt(scanner.nextLine());
+        String idAluno = scanner.nextLine();
 
         Aluno aluno = new Aluno(nome, login, senha, idAluno);
         if (controller.cadastrarAluno(aluno)) {

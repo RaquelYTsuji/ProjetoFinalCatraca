@@ -1,25 +1,25 @@
 package com.senai.model;
 
 public class Aluno extends Usuario {
-    int idAluno;
+    String idAcesso;
 
-    public Aluno(String nome, String login, String senha, int idAluno) {
+    public Aluno(String nome, String login, String senha, String idAluno) {
         super(nome, login, senha);
-        this.idAluno = idAluno;
+        this.idAcesso = idAluno;
     }
 
-    public int getIdAluno() {
-        return idAluno;
+    public String getIdAcesso() {
+        return idAcesso;
     }
 
-    public void setIdAluno(int idAluno) {
-        this.idAluno = idAluno;
+    public void setIdAcesso(String idAcesso) {
+        this.idAcesso = idAcesso;
     }
 
     @Override
     public String toString() {
         return "Aluno{" +
-                "ID=" + idAluno +
+                "ID=" + idAcesso +
                 ", Nome='" + getNome() +  '\'' +
                 ", Login='" + getLogin() + '\'' +
                 ", Senha='" + getSenha() + '\'' +

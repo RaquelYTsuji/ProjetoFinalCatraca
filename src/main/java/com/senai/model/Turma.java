@@ -23,6 +23,9 @@ public class Turma {
         this.horarioEntrada = horarioEntrada;
     }
 
+    public Turma() {
+    }
+
     public int getId() {
         return id;
     }
