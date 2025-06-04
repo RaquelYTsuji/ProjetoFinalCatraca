@@ -1,4 +1,4 @@
-package com.senai.model.justificativa;
+package com.senai.model;
 
 import java.time.LocalDateTime;
 

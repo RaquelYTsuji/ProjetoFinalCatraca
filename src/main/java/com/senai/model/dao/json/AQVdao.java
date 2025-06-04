@@ -1,18 +1,21 @@
-package com.senai.model;
+package com.senai.model.dao.json;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.AQV;
+import com.senai.model.Coordenador;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AQVdao {
         private final String ARQUIVO = "aqvs.json";
         private List<AQV> aqvs = new ArrayList<>();
 
-        public void AQVdao() {
+        public AQVdao() {
             carregar();
         }
 
@@ -75,5 +78,9 @@ public class AQVdao {
                 aqvs = new ArrayList<>();
             }
         }
+
+    public Optional<AQV> buscarPorLogin(String login) {
+        return aqvs.stream().filter(a -> a.getLogin().equals(login)).findFirst();
     }
+}
 

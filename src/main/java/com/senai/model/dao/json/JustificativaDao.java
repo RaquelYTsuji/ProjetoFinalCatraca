@@ -1,8 +1,9 @@
-package com.senai.model.justificativa;
+package com.senai.model.dao.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Justificativa;
 import com.senai.util.LocalDateTimeAdapter;
 
 import java.io.FileReader;
@@ -81,6 +82,16 @@ public class JustificativaDao {
             }
         }
         return false;
+    }
+
+    public void aceitar(int id, String status) {
+        for (Justificativa j : justificativas) {
+            if (j.getId() == id) {
+                j.setStatus(status);
+                salvarJson();
+                break;
+            }
+        }
     }
 }
 

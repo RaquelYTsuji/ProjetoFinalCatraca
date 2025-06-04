@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.SubTurma;
-import com.senai.model.SubTurmaDAO;
+import com.senai.model.dao.json.SubTurmaDAO;
 
 import java.util.List;
 

@@ -1,29 +1,37 @@
 package com.senai.view;
 
+import com.senai.controller.HorarioController;
+import com.senai.controller.TurmaController;
+import com.senai.model.Horario;
+import com.senai.model.Turma;
 import com.senai.controller.UsuarioController;
 import com.senai.model.Aluno;
 import com.senai.model.Professor;
 
+import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class HorarioView {
     private final Scanner scanner = new Scanner(System.in);
+    private final HorarioController controller = new HorarioController();
+    private final TurmaController turmaController = new TurmaController();
     private final UsuarioController controller = new UsuarioController();
 
     public void menu() {
         String opcao;
-        String menuUsuario = """
-                    --- MENU DE USUÁRIOS ---
-                1. Cadastrar usuário
-                2. Atualizar usuário
-                3. Remover usuário
-                4. Listar usuários
-                5. Atribuir/Alterar RFID
-                0. Voltar
+        String menuHorario = """
+                --- MENU DE HORÁRIOS ---
+                
+                    1. Cadastrar horário
+                    2. Atualizar horário
+                    3. Remover horário
+                    4. Listar horários
+                    0. Voltar
+                    
                 """;
         do {
-
-            System.out.print(menuUsuario);
+            System.out.print(menuHorario);
             opcao = scanner.nextLine();
 
             switch (opcao) {
@@ -38,49 +46,44 @@ public class HorarioView {
     }
 
     private void cadastrar() {
-        String tipo = scannerPrompt("Tipo (1=Aluno, 2=Professor): ");
-        String nome = scannerPrompt("Nome: ");
-        String login = scannerPrompt("Login: ");
-        String senha = scannerPrompt("Senha: ");
-        String dadoExtra = tipo.equals("1") ? scannerPrompt("ID do cartão RFID: ") : scannerPrompt("Disciplina: ");
-        System.out.println(controller.cadastrarUsuario(tipo, nome, dadoExtra,login,senha));
+        int idAluno = scannerPromptInt("ID do aluno: ");
+        int idProfessor = scannerPromptInt("ID do professor: ");
+        Optional<Turma> turma = turmaController.buscarTurmaDoAluno(idAluno);
+        if(turma.isPresent()){
+            System.out.println(controller.cadastrarHorario(idAluno, idProfessor, turma.get().getHorarioEntrada()));
+        }
     }
 
     private void atualizar() {
-        String tipo = scannerPrompt("Tipo (1=Aluno, 2=Professor): ");
-        int id = scannerPromptInt("ID: ");
-        String nome = scannerPrompt("Novo nome: ");
-        String login = scannerPrompt("Novo Login: ");
-        String senha = scannerPrompt("Nova Senha: ");
-        String dadoExtra = tipo.equals("1") ? scannerPrompt("Novo RFID: ") : scannerPrompt("Nova disciplina: ");
-        System.out.println(controller.atualizarUsuario(tipo, id, nome, dadoExtra,login,senha));
+        int id = scannerPromptInt("ID do horário: ");
+        int idAluno = scannerPromptInt("Novo ID do aluno: ");
+        int idProfessor = scannerPromptInt("Novo ID do professor: ");
+        Optional<Turma> turma = turmaController.buscarTurmaDoAluno(idAluno);
+        if(turma.isPresent()){
+            System.out.println(controller.cadastrarHorario(idAluno, idProfessor, turma.get().getHorarioEntrada()));
+        }
     }
 
     private void remover() {
-        System.out.print("Tipo (1=Aluno, 2=Professor): ");
-        String tipo = scanner.nextLine();
-        int id = scannerPromptInt("ID: ");
-        System.out.println(controller.removerUsuario(tipo, id));
+        int id = scannerPromptInt("ID do horário: ");
+        System.out.println(controller.removerHorario(id));
     }
 
-    private void listar() {
-        System.out.println("--- Alunos ---");
-        for (Aluno a : controller.listarAlunos()) {
-            System.out.printf("ID: %d | Nome: %s | RFID: %s\n", a.getIdAluno(), a.getNome());
+    public void listar() {
+        for (Horario h : controller.listarHorarios()) {
+            System.out.printf("ID: %d | Aluno ID: %d | Professor ID: %d | Início: %s\n",
+                    h.getId(), h.getIdAluno(), h.getIdProfessor(), h.getHoraInicio());
         }
-        System.out.println("--- Professores ---");
-        for (Professor p : controller.listarProfessores()) {
-            System.out.printf("ID: %d | Nome: %s | Disciplina: %s\n", p.getIdProfessor(), p.getNome());
-        }
-    }
-
-    private String scannerPrompt(String msg) {
-        System.out.print(msg);
-        return scanner.nextLine();
     }
 
     private int scannerPromptInt(String msg) {
         System.out.print(msg);
         return Integer.parseInt(scanner.nextLine());
     }
+
+    private LocalTime scannerPromptHora(String msg) {
+        System.out.print(msg);
+        return LocalTime.parse(scanner.nextLine());
+    }
 }
+

@@ -1,7 +1,7 @@
 package com.senai.controller;
 
 import com.senai.model.UnidadeCurricular;
-import com.senai.model.UnidadeCurricularDAO;
+import com.senai.model.dao.json.UnidadeCurricularDAO;
 
 import java.util.ArrayList;
 import java.util.List;

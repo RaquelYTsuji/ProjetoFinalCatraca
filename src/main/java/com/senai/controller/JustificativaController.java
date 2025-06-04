@@ -1,7 +1,7 @@
 package com.senai.controller;
 
-import com.senai.model.justificativa.Justificativa;
-import com.senai.model.justificativa.JustificativaDao;
+import com.senai.model.Justificativa;
+import com.senai.model.dao.json.JustificativaDao;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,6 +38,11 @@ public class JustificativaController{
     public String removerJustificativa(int id) {
         boolean sucesso = justificativaDao.deletar(id);
         return sucesso ? "Justificativa removida com sucesso." : "Justificativa não encontrada.";
+    }
+
+    public String aceitarJustificativa(int id, String status) {
+        justificativaDao.aceitar(id, status);
+        return "Justificativa aceitada com sucesso.";
     }
 
     public List<Justificativa> listarJustificativas() {

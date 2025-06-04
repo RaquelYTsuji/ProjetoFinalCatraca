@@ -2,17 +2,15 @@ package com.senai.view;
 
 import com.senai.model.Professor;
 import com.senai.controller.ProfessorController;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.Scanner;
 
 public class ProfessorView {
-    public static void main(String[] args) {
-        final ProfessorController controller = new ProfessorController();
-        Scanner scanner = new Scanner(System.in);
-        menuProfessor(scanner, controller);
-    }
+    private static final ProfessorController controller = new ProfessorController();
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static void menuProfessor(Scanner scanner, ProfessorController controller) {
+    public static void menuProfessor() {
         String opcao;
         String menuProfessor = """
                 --- MENU DE Professor---
@@ -51,7 +49,7 @@ public class ProfessorView {
         System.out.println("Digite a unidade curricular do professor:");
         String unidadeCurricular = scanner.nextLine();
 
-        Professor professor = new Professor(nome, login, senha,idProfessor, unidadeCurricular);
+        Professor professor = new Professor(nome, login, CriptografiaUtil.hash(senha), idProfessor, unidadeCurricular);
         if (controller.cadastrarProfessor(professor)) {
             System.out.println("Professor cadastrado com sucesso!");
         } else {
@@ -71,7 +69,7 @@ public class ProfessorView {
         System.out.println("Digite a nova unidade curricular do professor:");
         String unidadeCurricular = scanner.nextLine();
 
-        Professor professor= new Professor(nome, login, senha, idProfessor,unidadeCurricular);
+        Professor professor= new Professor(nome, login, CriptografiaUtil.hash(senha), idProfessor,unidadeCurricular);
         if (controller.atualizarProfessor(professor)) {
             System.out.println("Professor atualizado com sucesso!");
         } else {

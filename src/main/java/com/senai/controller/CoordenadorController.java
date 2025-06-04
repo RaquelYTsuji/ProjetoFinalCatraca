@@ -1,6 +1,6 @@
 package com.senai.controller;
 import com.senai.model.Coordenador;
-import com.senai.model.CoordenadorDAO;
+import com.senai.model.dao.json.CoordenadorDAO;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ public class CoordenadorController {
 
         private CoordenadorDAO dao = new CoordenadorDAO();
 
-        public void adicionarCoordenador(int id, String nome, String email) {
-            Coordenador coordenador = new Coordenador(id, nome, email, "padrao123");
+        public void adicionarCoordenador(int id, String nome, String login, String senha) {
+            Coordenador coordenador = new Coordenador(id, nome, login, senha);
             dao.criar(coordenador);
         }
 
@@ -21,8 +21,8 @@ public class CoordenadorController {
             return dao.buscarPorId(id);
         }
 
-        public void atualizarCoordenador(int id, String nome, String email) {
-            Coordenador coordenador = new Coordenador(id, nome, email, "padrao123");
+        public void atualizarCoordenador(int id, String nome, String login,  String senha) {
+            Coordenador coordenador = new Coordenador(id, nome, login, senha);
             dao.atualizar(coordenador);
         }
 
