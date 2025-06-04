@@ -70,5 +70,13 @@ public class OcorrenciaController {
         return false;
 
     }
+
+    public boolean aceitarOcorrencias(int id) {
+        if (id >= 0) {
+            ocorrenciaDAO.deletar(id);
+            return true;
+        }
+        return false;
+    }
 }
 

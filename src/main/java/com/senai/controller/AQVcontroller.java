@@ -8,8 +8,8 @@ import java.util.List;
 public class AQVcontroller {
     private AQVdao dao = new AQVdao();
 
-    public void adicionarAQV(int id, String nome, String email) {
-        AQV aqv = new AQV(id, nome, email, "padrao123");
+    public void adicionarAQV(int id, String nome, String login, String senha) {
+        AQV aqv = new AQV(id, nome, login, senha);
         dao.criar(aqv);
     }
 
@@ -21,8 +21,8 @@ public class AQVcontroller {
         return dao.buscarPorId(id);
     }
 
-    public void atualizarAQV(int id, String nome, String email) {
-        AQV aqv = new AQV(id, nome, email, "padrao123");
+    public void atualizarAQV(int id, String nome, String login, String senha) {
+        AQV aqv = new AQV(id, nome, login, senha);
         dao.atualizar(aqv);
     }
 

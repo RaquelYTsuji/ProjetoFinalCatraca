@@ -11,11 +11,6 @@ public class JustificativaView {
     private final Scanner scanner = new Scanner(System.in);
     private final JustificativaController controller = new JustificativaController();
 
-    public static void main(String[] args) {
-        JustificativaView view = new JustificativaView(); // cria o objeto
-        view.menu(); // chama o menu
-    }
-
     public void menu() {
         String opcao;
         String menuJustificativa = """
@@ -104,6 +99,11 @@ public class JustificativaView {
                 );
             }
         }
+    }
+
+    public void aceitar() {
+        int id = scannerPromptInt("ID da justificativa para aceitar: ");
+        System.out.println(controller.aceitarJustificativa(id, "aceito"));
     }
 
     private String scannerPrompt(String msg) {

@@ -79,6 +79,15 @@ public class OcorrenciaDAO {
         }
         return false;
     }
+
+    public void aceitar(int id) {
+        ocorrencias.forEach(o -> {
+            if (o.getId() == id) {
+                o.setStatus("Aceito");
+                salvarJson();
+            }
+        });
+    }
     public Optional<Ocorrencia> buscarPorStatusAguardando(String status) {
         return ocorrencias.stream().filter(o -> status.equals(o.getStatus())).findFirst();
     }

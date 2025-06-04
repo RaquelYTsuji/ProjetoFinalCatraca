@@ -83,6 +83,16 @@ public class JustificativaDao {
         }
         return false;
     }
+
+    public void aceitar(int id, String status) {
+        for (Justificativa j : justificativas) {
+            if (j.getId() == id) {
+                j.setStatus(status);
+                salvarJson();
+                break;
+            }
+        }
+    }
 }
 
 
