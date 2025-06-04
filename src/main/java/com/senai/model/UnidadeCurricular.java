@@ -16,7 +16,7 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
         this.professorResponsavel = professorResponsavel;
         this.cargaHoraria = cargaHoraria;
-        this.metodoAvaliacao = metodoAvaliacao;
+        //this.metodoAvaliacao = metodoAvaliacao;
     }
 
 
