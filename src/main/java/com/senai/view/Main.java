@@ -1,13 +1,13 @@
 package com.senai.view;
 
 import com.senai.WebSocket.WebSocketClienteConsole;
+import com.senai.controller.AlunoController;
+import com.senai.controller.ProfessorController;
 import com.senai.model.*;
 import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
 import java.util.Scanner;
-
-import static com.senai.view.AlunoView.menuAluno;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
@@ -38,14 +38,16 @@ public class Main {
             case "Coordenador" -> menuCoordenador((Coordenador) usuario);
             case "AQV" -> menuAQV((AQV) usuario);
             case "Professor" -> menuProfessor((Professor) usuario);
-            case "Aluno" -> menuAluno(Aluno);
+            case "Aluno" -> menuAluno((Aluno) usuario);
             default -> System.out.println("Tipo de usuário desconhecido.");
         }
     }
 
     private static void menuCoordenador(Coordenador coordenador) {
         AlunoView alunoView = new AlunoView();
+        AlunoController aController = new AlunoController();
         ProfessorView professorView = new ProfessorView();
+        ProfessorController pController = new ProfessorController();
         AQVview aqvView = new AQVview();
 
         System.out.printf("Bem vind@ %s \n", coordenador.getNome());
@@ -59,8 +61,8 @@ public class Main {
                     """,
                 opcao -> {
                     switch (opcao) {
-                        case "1" -> menuAluno();
-                        case "2" -> professorView.menuProfessor();
+                        case "1" -> alunoView.menuAluno(scanner, aController);
+                        case "2" -> professorView.menuProfessor(scanner, pController);
                         case "3" -> aqvView.exibirMenu();
                         case "4" -> logar();
                         case "0" -> {
@@ -72,7 +74,10 @@ public class Main {
                 });
     }
 
-    //Á TERMINAR
+    public static void menuAQV(AQV aqv){
+
+    }
+
     private static void menuProfessor(Professor professor) {
         System.out.printf("Bem vind@ %s \n", professor.getNome());
         HorarioView horarioView = new HorarioView();
@@ -99,6 +104,10 @@ public class Main {
                         default  -> System.out.println("Opção inválida.");
                     }
                 });
+    }
+
+    public static void menuAluno(Aluno aluno){
+
     }
 
     private static void executarMenu(String titulo, java.util.function.Consumer<String> acoes) {

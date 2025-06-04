@@ -1,7 +1,7 @@
 package com.senai.view;
 
 import com.senai.model.Professor;
-import com.senai.model.ProfessorController;
+import com.senai.controller.ProfessorController;
 
 import java.util.Scanner;
 

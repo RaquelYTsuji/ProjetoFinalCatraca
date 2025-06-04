@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProfessorDAO {
     private List<Professor> professores;
@@ -71,4 +72,11 @@ public class ProfessorDAO {
         return false;
     }
 
+    public Optional<Professor> buscarPorId(int id){
+        return carregar().stream().filter(p -> p.getIdProfessor() == p.idProfessor).findFirst();
+    }
+
+    public Optional<Professor> buscarPorLogin(String login) {
+        return professores.stream().filter(a -> a.getLogin().equals(login)).findFirst();
+    }
 }

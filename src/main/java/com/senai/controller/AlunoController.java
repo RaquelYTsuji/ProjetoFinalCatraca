@@ -1,4 +1,7 @@
-package com.senai.model;
+package com.senai.controller;
+
+import com.senai.model.Aluno;
+import com.senai.model.AlunoDAO;
 
 import java.util.List;
 
