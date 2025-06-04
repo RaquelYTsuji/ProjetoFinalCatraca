@@ -101,9 +101,10 @@ public class SubTurmaDAO {
     private SubTurma mapResultSet(ResultSet rs) throws SQLException {
         int idAluno = rs.getInt("id");
         return new SubTurma(
-                rs.getString("id"),
+                rs.getInt("id"),
                 rs.getString("nome"),
-                buscarAlunoPorId(idAluno)
+                rs.getInt(idAluno));
+
         );
     }
     private List<Aluno> buscarAlunoPorId(int idAluno) throws SQLException {

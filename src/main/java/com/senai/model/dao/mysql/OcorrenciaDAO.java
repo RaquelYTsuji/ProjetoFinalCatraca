@@ -74,14 +74,11 @@ public class OcorrenciaDAO {
         return lista;
     }
     private Ocorrencia mapResultSet(ResultSet rs) throws SQLException {
-        return new Justificativa(
+        return new Ocorrencia(
                 rs.getInt("id"),
                 rs.getString("tipo"),
                 rs.getString("descricao"),
-                rs.getTimestamp("dataHora").toLocalDateTime(),
-                rs.getBoolean("status"),
-                rs.getBoolean("cancelar")
-
+                rs.getTimestamp("dataHora").toLocalDateTime()
         );
 
     }
