@@ -96,7 +96,7 @@ public class TurmaDAO {
                     if(s != null){
                         List<Aluno> alunos = s.getAlunos();
                         alunos.forEach(a -> {
-                            if(a.getIdAluno() == idAluno) {
+                            if(a.getId() == idAluno) {
                                 turma[0] = t;
                             }
                         });

@@ -7,31 +7,20 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 public class Aluno extends Usuario {
-    int idAluno;
-    private String idCartaoRfid;
+    private String idAcesso;
     private LocalDate dataNascimento;
 
-    public Aluno(String nome, String login, String senha, int idAluno, String idCartaoRfid, LocalDate dataNascimento) {
-        super(nome, login, senha);
-        this.idAluno = idAluno;
-        this.idCartaoRfid = idCartaoRfid;
+    public Aluno(String nome, String login, String senha, int idAluno, String idAcesso, LocalDate dataNascimento) {
+        super(idAluno, nome, login, senha);
         this.dataNascimento = dataNascimento;
+        this.idAcesso = idAcesso;
+    }
+    public String getIdAcesso() {
+        return idAcesso;
     }
 
-    public int getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(int idAluno) {
-        this.idAluno = idAluno;
-    }
-
-    public String getIdCartaoRfid() {
-        return idCartaoRfid;
-    }
-
-    public void setIdCartaoRfid(String idCartaoRfid) {
-        this.idCartaoRfid = idCartaoRfid;
+    public void setIdAcesso(String idAcesso) {
+        this.idAcesso = idAcesso;
     }
 
     public LocalDate getDataNascimento() {
@@ -45,11 +34,11 @@ public class Aluno extends Usuario {
     @Override
     public String toString() {
         return "Aluno{" +
-                "ID=" + idAluno +
+                "Id=" + getId() +
                 ", Nome='" + getNome() +  '\'' +
                 ", Login='" + getLogin() + '\'' +
                 ", Senha='" + getSenha() + '\'' +
-                ", IdCartaoRfid='" + getIdCartaoRfid() + '\'' +
+                ", IdAcesso='" + getIdAcesso() + '\'' +
                 ", DataNascimento='" + getDataNascimento() + '\'' +
                 '}';
     }

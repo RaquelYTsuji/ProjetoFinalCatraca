@@ -51,10 +51,10 @@ public class AlunoView {
         System.out.println("Digite a data de nascimento (dd/MM/yyyy):");
         String data = scanner.nextLine();
         LocalDate localDate = formatDate(data);
-        System.out.println("Digite o RFID:");
-        String rfid = scanner.nextLine();
+        System.out.println("Digite o idAcesso:");
+        String idAcesso = scanner.nextLine();
 
-        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, rfid, localDate);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, idAcesso, localDate);
         if (controller.cadastrarAluno(aluno)) {
             System.out.println("Aluno cadastrado com sucesso!");
         } else {
@@ -75,10 +75,10 @@ public class AlunoView {
         System.out.println("Digite a nova data de nascimento (dd/MM/yyyy):");
         String data = scanner.nextLine();
         LocalDate localDate = formatDate(data);
-        System.out.println("Digite o novo RFID:");
-        String rfid = scanner.nextLine();
+        System.out.println("Digite o novo idAcesso:");
+        String idAcesso = scanner.nextLine();
 
-        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, rfid, localDate);
+        Aluno aluno = new Aluno(nome, login, CriptografiaUtil.hash(senha), idAluno, idAcesso, localDate);
         if (controller.atualizarAluno(aluno)) {
             System.out.println("Aluno atualizado com sucesso!");
         } else {

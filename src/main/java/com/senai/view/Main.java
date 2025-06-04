@@ -2,7 +2,6 @@ package com.senai.view;
 
 import com.senai.model.*;
 import com.senai.model.dao.json.CoordenadorDAO;
-import com.senai.model.dao.json.HorarioDAO;
 import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;

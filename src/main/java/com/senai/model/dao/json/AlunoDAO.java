@@ -59,7 +59,7 @@ public class AlunoDAO {
     public boolean atualizar(Aluno aluno) {
         for (int i = 0; i < alunos.size(); i++) {
             Aluno a = alunos.get(i);
-            if (a.getIdAluno() == aluno.getIdAluno()) {
+            if (a.getId() == aluno.getId()) {
                 alunos.set(i, aluno); // Atualiza o aluno na lista
                 salvarJson(); // Grava a lista atualizada no arquivo JSON
                 return true; // Indica que a atualização foi bem-sucedida
@@ -70,7 +70,7 @@ public class AlunoDAO {
     public boolean deletar(int id) {
         for (int i = 0; i < alunos.size(); i++) {
             Aluno a = alunos.get(i);
-            if (a.getIdAluno() == id) {
+            if (a.getId() == id) {
                 alunos.remove(i); // Remove o aluno da lista
                 salvarJson(); // Atualiza o arquivo JSON
                 return true; // Indica que o aluno foi removido com sucesso
@@ -84,11 +84,11 @@ public class AlunoDAO {
     }
 
     public Optional<Aluno> buscarPorId(int id) {
-        return alunos.stream().filter(a -> a.getIdAluno() == id).findFirst();
+        return alunos.stream().filter(a -> a.getId() == id).findFirst();
     }
 
-    public Optional<Aluno> buscarPorRfid(String rfid) {
-        return alunos.stream().filter(a -> rfid.equals(a.getIdCartaoRfid())).findFirst();
+    public Optional<Aluno> buscarPorIdAcesso(String idAcesso) {
+        return alunos.stream().filter(a -> idAcesso.equals(a.getIdAcesso())).findFirst();
     }
 
 }

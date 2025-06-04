@@ -54,7 +54,7 @@ public class ProfessorDAO {
     public boolean atualizar(Professor professor) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p = professores.get(i);
-            if (p.getIdProfessor() == professor.getIdProfessor()){
+            if (p.getId() == professor.getId()){
                 professores.set(i, professor);
                 salvarJson();
                 return true;
@@ -65,7 +65,7 @@ public class ProfessorDAO {
     public boolean deletar(int id) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p  = professores.get(i);
-            if (p.getIdProfessor() == id) {
+            if (p.getId() == id) {
                 professores.remove(i); // Remove o aluno da lista
                 salvarJson(); // Atualiza o arquivo JSON
                 return true; // Indica que o aluno foi removido com sucesso
@@ -79,6 +79,6 @@ public class ProfessorDAO {
     }
 
     public Optional<Professor> buscarPorId(int id) {
-        return carregar().stream().filter(p -> p.getIdProfessor() == id).findFirst();
+        return carregar().stream().filter(p -> p.getId() == id).findFirst();
     }
 }
