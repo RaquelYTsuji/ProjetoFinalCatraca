@@ -14,7 +14,7 @@ public class JustificativaDAO {
             stmt.setInt(1, justificativa.getId());
             stmt.setString(2, justificativa.getTipo());
             stmt.setString(3, justificativa.getDescricao());
-            stmt.setInt(4, justificativa.getDataHoraJustificatida());
+            stmt.setTimestamp(4, Timestamp.valueOf(justificativa.getDataHoraJustificatida()));
             stmt.setInt(5, justificativa.getQuantidadeDias());
             stmt.setInt(6, justificativa.getPrazoDeAceite());
             stmt.setString(7, justificativa.getAnexo());
@@ -31,7 +31,7 @@ public class JustificativaDAO {
             stmt.setInt(1, justificativa.getId());
             stmt.setString(2, justificativa.getTipo());
             stmt.setString(3, justificativa.getDescricao());
-            stmt.setInt(4, justificativa.getDataHoraJustificatida());
+            stmt.setTimestamp(4, Timestamp.valueOf(justificativa.getDataHoraJustificatida()));
             stmt.setInt(5, justificativa.getQuantidadeDias());
             stmt.setInt(6, justificativa.getPrazoDeAceite());
             stmt.setString(7, justificativa.getAnexo());
@@ -84,11 +84,12 @@ public class JustificativaDAO {
                 rs.getInt("id"),
                 rs.getString("tipo"),
                 rs.getString("descricao"),
-                rs.getString("dataHoraJustificada"),
+                rs.getTimestamp("dataHoraJustificada").toLocalDateTime(),
                 rs.getInt("quantidadeDeDias"),
                 rs.getInt("prazoDeAceite"),
                 rs.getString("anexo"),
-                rs.getString("Status")
+                rs.getString("Status"),
+                rs.getBoolean("cancelar")
         );
     }
 }

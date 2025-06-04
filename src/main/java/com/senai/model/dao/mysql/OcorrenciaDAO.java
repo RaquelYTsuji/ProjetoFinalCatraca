@@ -10,14 +10,13 @@ import java.util.Optional;
 
 public class OcorrenciaDAO {
     public void inserir(Ocorrencia ocorrencia) {
-        String sql = "INSERT INTO Justificativa (id, tipo, descricao, dataHora, status) VALUES (?, ?,?,?, ?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
+        String sql = "INSERT INTO Justificativa (id, tipo, descricao, dataHora, status) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, ocorrencia.getId());
             stmt.setString(2,ocorrencia.getTipo());
             stmt.setString(3, ocorrencia.getDescricao());
-            stmt.setInt(4, ocorrencia.getDataHora());
-            stmt.setString(8, ocorrencia.getStatus());
+            stmt.setTimestamp(4, Timestamp.valueOf(ocorrencia.getDataHora()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,8 +29,7 @@ public class OcorrenciaDAO {
             stmt.setInt(1, ocorrencia.getId());
             stmt.setString(2,ocorrencia.getTipo());
             stmt.setString(3, ocorrencia.getDescricao());
-            stmt.setInt(4, ocorrencia.getDataHora());
-            stmt.setString(8, ocorrencia.getStatus());
+            stmt.setTimestamp(4, Timestamp.valueOf(ocorrencia.getDataHora()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,8 +78,11 @@ public class OcorrenciaDAO {
                 rs.getInt("id"),
                 rs.getString("tipo"),
                 rs.getString("descricao"),
-                rs.getString("dataHora"),
-                rs.getString("Status")
+                rs.getTimestamp("dataHora").toLocalDateTime(),
+                rs.getBoolean("status"),
+                rs.getBoolean("cancelar")
+
         );
+
     }
 }
