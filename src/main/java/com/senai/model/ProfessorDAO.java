@@ -45,6 +45,14 @@ public class ProfessorDAO {
         }
     }
 
+    public void inserir(Professor professor) {
+        int novoId = professores.stream().mapToInt(Professor::getIdProfessor).max().orElse(0) + 1;
+        professores.set(novoId, professor);
+        professores.add(professor);
+        salvar(professor);
+    }
+
+
     public List<Professor> listar() {
         return professores;
     }
@@ -60,6 +68,7 @@ public class ProfessorDAO {
         }
         return false;
     }
+
     public boolean deletar(int id) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p  = professores.get(i);

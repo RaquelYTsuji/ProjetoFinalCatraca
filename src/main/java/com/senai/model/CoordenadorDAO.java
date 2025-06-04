@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CoordenadorDAO {
     private final String ARQUIVO = "coordenadores.json";
@@ -73,5 +74,9 @@ public class CoordenadorDAO {
         } catch (Exception e) {
             coordenadores = new ArrayList<>();
         }
+    }
+
+    public Optional<Coordenador> buscarPorLogin(String login) {
+        return coordenadores.stream().filter(a -> a.getLogin().equals(login)).findFirst();
     }
 }

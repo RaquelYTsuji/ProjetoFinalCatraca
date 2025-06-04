@@ -44,6 +44,7 @@ public class Main {
     }
 
     private static void menuCoordenador(Coordenador coordenador) {
+        CoordenadorView coordenadorView = new CoordenadorView();
         AlunoView alunoView = new AlunoView();
         AlunoController aController = new AlunoController();
         ProfessorView professorView = new ProfessorView();
@@ -79,6 +80,7 @@ public class Main {
     }
 
     private static void menuProfessor(Professor professor) {
+        ProfessorView professorView = new ProfessorView();
         System.out.printf("Bem vind@ %s \n", professor.getNome());
         HorarioView horarioView = new HorarioView();
         executarMenu("""

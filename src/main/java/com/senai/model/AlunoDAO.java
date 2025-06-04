@@ -49,6 +49,14 @@ public class AlunoDAO {
         }
     }
 
+    public void inserir(Aluno aluno) {
+        int novoId = alunos.stream().mapToInt(Aluno::getIdAluno).max().orElse(0) + 1;
+        aluno.setIdAluno(novoId);
+        alunos.add(aluno);
+        salvar(aluno);
+    }
+
+
     public List<Aluno> listar() {
         return alunos;
     }
