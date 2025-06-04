@@ -55,7 +55,7 @@ public class AQVdao {
             if (c != null) {
                 aqvs.remove(c);
                 salvar();
-                System.out.println("AQV deletado.");
+                System.out.println("AQV deletadoo.");
             }
         }
 
