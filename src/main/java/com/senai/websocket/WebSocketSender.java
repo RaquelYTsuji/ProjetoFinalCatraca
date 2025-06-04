@@ -1,6 +1,5 @@
 package com.senai.websocket;
 
-import com.senai.model.Ocorrencia;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import org.eclipse.jetty.server.Server;
