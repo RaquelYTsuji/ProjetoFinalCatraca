@@ -1,150 +1,202 @@
-CREATE DATABASE IF NOT EXISTS controle_atrasos;
-USE controle_atrasos;
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Professor - WebSocket</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
 
--- Tabela de alunos
-CREATE TABLE aluno (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-login VARCHAR(100) NOT NULL,
-senha VARCHAR(100) NOT NULL,
-ativado BOOLEAN
-);
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f9f9f9;
+        }
 
--- Tabela de professores
-CREATE TABLE professor (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-login VARCHAR(100) NOT NULL,
-senha VARCHAR(100) NOT NULL,
-ativado BOOLEAN
-);
+        header, footer {
+          background-color: #444;
+          color: white;
+          padding: 15px 20px;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 14px;
+        }
 
--- Tabela de unidade curricular
-CREATE TABLE unidade_curricular (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-disciplina VARCHAR(100) NOT NULL,
-carga_horaria INT,
-metodo_avaliacao VARCHAR(100),
-id_professor INT,
-FOREIGN KEY (id_professor) REFERENCES professor(id)
-);
+        .container {
+          padding: 30px;
+        }
 
--- Tabela de justificativas
-CREATE TABLE justificativa (
-id INT PRIMARY KEY AUTO_INCREMENT,
-tipo VARCHAR(100) NOT NULL,
-descricao VARCHAR(100) NOT NULL,
-data_hora_justificada DATETIME NOT NULL,
-qtd_dias INT,
-prazoDeAceite INT,
-anexo VARCHAR(255),
-status BOOLEAN NOT NULL,
-cancelar BOOLEAN,
-id_aluno INT,
-id_unidade_curricular INT,
-FOREIGN KEY (id_aluno) REFERENCES aluno(id),
-FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
-);
+        h1 {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
 
--- Tabela de ocorrências
-CREATE TABLE ocorrencia (
-id INT PRIMARY KEY AUTO_INCREMENT,
-tipo VARCHAR(100) NOT NULL,
-descricao VARCHAR(100) NOT NULL,
-data_hora DATETIME NOT NULL,
-cancelar BOOLEAN,
-status BOOLEAN,
-id_aluno INT,
-id_professor INT,
-id_unidade_curricular INT,
-FOREIGN KEY (id_aluno) REFERENCES aluno(id),
-FOREIGN KEY (id_professor) REFERENCES professor(id),
-FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
-);
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          background-color: white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
--- Tabela AQV
-CREATE TABLE aqv (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-login VARCHAR(100) NOT NULL,
-senha VARCHAR(100) NOT NULL,
-ativado BOOLEAN,
-id_ocorrencia INT,
-id_justificativa INT,
-FOREIGN KEY (id_ocorrencia) REFERENCES ocorrencia(id),
-FOREIGN KEY (id_justificativa) REFERENCES justificativa(id)
-);
+        th, td {
+          border: 1px solid #ccc;
+          padding: 12px;
+          text-align: center;
+        }
 
--- Tabela de coordenadores
-CREATE TABLE coordenador (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-login VARCHAR(100) NOT NULL,
-senha VARCHAR(100) NOT NULL,
-status BOOLEAN
-FOREIGN KEY (id_ocorrencia) REFERENCES ocorrencia(id),
-FOREIGN KEY (id_justificativa) REFERENCES justificativa(id)
-);
+        th {
+          background-color: #444;
+          color: white;
+        }
 
--- Tabela de ambiente
-CREATE TABLE ambiente (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100)
-);
+        td i {
+          font-size: 18px;
+        }
 
--- Tabela de horário
-CREATE TABLE horario (
-id INT PRIMARY KEY AUTO_INCREMENT,
-horario_inicio TIME,
-id_aluno INT,
-id_professor INT,
-FOREIGN KEY (id_aluno) REFERENCES aluno(id),
-FOREIGN KEY (id_professor) REFERENCES professor(id)
-);
+        .msg {
+          background-color: #e1ecf7;
+          border-left: 5px solid #003865;
+          margin-top: 10px;
+          padding: 10px;
+          border-radius: 3px;
+        }
 
--- Tabela de aula
-CREATE TABLE aula (
-id INT PRIMARY KEY AUTO_INCREMENT,
-aula_curricular VARCHAR(1000),
-id_professor INT,
-id_ambiente INT,
-id_unidade_curricular INT,
-unidade_horario TIME
+        .erro {
+          margin-top: 15px;
+          font-style: italic;
+          font-weight: bold;
+          color: #d1001c;
+        }
 
-FOREIGN KEY (id_ambiente) REFERENCES ambiente(id),
-FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id),
+        #mensagens {
+          margin-top: 20px;
+          padding: 15px;
+          background: #ffffff;
+          border: 1px solid #c0c0c0;
+          border-radius: 5px;
+          height: 300px;
+          overflow-y: auto;
+        }
 
-);
+        .status {
+          font-size: 14px;
+          color: #555;
+          margin-top: 10px;
+        }
+    </style>
 
--- Tabela de curso
-CREATE TABLE curso (
-id INT PRIMARY KEY AUTO_INCREMENT,
-titulo VARCHAR(150),
-id_unidade_curricular INT,
-id_carga_horaria INT,
-tipo BOOLEAN,
-tolerancia INT,
-FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
-);
+    <!-- Ícones via CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>SENAI</header>
 
--- Tabela de subturma
-CREATE TABLE subturma (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(150),
-id_aluno INT,
-FOREIGN KEY (id_aluno) REFERENCES aluno(id)
-);
+<div class="container">
+    <h1>Ocorrências</h1>
 
--- Tabela de turma
-CREATE TABLE turma (
-id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(150),
-id_curso INT,
-id_subturma INT,
-data_inicio DATETIME,
-qtd_semestre INT,
-horario_entrada TIME,
-FOREIGN KEY (id_curso) REFERENCES curso(id),
-FOREIGN KEY (id_subturma) REFERENCES subturma(id)
-);
+    <table>
+        <thead>
+        <tr>
+            <th>Ocorrência</th>
+            <th>Aula</th>
+            <th>Data</th>
+            <th>Permitido</th>
+            <th>Justificativa</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Entrada</td>
+            <td>Aula 1</td>
+            <td>00/00/0000 - 00:00:00</td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-plus"></i></td>
+            <td>Não adicionado</td>
+        </tr>
+        <tr>
+            <td>Saída</td>
+            <td>Aula 2</td>
+            <td>00/00/0000 - 00:00:00</td>
+            <td><i class="fas fa-times"></i></td>
+            <td>
+                <i class="fas fa-eye"></i>
+                <i class="fas fa-pen"></i>
+                <i class="fas fa-trash"></i>
+            </td>
+            <td>Não visto</td>
+        </tr>
+        <tr>
+            <td>Entrada</td>
+            <td>Aula 3</td>
+            <td>00/00/0000 - 00:00:00</td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-eye"></i></td>
+            <td>Aceito</td>
+        </tr>
+        <tr>
+            <td>Entrada</td>
+            <td>Aula 4</td>
+            <td>00/00/0000 - 00:00:00</td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-plus"></i></td>
+            <td>Rejeitado</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="mensagens"></div>
+    <p class="erro" id="status"></p>
+</div>
+
+<footer>FOOTER</footer>
+
+<script>
+    const status = document.getElementById("status");
+    const div = document.getElementById("mensagens");
+
+    let ws;
+
+    function conectarWebSocket() {
+      try {
+        ws = new WebSocket("ws://localhost:8080/ws");
+
+        ws.onopen = () => {
+          status.textContent = "Conectado com sucesso!";
+          status.style.color = '#007b00';
+        };
+
+        ws.onmessage = (event) => {
+          const p = document.createElement("div");
+          p.classList.add("msg");
+          p.textContent = event.data;
+          div.appendChild(p);
+          div.scrollTop = div.scrollHeight;
+        };
+
+        ws.onerror = () => {
+          status.textContent = "Erro na conexão WebSocket.";
+        };
+
+        ws.onclose = () => {
+          status.textContent = "Conexão encerrada. Tentando reconectar...";
+          setTimeout(conectarWebSocket, 3000);
+        };
+
+        setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send("ping");
+          }
+        }, 20000);
+      } catch (e) {
+        status.textContent = "Erro inesperado: " + e.message;
+      }
+    }
+
+    conectarWebSocket();
+</script>
+</body>
+</html>
+
