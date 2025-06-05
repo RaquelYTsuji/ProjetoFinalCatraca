@@ -1,4 +1,6 @@
 package com.senai.model.dao.mysql;
+import com.senai.model.Curso;
+import com.senai.model.SubTurma;
 import com.senai.model.Turma;
 
 import java.sql.*;
@@ -8,85 +10,77 @@ import java.util.Optional;
 
 public class TurmaDAO {
     public void inserir(Turma turma) {
-        String sql = "INSERT INTO Turma (nome, id, curso, subTurma, dataInicio, quantidadeSemestre, horarioentrada) VALUES (?,?,?,?,?,?)";
-        try (Connection conn = ConexaoMySQL.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, turma.getNome());
-            stmt.setString(2, String.valueOf(turma.getId()));
-            stmt.setString(3, turma.getCurso());
-            stmt.setString(4, String.valueOf(turma.getDataInicio()));
-            stmt.setInt(5, turma.getQuantidadeSemestre());
-            stmt.setString(6, String.valueOf(turma.getHorarioEntrada()));
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void atualizar(Turma turma) {
-        String sql = "UPDATE Turma SET nome = ?, id= ? WHERE id= ?";
-        try (Connection conn = ConexaoMySQL.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, turma.getNome());
-            stmt.setString(2, String.valueOf(turma.getId()));
-            stmt.setString(3, turma.getCurso());
-            stmt.setString(4, turma.getDataInicio());
-            stmt.setInt(5, turma.getQuantidadeSemestre());
-            stmt.setString(6, turma.getHorarioEntrada());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+        String sqlTurma = "INSERT INTO Turma (id, nome, curso_id, dataInicio, quantidadeSemestre, horarioEntrada) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlSubTurma = "INSERT INTO SubTurma (id, nome, turma_id) VALUES (?, ?, ?)";
 
-    public void remover(int id) {
-        String sql = "DELETE FROM Turma WHERE id = ?";
         try (Connection conn = ConexaoMySQL.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+             PreparedStatement stmtTurma = conn.prepareStatement(sqlTurma);
+             PreparedStatement stmtSubTurma = conn.prepareStatement(sqlSubTurma)) {
+
+            stmtTurma.setInt(1, turma.getId());
+            stmtTurma.setString(2, turma.getNome());
+            stmtTurma.setInt(3, turma.getCurso().getId());
+            stmtTurma.setDate(4, java.sql.Date.valueOf(turma.getDataInicio()));
+            stmtTurma.setInt(5, turma.getQuantidadeSemestre());
+            stmtTurma.setTime(6, java.sql.Time.valueOf(turma.getHorarioEntrada()));
+            stmtTurma.executeUpdate();
+
+            for (SubTurma st : turma.getSubTurmas()) {
+                stmtSubTurma.setInt(1, st.getId());
+                stmtSubTurma.setString(2, st.getNome());
+                stmtSubTurma.setInt(3, turma.getId()); // FK para Turma
+                stmtSubTurma.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public Optional<Turma> buscarPorId(int id) {
-        String sql = "SELECT * FROM Turma WHERE id = ?";
+        String sqlTurma = "SELECT * FROM Turma WHERE id = ?";
+        String sqlSubTurma = "SELECT * FROM SubTurma WHERE turma_id = ?";
+
         try (Connection conn = ConexaoMySQL.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return Optional.of(mapResultSet(rs));
+             PreparedStatement stmtTurma = conn.prepareStatement(sqlTurma);
+             PreparedStatement stmtSubTurma = conn.prepareStatement(sqlSubTurma)) {
+
+            stmtTurma.setInt(1, id);
+            ResultSet rsTurma = stmtTurma.executeQuery();
+
+            if (!rsTurma.next()) {
+                return Optional.empty();
             }
+
+            CursoDAO cursoDAO = new CursoDAO();
+            Curso curso = cursoDAO.buscarPorId(rsTurma.getInt("curso_id")).orElse(null);
+
+            stmtSubTurma.setInt(1, id);
+            ResultSet rsSubTurma = stmtSubTurma.executeQuery();
+
+            List<SubTurma> subTurmas = new ArrayList<>();
+            while (rsSubTurma.next()) {
+                SubTurma st = new SubTurma();
+                st.setId(rsSubTurma.getInt("id"));
+                st.setNome(rsSubTurma.getString("nome"));
+                // Você pode carregar alunos aqui se quiser
+                subTurmas.add(st);
+            }
+
+            Turma turma = new Turma(
+                    rsTurma.getInt("id"),
+                    rsTurma.getString("nome"),
+                    curso,
+                    subTurmas,
+                    rsTurma.getDate("dataInicio").toLocalDate(),
+                    rsTurma.getInt("quantidadeSemestre"),
+                    rsTurma.getTime("horarioEntrada").toLocalTime()
+            );
+
+            return Optional.of(turma);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
-    }
-
-    public List<Turma> listarTodos() {
-        List<Turma> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Turma";
-        try (Connection conn = ConexaoMySQL.conectar();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                lista.add(mapResultSet(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
-
-    private Turma mapResultSet(ResultSet rs) throws SQLException {
-        return new Turma(
-                rs.getInt("id"),
-                rs.getString("nome"),
-                rs.getString("curso"),
-                rs.getString("dataInicio"),
-                rs.getInt("quantidadeSemestre"),
-                rs.getString("horarioEntrada")
-        );
     }
 }
