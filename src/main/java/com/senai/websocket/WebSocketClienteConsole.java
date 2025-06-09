@@ -8,7 +8,6 @@ import java.util.TimerTask;
 
 @ClientEndpoint
 public class WebSocketClienteConsole {
-
     private static Session session;
     private static Timer pingTimer;
 
@@ -71,4 +70,3 @@ public class WebSocketClienteConsole {
         }
     }
 }
-

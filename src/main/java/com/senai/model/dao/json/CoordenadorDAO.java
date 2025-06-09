@@ -1,7 +1,10 @@
 package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Aluno;
 import com.senai.model.Coordenador;
+import com.senai.model.Justificativa;
+import com.senai.websocket.WebSocketClienteConsole;
 
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -79,5 +82,14 @@ public class CoordenadorDAO {
 
     public Optional<Coordenador> buscarPorLogin(String login) {
         return coordenadores.stream().filter(c -> c.getLogin().equals(login)).findFirst();
+    }
+
+    //Aplicação da regra de negocio
+    public void autorizar(){
+
+    }
+
+    public void receberNotificacao(){
+        WebSocketClienteConsole.conectar();
     }
 }
