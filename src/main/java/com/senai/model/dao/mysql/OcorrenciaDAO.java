@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class OcorrenciaDAO {
     public void inserir(Ocorrencia ocorrencia) {
-        String sql = "INSERT INTO Justificativa (id, tipo, descricao, dataHora, status) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
+        String sql = "INSERT INTO Justificativa (id, tipo, descricao, data_hora, status) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, ocorrencia.getId());

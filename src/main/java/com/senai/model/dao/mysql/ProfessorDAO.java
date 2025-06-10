@@ -8,28 +8,26 @@ import java.util.Optional;
 
 public class ProfessorDAO {
     public void inserir(Professor professor) {
-        String sql = "INSERT INTO aluno (nome, login, senha, id, unidadeCurricular ) VALUES (?, ?,?,?, ?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
+        String sql = "INSERT INTO aluno (nome, login, senha, id) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getLogin());
             stmt.setString(3, professor.getSenha());
             stmt.setString(4, String.valueOf(professor.getIdProfessor()));
-            stmt.setString(5, professor.getUnidadeCurricular());
             stmt.executeUpdate();//Executa a inserção no banco
         } catch (SQLException e) {
             e.printStackTrace();//Captura e imprime qualquer erro de SQL.
         }
     }
     public void atualizar(Professor professor) {
-        String sql = "UPDATE aluno SET nome = ?,login = ?,senha = ?, idProfessor = ?, unidadeCurricular = ? WHERE idProfessor = ?";
+        String sql = "UPDATE aluno SET nome = ?,login = ?,senha = ?, idProfessor = ? WHERE idProfessor = ?";
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getLogin());
             stmt.setString(3, professor.getSenha());
-            stmt.setString(4, professor.getUnidadeCurricular());
-            stmt.setInt(5, professor.getIdProfessor());
+            stmt.setInt(4, professor.getIdProfessor());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,11 +45,11 @@ public class ProfessorDAO {
         }
     }
 
-    public Optional<Professor> buscarPorId(int idAluno) {
-        String sql = "SELECT * FROM aluno WHERE idAluno = ?";
+    public Optional<Professor> buscarPorId(int idProfessor) {
+        String sql = "SELECT * FROM aluno WHERE idProfessor = ?";
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idAluno);
+            stmt.setInt(1, idProfessor);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return Optional.of(mapResultSet(rs));
@@ -83,8 +81,7 @@ public class ProfessorDAO {
                 rs.getString("nome"),
                 rs.getString("login"),
                 rs.getString("senha"),
-                rs.getInt("idProfessor"),
-                rs.getString("unidadeCurricular")
+                rs.getInt("idProfessor")
         );
     }
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class AlunoDAO {
     public void inserir(Aluno aluno) {
-        String sql = "INSERT INTO aluno (nome, login, senha, idAluno,id_rfid) VALUES (?, ?,?,?, ?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
+        String sql = "INSERT INTO aluno (nome, login, senha, idAluno,id_acesso) VALUES (?, ?,?,?, ?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
 
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -17,7 +17,8 @@ public class AlunoDAO {
             stmt.setString(2, aluno.getLogin());
             stmt.setString(3, aluno.getSenha());
             stmt.setString(4, String.valueOf(aluno.getIdAluno()));
-            stmt.setString(5, aluno.getIdCartaoRfid());
+            stmt.setString(5, aluno.getIdDeAcesso());
+
             stmt.executeUpdate();//Executa a inserção no banco
         } catch (SQLException e) {
             e.printStackTrace();//Captura e imprime qualquer erro de SQL.
@@ -31,7 +32,7 @@ public class AlunoDAO {
             stmt.setString(1, aluno.getNome());
             stmt.setString(2, aluno.getLogin());
             stmt.setString(3, aluno.getSenha());
-            stmt.setString(4, aluno.getIdCartaoRfid());
+            stmt.setString(4, aluno.getIdDeAcesso());
             stmt.setInt(5, aluno.getIdAluno());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -100,7 +101,8 @@ public class AlunoDAO {
                 rs.getString("nome"),
                 rs.getString("login"),
                 rs.getString("senha"),
-                rs.getInt("id")
+                rs.getInt("id"),
+                rs.getBoolean("status")
         );
     }
 }

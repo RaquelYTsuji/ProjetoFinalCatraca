@@ -48,10 +48,9 @@ public class ProfessorView {
         String senha = scanner.nextLine();
         System.out.println("Digite o ID do professor:");
         int idProfessor = Integer.parseInt(scanner.nextLine());
-        System.out.println("Digite a unidade curricular do professor:");
-        String unidadeCurricular = scanner.nextLine();
 
-        Professor professor = new Professor(nome, login, senha,idProfessor, unidadeCurricular);
+
+        Professor professor = new Professor(nome, login, senha,idProfessor);
         if (controller.cadastrarProfessor(professor)) {
             System.out.println("Professor cadastrado com sucesso!");
         } else {
@@ -68,10 +67,9 @@ public class ProfessorView {
         String login = scanner.nextLine();
         System.out.println("Digite a nova senha do professor:");
         String senha = scanner.nextLine();
-        System.out.println("Digite a nova unidade curricular do professor:");
-        String unidadeCurricular = scanner.nextLine();
 
-        Professor professor= new Professor(nome, login, senha, idProfessor,unidadeCurricular);
+
+        Professor professor= new Professor(nome, login, senha, idProfessor);
         if (controller.atualizarProfessor(professor)) {
             System.out.println("Professor atualizado com sucesso!");
         } else {
