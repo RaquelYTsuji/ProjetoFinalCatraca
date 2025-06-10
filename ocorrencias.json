@@ -1,10 +1,1 @@
-[
-  {
-    "id": 1,
-    "tipo": "Entrada",
-    "descricao": "entrada atrasada",
-    "dataHora": "20/02/2025 12:00:00",
-    "cancelar": false,
-    "status": false
-  }
-]
+[]
