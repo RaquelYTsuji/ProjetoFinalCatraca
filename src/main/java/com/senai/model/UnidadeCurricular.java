@@ -19,6 +19,10 @@ public class UnidadeCurricular {
         this.metodoAvaliacao = metodoAvaliacao;
     }
 
+    public UnidadeCurricular() {
+
+    }
+
 
     public int getId() {
         return id;

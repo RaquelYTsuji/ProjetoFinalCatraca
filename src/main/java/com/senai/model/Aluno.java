@@ -15,6 +15,9 @@ public class Aluno extends Usuario {
     public void setIdAluno(int idAluno) {
         this.idAluno = idAluno;
     }
+    public Aluno() {
+
+    }
 
     @Override
     public String toString() {
