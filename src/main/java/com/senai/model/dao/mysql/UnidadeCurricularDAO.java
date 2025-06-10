@@ -10,43 +10,39 @@ import java.util.Optional;
 
 public class UnidadeCurricularDAO {
         public void inserir(UnidadeCurricular unidadeCurricular) {
-            String sqlUnidadeCurricular = "INSERT INTO UnidadeCurricular (nome, disciplina, cargaHoraria, metodoAvaliacao) VALUES (?, ?, ?, ?)";
+            String sqlUnidadeCurricular = "INSERT INTO UnidadeCurricular (nome, disciplina, cargaHoraria) VALUES (?, ?, ?)";
             String sqlProfessor = "INSERT INTO Professor (nome, login, senha, unidadeCurricular_id) VALUES (?, ?, ?, ?)";
 
             try (Connection conn = ConexaoMySQL.conectar();
-                 PreparedStatement stmtUnidade = conn.prepareStatement(sqlUnidadeCurricular, Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement stmtUnidade = conn.prepareStatement(sqlUnidadeCurricular);
                  PreparedStatement stmtProfessor = conn.prepareStatement(sqlProfessor)) {
 
-                // Inserir UnidadeCurricular
+
                 stmtUnidade.setString(1, unidadeCurricular.getNome());
                 stmtUnidade.setString(2, unidadeCurricular.getDisciplina());
                 stmtUnidade.setString(3, unidadeCurricular.getCargaHoraria());
-                stmtUnidade.setString(4, unidadeCurricular.getMetodoAvaliacao());
                 stmtUnidade.executeUpdate();
 
-                // Recuperar o ID gerado para UnidadeCurricular
                 ResultSet generatedKeys = stmtUnidade.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     int unidadeCurricularId = generatedKeys.getInt(1);
 
-                    // Inserir os professores relacionados à UnidadeCurricular
                     for (Professor professor : unidadeCurricular.getIdProfessor()) {
                         stmtProfessor.setString(1, professor.getNome());
                         stmtProfessor.setString(2, professor.getLogin());
                         stmtProfessor.setString(3, professor.getSenha());
-                        stmtProfessor.setInt(4, unidadeCurricularId); // A chave estrangeira para a UnidadeCurricular
+                        stmtProfessor.setInt(4, unidadeCurricularId);
                         stmtProfessor.executeUpdate();
                     }
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         public void atualizar(UnidadeCurricular unidadeCurricular) {
-            String sqlUnidade = "UPDATE UnidadeCurricular SET nome = ?, disciplina = ?, cargaHoraria = ?, metodoAvaliacao = ? WHERE id = ?";
+            String sqlUnidade = "UPDATE UnidadeCurricular SET nome = ?, disciplina = ?, cargaHoraria = ? WHERE id = ?";
             String sqlDeleteProfessores = "DELETE FROM Professor WHERE unidadeCurricular_id = ?";
-            String sqlProfessor = "INSERT INTO Professor (nome, login, senha, unidadeCurricular_id) VALUES (?, ?, ?, ?)";
+            String sqlProfessor = "INSERT INTO Professor (nome, login, senha) VALUES (?, ?, ?)";
 
             try (Connection conn = ConexaoMySQL.conectar();
                  PreparedStatement stmtUnidade = conn.prepareStatement(sqlUnidade);
