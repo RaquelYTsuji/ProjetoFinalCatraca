@@ -9,7 +9,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.UUID;
 
 
 public class OcorrenciaController {
@@ -83,7 +82,7 @@ public class OcorrenciaController {
 
             professorOpt.ifPresent(professor -> {
                 Random random = new Random();
-                Ocorrencia ocorrencia = new Ocorrencia(random.nextInt(), "Entrada", "Entrada atrasada", LocalDateTime.now());
+                Ocorrencia ocorrencia = new Ocorrencia(random.nextInt(), aluno.getId(), "Entrada", "Entrada atrasada", LocalDateTime.now());
                 WebSocketSender.enviarMensagem(ocorrencia);
             });
             return "[ATRASO DETECTADO] Aluno: " + aluno.getNome();

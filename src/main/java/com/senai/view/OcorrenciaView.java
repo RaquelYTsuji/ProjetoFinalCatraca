@@ -5,12 +5,13 @@ import com.senai.model.Ocorrencia;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class OcorrenciaView {
     final OcorrenciaController controller = new OcorrenciaController();
     static Scanner scanner = new Scanner(System.in);
-    final Scanner Scanner = new Scanner(System.in);
 
     public void menu() {
         String opcao;
@@ -41,19 +42,21 @@ public class OcorrenciaView {
 
     private void cadastrar() {
         int id = scannerPromptInt("ID: ");
+        int idAluno = scannerPromptInt("ID Aluno: ");
         LocalDateTime dataHora = scannerPromptHora("DATA e HORA de início dd/MM/yyyy HH:mm: ");
         String tipo = scannerPromptString("Tipo (Entrada/Saída): ");
         String descricao = scannerPromptString("Descrição: ");
-        Ocorrencia ocorrencia = new Ocorrencia(id, tipo, descricao, dataHora);
+        Ocorrencia ocorrencia = new Ocorrencia(id, idAluno, tipo, descricao, dataHora);
         System.out.println(controller.cadastrarOcorrencias(ocorrencia));
     }
 
     private void atualizar() {
         int id = scannerPromptInt("ID: ");
+        int idAluno = scannerPromptInt("ID Aluno: ");
         LocalDateTime dataHora = scannerPromptHora("Nova DATA e HORA de início dd/MM/yyyy HH:mm: ");
         String tipo = scannerPromptString("Novo tipo de ocorrencia (Entrada/Saída): ");
         String descricao = scannerPromptString("Nova Descrição: ");
-        Ocorrencia ocorrencia = new Ocorrencia(id, tipo, descricao, dataHora );
+        Ocorrencia ocorrencia = new Ocorrencia(id, idAluno, tipo, descricao, dataHora );
         System.out.println(controller.atualizarOcorrencias(ocorrencia));
     }
 
@@ -64,8 +67,8 @@ public class OcorrenciaView {
 
     public void listar() {
         for (Ocorrencia h : controller.listarOcorrencias()) {
-            System.out.printf("ID: %d | Tipo: %s | Descrição: %s | dataHora: %s\n",
-                    h.getId(), h.getTipo(), h.getDescricao(), h.getDataHora());
+            System.out.printf("ID: %d | ID Aluno: %d | Tipo: %s | Descrição: %s | dataHora: %s\n",
+                    h.getId(), h.getIdAluno(), h.getTipo(), h.getDescricao(), h.getDataHora());
         }
     }
 

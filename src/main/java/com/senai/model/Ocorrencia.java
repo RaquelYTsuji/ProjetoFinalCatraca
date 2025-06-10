@@ -3,26 +3,16 @@ import java.time.LocalDateTime;
 
 public class Ocorrencia {
     private int id;
+    private int idAluno;
     private String tipo;
     private String descricao;
     private LocalDateTime dataHora;
     private boolean cancelar;
     private String status;
 
-    public Ocorrencia() {
-    }
-
-    public Ocorrencia(int id, String tipo, String descricao, boolean cancelar, String status) {
+    public Ocorrencia(int id, int idAluno, String tipo, String descricao, LocalDateTime dataHora) {
         this.id = id;
-        this.tipo = tipo;
-        this.descricao = descricao;
-        this.dataHora = LocalDateTime.now();
-        this.cancelar = cancelar;
-        this.status = status;
-    }
-
-    public Ocorrencia(int id, String tipo, String descricao, LocalDateTime dataHora) {
-        this.id = id;
+        this.idAluno = idAluno;
         this.tipo = tipo;
         this.descricao = descricao;
         this.dataHora = dataHora;
@@ -35,6 +25,14 @@ public class Ocorrencia {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
 
     public String getTipo() {

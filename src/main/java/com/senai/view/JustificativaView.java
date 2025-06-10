@@ -40,6 +40,7 @@ public class JustificativaView {
 
     private void cadastrar() {
         int id = scannerPromptInt("ID: ");
+        int idAluno = scannerPromptInt("ID Aluno: ");
         String tipo = scannerPrompt("Tipo: ");
         String descricao = scannerPrompt("Descrição: ");
         int quantidadeDias = scannerPromptInt("Quantidade de dias: ");
@@ -49,12 +50,13 @@ public class JustificativaView {
         boolean cancelar = scannerPrompt("Cancelar? (true/false): ").equalsIgnoreCase("true");
 
         System.out.println(controller.cadastrarJustificativa(
-                id, tipo, descricao, quantidadeDias, prazoAceite, anexo, status, cancelar
+                id, idAluno, tipo, descricao, quantidadeDias, prazoAceite, anexo, status, cancelar
         ));
     }
 
     private void atualizar() {
         int id = scannerPromptInt("ID da justificativa: ");
+        int idAluno = scannerPromptInt("ID Aluno: ");
         String tipo = scannerPrompt("Novo tipo: ");
         String descricao = scannerPrompt("Nova descrição: ");
         LocalDateTime dataHora = LocalDateTime.now(); // Pode ser editável se quiser
@@ -65,7 +67,7 @@ public class JustificativaView {
         boolean cancelar = scannerPrompt("Cancelar? (true/false): ").equalsIgnoreCase("true");
 
         System.out.println(controller.atualizarJustificativa(
-                id, tipo, descricao, dataHora, quantidadeDias, prazoAceite, anexo, status, cancelar
+                id, idAluno, tipo, descricao, dataHora, quantidadeDias, prazoAceite, anexo, status, cancelar
         ));
     }
 
@@ -83,6 +85,7 @@ public class JustificativaView {
                 System.out.printf("""
                         -----------------------------
                         ID: %d
+                        ID Aluno: %d
                         Tipo: %s
                         Descrição: %s
                         Data e hora: %s
@@ -93,7 +96,7 @@ public class JustificativaView {
                         Cancelada: %s
                         -----------------------------
                         """,
-                        j.getId(), j.getTipo(), j.getDescricao(), j.getDataHoraJustificatida(),
+                        j.getId(), j.getIdAluno(), j.getTipo(), j.getDescricao(), j.getDataHoraJustificatida(),
                         j.getQuantidadeDias(), j.getPrazoDeAceite(), j.getAnexo(), j.getStatus(),
                         j.isCancelar() ? "Sim" : "Não"
                 );
