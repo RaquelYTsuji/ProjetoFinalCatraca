@@ -1,22 +1,24 @@
 package com.senai.controller;
 
 import com.senai.model.Aluno;
-import com.senai.model.AlunoDAO;
 import com.senai.model.Professor;
-import com.senai.model.ProfessorDAO;
+import com.senai.model.dao.json.AlunoDAO;
+import com.senai.model.dao.json.ProfessorDAO;
 import com.senai.util.CriptografiaUtil;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class UsuarioController {
-    private final AlunoDAO alunoDAO = new AlunoDAO();
-    private final ProfessorDAO professorDAO = new ProfessorDAO();
+    private final com.senai.model.dao.json.AlunoDAO alunoDAO = new AlunoDAO();
+    private final com.senai.model.dao.json.ProfessorDAO professorDAO = new ProfessorDAO();
 
     public String cadastrarUsuario(String tipo, String nome, String unidadeCurricular, String login, String senha) {
         if (tipo.equals("1")) {//0, nome, dadoExtra,login, CriptografiaUtil.hash(senha)
-            alunoDAO.inserir (new Aluno(nome,login,CriptografiaUtil.hash(senha),0));
+            alunoDAO.salvar(new Aluno(nome,login,CriptografiaUtil.hash(senha),0, "", LocalDate.now()));
             return "Aluno cadastrado com sucesso.";
         } else if (tipo.equals("2")) {
-            professorDAO.inserir(new Professor(nome,login,CriptografiaUtil.hash(senha),0,unidadeCurricular));
+            professorDAO.salvar(new Professor(nome,login,CriptografiaUtil.hash(senha),0,unidadeCurricular));
             return "Professor cadastrado com sucesso.";
         } else {
             return "Tipo inválido.";
@@ -25,7 +27,7 @@ public class UsuarioController {
 
     public String atualizarUsuario(String tipo, int id, String nome, String unidadeCurricular, String login, String senha) {
         if (tipo.equals("1")) {
-            alunoDAO.atualizar(new Aluno(nome, login, CriptografiaUtil.hash(senha),id));
+            alunoDAO.atualizar(new Aluno(nome,login,CriptografiaUtil.hash(senha),0, "", LocalDate.now()));
             return "Aluno atualizado.";
         } else if (tipo.equals("2")) {
             professorDAO.atualizar(new Professor(nome,login,CriptografiaUtil.hash(senha),0,unidadeCurricular));

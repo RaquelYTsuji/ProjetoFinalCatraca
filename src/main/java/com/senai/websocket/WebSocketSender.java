@@ -1,4 +1,4 @@
-package com.senai.WebSocket;
+package com.senai.websocket;
 
 import com.senai.model.Ocorrencia;
 import jakarta.websocket.*;

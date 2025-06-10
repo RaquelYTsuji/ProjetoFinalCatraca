@@ -66,11 +66,11 @@ public class UsuarioView {
     private void listar() {
         System.out.println("--- Alunos ---");
         for (Aluno a : controller.listarAlunos()) {
-            System.out.printf("ID: %d | Nome: %s | RFID: %s\n", a.getIdAluno(), a.getNome());
+            System.out.printf("ID: %d | Nome: %s | RFID: %s\n", a.getId(), a.getNome());
         }
         System.out.println("--- Professores ---");
         for (Professor p : controller.listarProfessores()) {
-            System.out.printf("ID: %d | Nome: %s | Disciplina: %s\n", p.getIdProfessor(), p.getNome(), p.getUnidadeCurricular());
+            System.out.printf("ID: %d | Nome: %s | Disciplina: %s\n", p.getId(), p.getNome(), p.getUnidadeCurricular());
         }
     }
 

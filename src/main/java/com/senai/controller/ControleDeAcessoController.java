@@ -6,7 +6,6 @@ import com.senai.model.dao.json.ProfessorDAO;
 import com.senai.model.Aluno;
 import com.senai.model.Horario;
 import com.senai.model.Professor;
-import com.senai.websocket.WebSocketSender;
 
 import java.util.Optional;
 

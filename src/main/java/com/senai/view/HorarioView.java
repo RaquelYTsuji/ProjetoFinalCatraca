@@ -16,7 +16,6 @@ public class HorarioView {
     private final Scanner scanner = new Scanner(System.in);
     private final HorarioController controller = new HorarioController();
     private final TurmaController turmaController = new TurmaController();
-    private final UsuarioController controller = new UsuarioController();
 
     public void menu() {
         String opcao;

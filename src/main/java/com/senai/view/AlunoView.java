@@ -12,7 +12,7 @@ public class AlunoView {
     private static final AlunoController controller = new AlunoController();
     private static final Scanner scanner = new Scanner(System.in); // Instanciando o Scanner no main
 
-    public static void menuAluno() {
+    public static void menuAluno(Scanner scanner, AlunoController aController) {
         String opcao;
         String menuAluno = """
                 --- MENU DE ALUNO ---
@@ -27,11 +27,11 @@ public class AlunoView {
 
         do {
             System.out.print(menuAluno);
-            opcao = scanner.nextLine();
+            opcao = AlunoView.scanner.nextLine();
             switch (opcao) {
-                case "1" -> cadastrarAluno(scanner, controller);
-                case "2" -> atualizarAluno(scanner, controller);
-                case "3" -> deletarAluno(scanner, controller);
+                case "1" -> cadastrarAluno(AlunoView.scanner, controller);
+                case "2" -> atualizarAluno(AlunoView.scanner, controller);
+                case "3" -> deletarAluno(AlunoView.scanner, controller);
                 case "4" -> listarAlunos(controller);
                 case "0" -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");

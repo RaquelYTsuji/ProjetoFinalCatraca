@@ -1,6 +1,5 @@
 package com.senai.view;
 
-import com.senai.WebSocket.WebSocketClienteConsole;
 import com.senai.controller.AlunoController;
 import com.senai.controller.ProfessorController;
 import com.senai.model.*;
@@ -8,14 +7,8 @@ import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
 import java.util.Scanner;
-
-import com.senai.model.*;
 import com.senai.model.dao.json.CoordenadorDAO;
-import com.senai.util.CriptografiaUtil;
-
-import java.util.Optional;
-import java.util.Scanner;
-
+import com.senai.websocket.WebSocketClienteConsole;
 import static com.senai.mqtt.MqttSubscriber.iniciarMqtt;
 import static com.senai.websocket.WebSocketSender.iniciarWebSocket;
 
@@ -93,6 +86,8 @@ public class Main {
         OcorrenciaView ocorrenciaView = new OcorrenciaView();
         JustificativaView justificativaView = new JustificativaView();
         HorarioView horarioView = new HorarioView();
+        AlunoController aController = new AlunoController();
+        ProfessorController pController = new ProfessorController();
 
         System.out.printf("Bem vind@ %s \n", aqv.getNome());
         executarMenu("""               
@@ -109,8 +104,8 @@ public class Main {
                     """,
                 opcao -> {
                     switch (opcao) {
-                        case "1" -> alunoView.menuAluno();
-                        case "2" -> professorView.menuProfessor();
+                        case "1" -> alunoView.menuAluno(scanner, aController);
+                        case "2" -> professorView.menuProfessor(scanner, pController);
                         case "3" -> ocorrenciaView.listar();
                         case "4" -> ocorrenciaView.aceitar();
                         case "5" -> justificativaView.listar();
@@ -145,7 +140,8 @@ public class Main {
                             WebSocketClienteConsole.desconectar();
                             logar();
                         }
-                        case "0" -> {
+                        case "0"
+                                -> {
                             System.out.println("Saindo...");
                             WebSocketClienteConsole.desconectar();
                             System.exit(0);
