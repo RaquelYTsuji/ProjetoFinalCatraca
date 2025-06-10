@@ -1,15 +1,13 @@
 package com.senai.controller;
 
 import com.senai.model.AQV;
-import com.senai.model.dao.json.AQVdao;
+import com.senai.model.dao.json.AQVDAO;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 public class AQVcontroller {
 
-    private AQVdao dao = new AQVdao();
+    private AQVDAO dao = new AQVDAO();
 
 
     public void adicionarAQV(int id, String nome, String login, String senha) {
@@ -39,8 +37,4 @@ public class AQVcontroller {
         dao.deletar(id);
     }
 
-
-    public void verificarEAvisarSeAtrasado(String nomeAluno, LocalTime horarioChegada, LocalTime horarioLimite, AQV aqv) {
-        dao.verificarEAvisarSeAtrasado(nomeAluno, horarioChegada, horarioLimite, aqv);
-    }
 }

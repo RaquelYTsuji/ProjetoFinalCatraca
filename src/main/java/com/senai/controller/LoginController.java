@@ -2,7 +2,7 @@ package com.senai.controller;
 
 
 import com.senai.model.Usuario;
-import com.senai.model.dao.json.AQVdao;
+import com.senai.model.dao.json.AQVDAO;
 import com.senai.model.dao.json.AlunoDAO;
 import com.senai.model.dao.json.CoordenadorDAO;
 import com.senai.model.dao.json.ProfessorDAO;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class LoginController {
     private final AlunoDAO alunoDAO = new AlunoDAO();
     private final ProfessorDAO professorDAO = new ProfessorDAO();
-    private final AQVdao aqvDAO = new AQVdao();
+    private final AQVDAO aqvDAO = new AQVDAO();
     private final CoordenadorDAO coordenadorDAO = new CoordenadorDAO();
 
     public Optional<Usuario> autenticar(String login, String senha) {

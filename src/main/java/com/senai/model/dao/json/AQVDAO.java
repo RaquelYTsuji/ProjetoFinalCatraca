@@ -5,18 +5,15 @@ import com.senai.model.AQV;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AQVdao {
+public class AQVDAO {
     private final String ARQUIVO = "aqvs.json";
     private List<AQV> aqvs = new ArrayList<>();
 
-    public AQVdao() {
+    public AQVDAO() {
         carregar();
     }
 
@@ -83,16 +80,6 @@ public class AQVdao {
         return aqvs.stream().filter(a -> a.getLogin().equals(login)).findFirst();
 
     }
-    public void verificarEAvisarSeAtrasado(String nomeAluno, LocalTime horarioChegada, LocalTime horarioLimite, AQV aqv) {
-        if (horarioChegada.isAfter(horarioLimite)) {
-            String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-            System.out.printf(
-                    "Notificação para AQV (%s): O aluno '%s' chegou atrasado às %s em %s.%n",
-                    aqv.getNome(),
-                    nomeAluno,
-                    horarioChegada.format(DateTimeFormatter.ofPattern("HH:mm")),
-                    dataHora
-            );
-        }
+
     }
-}
+

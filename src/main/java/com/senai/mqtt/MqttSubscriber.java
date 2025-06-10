@@ -1,6 +1,7 @@
 package com.senai.mqtt;
 
 import com.senai.controller.ControleDeAcessoController;
+import com.senai.model.dao.json.AQVDAO;
 import org.eclipse.paho.client.mqttv3.*;
 
 public class MqttSubscriber {
@@ -8,6 +9,7 @@ public class MqttSubscriber {
     private static final String CLIENT_ID = "ServidorJava";
     private static final String TOPICO = "catraca/rfid";
     private static final ControleDeAcessoController controller = new ControleDeAcessoController();
+    private static final AQVDAO aqvDao = new AQVDAO();
 
     public static void iniciarMqtt() {
         try {

@@ -108,35 +108,7 @@ public class AQVview {
         scanner.nextLine();
     }
 
-        private void verificarEAvisarSeAtrasado() {
-            System.out.print("ID do AQV responsável: ");
-            int idAQV = scanner.nextInt();
-            scanner.nextLine();
 
-            AQV aqv = controller.buscarAQV(idAQV);
-            if (aqv == null) {
-                System.out.println("AQV não encontrado.");
-                return;
-            }
-
-            System.out.print("Nome do aluno: ");
-            String nomeAluno = scanner.nextLine();
-
-            System.out.print("Horário de chegada (HH:mm): ");
-            String chegadaStr = scanner.nextLine();
-
-            System.out.print("Horário limite (HH:mm): ");
-            String limiteStr = scanner.nextLine();
-
-            try {
-                LocalTime horarioChegada = LocalTime.parse(chegadaStr, DateTimeFormatter.ofPattern("HH:mm"));
-                LocalTime horarioLimite = LocalTime.parse(limiteStr, DateTimeFormatter.ofPattern("HH:mm"));
-
-                controller.verificarEAvisarSeAtrasado(nomeAluno, horarioChegada, horarioLimite, aqv);
-            } catch (Exception e) {
-                System.out.println("Erro ao interpretar os horários. Use o formato HH:mm.");
-            }
-        }
         }
 
 
