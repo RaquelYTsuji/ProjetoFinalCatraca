@@ -3,6 +3,7 @@ package com.senai.view;
 import com.senai.controller.AlunoController;
 import com.senai.controller.ProfessorController;
 import com.senai.model.*;
+import com.senai.model.Negocio.CoordenadorService;
 import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
@@ -50,11 +51,13 @@ public class Main {
 
     private static void menuCoordenador(Coordenador coordenador) {
         CoordenadorView coordenadorView = new CoordenadorView();
+        Ocorrencia ocorrencia = new Ocorrencia();
         AlunoView alunoView = new AlunoView();
         AlunoController aController = new AlunoController();
         ProfessorView professorView = new ProfessorView();
         ProfessorController pController = new ProfessorController();
         AQVview aqvView = new AQVview();
+        CoordenadorService coordenadorService = new CoordenadorService();
 
         System.out.printf("Bem vind@ %s \n", coordenador.getNome());
         executarMenu("""               
@@ -63,6 +66,8 @@ public class Main {
                     2. Gerenciar Professor
                     3. Gerenciar AQV
                     4. Deslogar
+                    5. Aceitar Justificativa
+                    6. Notificação
                     0. Sair
                     """,
                 opcao -> {
@@ -71,6 +76,8 @@ public class Main {
                         case "2" -> professorView.menuProfessor(scanner, pController);
                         case "3" -> aqvView.exibirMenu();
                         case "4" -> logar();
+                        case "5" -> coordenadorService.aceitarJustificativa(coordenador.getId(), ocorrencia.getId());
+                        case "6" -> coordenadorService.notificarAtraso(ocorrencia);
                         case "0" -> {
                             System.out.println("Saindo...");
                             System.exit(0);
