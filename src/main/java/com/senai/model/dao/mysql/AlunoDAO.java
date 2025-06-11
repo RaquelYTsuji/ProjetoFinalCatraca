@@ -101,8 +101,7 @@ public class AlunoDAO {
                 rs.getString("nome"),
                 rs.getString("login"),
                 rs.getString("senha"),
-                rs.getInt("id"),
-                rs.getBoolean("status")
+                rs.getInt("id")
         );
     }
 }

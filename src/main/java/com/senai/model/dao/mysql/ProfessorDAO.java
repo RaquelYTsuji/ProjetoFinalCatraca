@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ProfessorDAO {
     public void inserir(Professor professor) {
-        String sql = "INSERT INTO aluno (nome, login, senha, id) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
+        String sql = "INSERT INTO professor (nome, login, senha, id) VALUES (?, ?,?,?)";//Define os valores dos ? na SQL, pegando dados do objeto aluno.
         try (Connection conn = ConexaoMySQL.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, professor.getNome());

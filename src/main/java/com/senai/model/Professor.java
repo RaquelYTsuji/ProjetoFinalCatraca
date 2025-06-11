@@ -3,6 +3,10 @@ package com.senai.model;
 public class Professor extends Usuario{
     int idProfessor;
 
+    public Professor() {
+
+    }
+
     public int getIdProfessor() {
         return idProfessor;
     }
