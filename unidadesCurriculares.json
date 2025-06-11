@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": 1,
+    "nome": "nome",
+    "disciplina": "logica",
+    "professorResponsavel": {
+      "unidadeCurricular": "TI",
+      "id": 15,
+      "nome": "Nicoly",
+      "login": "nickmachado",
+      "senha": "12345",
+      "ativado": true
+    },
+    "cargaHoraria": "12",
+    "metodoAvaliacao": "sa"
+  }
+]

@@ -1,6 +1,7 @@
 package com.senai.view;
 
 import com.senai.controller.JustificativaController;
+import com.senai.model.Aluno;
 import com.senai.model.Justificativa;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,33 @@ public class JustificativaView {
         } while (!opcao.equals("0"));
     }
 
+    public void menuAluno(Aluno aluno) {
+        String opcao;
+        String menuJustificativa = """
+                ---- MENU DE JUSTIFICATIVA ----
+                
+                    1. Cadastrar justificativa
+                    2. Atualizar justificativa do Aluno
+                    3. Remover justificativa do Aluno
+                    4. Listar justificativas do Aluno
+                    0. Voltar
+                    
+                """;
+        do {
+            System.out.print(menuJustificativa);
+            opcao = scanner.nextLine();
+
+            switch (opcao) {
+                case "1" -> cadastrarDoAluno(aluno.getId());
+                case "2" -> atualizarDoAluno(aluno.getId());
+                case "3" -> removerDoAluno(aluno.getId());
+                case "4" -> listarDoAluno(aluno.getId());
+                case "0" -> System.out.println("Voltando...");
+                default -> System.out.println("Opção inválida.");
+            }
+        } while (!opcao.equals("0"));
+    }
+
     private void cadastrar() {
         int id = scannerPromptInt("ID: ");
         int idAluno = scannerPromptInt("ID Aluno: ");
@@ -54,9 +82,45 @@ public class JustificativaView {
         ));
     }
 
+    private void cadastrarDoAluno(int idAluno) {
+        int id = scannerPromptInt("ID: ");
+        String tipo = scannerPrompt("Tipo: ");
+        String descricao = scannerPrompt("Descrição: ");
+        int quantidadeDias = scannerPromptInt("Quantidade de dias: ");
+        int prazoAceite = scannerPromptInt("Prazo de aceite: ");
+        String anexo = scannerPrompt("Anexo (caminho ou nome): ");
+        String status = scannerPrompt("Status: ");
+        boolean cancelar = scannerPrompt("Cancelar? (true/false): ").equalsIgnoreCase("true");
+
+        System.out.println(controller.cadastrarJustificativa(
+                id, idAluno, tipo, descricao, quantidadeDias, prazoAceite, anexo, status, cancelar
+        ));
+    }
+
     private void atualizar() {
         int id = scannerPromptInt("ID da justificativa: ");
-        int idAluno = scannerPromptInt("ID Aluno: ");
+        int idAluno = scannerPromptInt("ID do Aluno: ");
+        String tipo = scannerPrompt("Novo tipo: ");
+        String descricao = scannerPrompt("Nova descrição: ");
+        LocalDateTime dataHora = LocalDateTime.now(); // Pode ser editável se quiser
+        int quantidadeDias = scannerPromptInt("Nova quantidade de dias: ");
+        int prazoAceite = scannerPromptInt("Novo prazo de aceite: ");
+        String anexo = scannerPrompt("Novo anexo: ");
+        String status = scannerPrompt("Novo status: ");
+        boolean cancelar = scannerPrompt("Cancelar? (true/false): ").equalsIgnoreCase("true");
+
+        System.out.println(controller.atualizarJustificativa(
+                id, idAluno, tipo, descricao, dataHora, quantidadeDias, prazoAceite, anexo, status, cancelar
+        ));
+    }
+
+    private void removerDoAluno(int idAluno) {
+        int id = scannerPromptInt("ID da justificativa para remover: ");
+        System.out.println(controller.removerJustificativaDoAluno(id, idAluno));
+    }
+
+    private void atualizarDoAluno(int idAluno) {
+        int id = scannerPromptInt("ID da justificativa: ");
         String tipo = scannerPrompt("Novo tipo: ");
         String descricao = scannerPrompt("Nova descrição: ");
         LocalDateTime dataHora = LocalDateTime.now(); // Pode ser editável se quiser
@@ -78,6 +142,34 @@ public class JustificativaView {
 
     public void listar() {
         List<Justificativa> lista = controller.listarJustificativas();
+        if (lista.isEmpty()) {
+            System.out.println("Nenhuma justificativa cadastrada.");
+        } else {
+            for (Justificativa j : lista) {
+                System.out.printf("""
+                        -----------------------------
+                        ID: %d
+                        ID Aluno: %d
+                        Tipo: %s
+                        Descrição: %s
+                        Data e hora: %s
+                        Dias: %d
+                        Prazo de aceite: %d
+                        Anexo: %s
+                        Status: %s
+                        Cancelada: %s
+                        -----------------------------
+                        """,
+                        j.getId(), j.getIdAluno(), j.getTipo(), j.getDescricao(), j.getDataHoraJustificatida(),
+                        j.getQuantidadeDias(), j.getPrazoDeAceite(), j.getAnexo(), j.getStatus(),
+                        j.isCancelar() ? "Sim" : "Não"
+                );
+            }
+        }
+    }
+
+    public void listarDoAluno(int idAluno) {
+        List<Justificativa> lista = controller.listarJustificativasDoAluno(idAluno);
         if (lista.isEmpty()) {
             System.out.println("Nenhuma justificativa cadastrada.");
         } else {

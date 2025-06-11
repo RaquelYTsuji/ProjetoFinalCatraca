@@ -6,11 +6,11 @@ public class UnidadeCurricular {
     private int id;
     private String nome;
     private String disciplina;
-    private String professorResponsavel;
+    private Professor professorResponsavel;
     private String cargaHoraria;
     private String metodoAvaliacao;
 
-    public UnidadeCurricular(int id, String nome, String disciplina, String professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
+    public UnidadeCurricular(int id, String nome, String disciplina, Professor professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
         this.id = id;
         this.nome = nome;
         this.disciplina = disciplina;
@@ -44,11 +44,11 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
     }
 
-    public String getProfessorResponsavel() {
+    public Professor getProfessorResponsavel() {
         return professorResponsavel;
     }
 
-    public void setProfessorResponsavel(String professorResponsavel) {
+    public void setProfessorResponsavel(Professor professorResponsavel) {
         this.professorResponsavel = professorResponsavel;
     }
 

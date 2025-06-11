@@ -9,7 +9,6 @@ import com.senai.model.UnidadeCurricular;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UnidadeCurricularDAO {
@@ -42,6 +41,17 @@ public class UnidadeCurricularDAO {
             System.out.println("Erro ao salvar as informações: " + e.getMessage()); //mensagem caso não for possivel salvar
         }
         return false;
+    }
+
+    public UnidadeCurricular procurar(int id, List<UnidadeCurricular> listaUC){
+        UnidadeCurricular unidadeCurricular = null;
+        for (UnidadeCurricular u : listaUC) {
+            if (u.getId() == id) {
+                unidadeCurricular = new UnidadeCurricular(u.getId(), u.getNome(), u.getDisciplina(), u.getProfessorResponsavel(), u.getCargaHoraria(), u.getMetodoAvaliacao());
+                break;
+            }
+        }
+        return unidadeCurricular;
     }
 }
 

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.senai.model.Aluno;
+import com.senai.model.SubTurma;
 import com.senai.util.LocalDateAdapter;
 
 import java.io.FileReader;
@@ -11,10 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class AlunoDAO {
     private List<Aluno> alunos;//armazena o objeto em aluno
@@ -88,8 +86,18 @@ public class AlunoDAO {
     }
 
     public Optional<Aluno> buscarPorIdAcesso(String idAcesso) {
-        return alunos.stream().filter(a -> idAcesso.equals(a.getIdAcesso())).findFirst();
+        return alunos.stream().filter(a -> Objects.equals(idAcesso, a.getIdAcesso())).findFirst();
     }
 
+    public Aluno procurar(int id){
+        Aluno aluno = null;
+        for (Aluno a : alunos) {
+            if (a.getId() == id) {
+                aluno = new Aluno(a.getNome(), a.getLogin(), a.getSenha(), a.getId(), a.getIdAcesso(), a.getDataNascimento());
+                break;
+            }
+        }
+        return aluno;
+    }
 }
 

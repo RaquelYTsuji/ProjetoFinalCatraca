@@ -26,5 +26,9 @@ public class HorarioController {
     public List<Horario> listarHorarios() {
         return horarioDAO.listarTodos();
     }
+
+    public List<Horario> listarHorariosDoAluno(int idAluno) {
+        return horarioDAO.listarTodosDoAluno(idAluno);
+    }
 }
 

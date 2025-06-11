@@ -22,6 +22,10 @@ public class OcorrenciaController {
         return (List<Ocorrencia>) ocorrenciaDAO.listar();
     }
 
+    public List<Ocorrencia> listarOcorrenciasDoAluno(int idAluno) {
+        return ocorrenciaDAO.listarDoAluno(idAluno);
+    }
+
     public boolean cadastrarOcorrencias(Ocorrencia ocorrencia) {
         if (ocorrencia != null) {
             ocorrenciaDAO.salvar(ocorrencia);
@@ -45,6 +49,23 @@ public class OcorrenciaController {
         }
         return false;
     }
+
+    public boolean atualizarOcorrenciasDoAluno(Ocorrencia ocorrencia) {
+        if (ocorrencia != null) {
+            ocorrenciaDAO.atualizar(ocorrencia);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deletarOcorrenciasDoAluno(int id, int idAluno) {
+        if (id >= 0) {
+            ocorrenciaDAO.deletarDoAluno(id, idAluno);
+            return true;
+        }
+        return false;
+    }
+
     public boolean aceitarOcorrencias ( int id){
         if (id >= 0) {
             ocorrenciaDAO.deletar(id);
@@ -65,16 +86,13 @@ public class OcorrenciaController {
         }
 
         Turma turma = turmaOpt.get();
-        Optional<Horario> horarioOpt = horarioDAO.buscarHorarioDaTurma(turmaOpt.get().getId());
+        Optional<Horario> horarioOpt = horarioDAO.buscarHorarioDoAluno(aluno.getId());
 
         if (horarioOpt.isEmpty()) {
             return "[ACESSO] Aluno: " + aluno.getNome() + " - Nenhum horário atribuído.";
         }
 
         Horario horario = horarioOpt.get();
-        LocalTime horarioDeEntrada = turma.getHorarioEntrada();
-        int tolerancia = turma.getCurso().getTolerancia();
-
         boolean atrasado = aluno.estaAtrasado(aluno.getId());
 
         if (atrasado) {

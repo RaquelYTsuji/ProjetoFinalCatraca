@@ -1,6 +1,6 @@
 [
   {
-    "idAluno": 15,
+    "id": 15,
     "nome": "Aluno",
     "idAcesso": 1111,
     "dataNascimento": "20/10/2024",

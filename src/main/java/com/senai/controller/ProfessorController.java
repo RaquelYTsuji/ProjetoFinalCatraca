@@ -36,4 +36,7 @@ public class ProfessorController {
         return false;
 
     }
+    public Professor procurarProfessores(int id){
+        return professorDAO.procurar(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.senai.view;
 
+import com.senai.controller.AlunoController;
 import com.senai.controller.SubTurmaController;
 import com.senai.model.Aluno;
 import com.senai.model.SubTurma;
@@ -87,16 +88,22 @@ public class SubTurmaView {
 
     public static SubTurma dados(){
         Scanner scanner = new Scanner(System.in);
+        AlunoController alunoController = new AlunoController();
 
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
 
-        //TODO: lista alunos
         System.out.print("Alunos: ");
-        int idAlunoCadastrar = scanner.nextInt();
-        scanner.nextLine();
-
+        alunoController.listarAlunos().forEach(System.out::println);
         List<Aluno> alunosCadastrar = new ArrayList<>();
+        int idAlunoCadastrar = 0;
+        do{
+            System.out.print("Insira o id do aluno a adicionar (ou sair com -1): ");
+            idAlunoCadastrar = scanner.nextInt();
+            Aluno aluno = alunoController.procurarAlunos(idAlunoCadastrar);
+            alunosCadastrar.add(aluno);
+        } while(idAlunoCadastrar != -1);
+        scanner.nextLine();
 
         SubTurma subTurma = new SubTurma(0, nome, alunosCadastrar);
         return subTurma;
