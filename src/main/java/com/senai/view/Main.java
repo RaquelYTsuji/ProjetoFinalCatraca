@@ -64,13 +64,14 @@ public class Main {
 
         System.out.printf("Bem vind@ %s \n", coordenador.getNome());
         executarMenu("""               
-                    ===== MENU AQV =====
+                    ===== MENU COORDENADOR =====
                     1. Gerenciar Aluno
                     2. Gerenciar Professor
                     3. Gerenciar AQV
-                    4. Aceitar Justificativa
-                    5. Notificação
-                    6; listar justificativas de atrasos
+                    4. Notificações
+                    5. listar justificativas de atrasos
+                    6; Aceitar Justificações
+                    7. Relatorios
                     7. Deslogar
                     0. Sair
                     """,
