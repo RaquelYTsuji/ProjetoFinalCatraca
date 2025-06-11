@@ -18,7 +18,7 @@ public class AulaController {
         return false;
     }
 
-    public List<Aula> listarAulas () {
+    public  List<Aula> listarAulas() {
         return aulaDAO.listar();
     }
     public boolean atualizarAulas (Aula aula){

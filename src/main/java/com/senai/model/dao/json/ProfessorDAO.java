@@ -17,59 +17,75 @@ public class ProfessorDAO {
     private final String ARQUIVO = "professores.json";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    // Carregar lista de professores do arquivo JSON
     private List<Professor> carregar() {
         try (FileReader reader = new FileReader(ARQUIVO)) {
-            Type listType = new TypeToken<ArrayList<Professor>>() {
-            }.getType();
-
+            Type listType = new TypeToken<ArrayList<Professor>>() {}.getType();
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
+            // Se ocorrer erro ao carregar, retorna uma lista vazia
             return new ArrayList<>();
         }
     }
 
+    // Construtor: carrega a lista de professores ao inicializar a classe
     public ProfessorDAO() {
-       professores = carregar();
+        professores = carregar();
     }
 
+    // Método para salvar um novo professor
     public void salvar(Professor professor) {
-        professores.add(professor);//adiciona um aluno a lista
-        salvarJson();//grava a lista atualizada
+        professores.add(professor);  // Adiciona o professor à lista
+        salvarJson();  // Salva a lista no arquivo JSON
     }
 
+    // Método para atualizar o arquivo JSON
     public void salvarJson() {
         try (FileWriter writer = new FileWriter(ARQUIVO)) {
             gson.toJson(professores, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();  // Log do erro
         }
     }
 
+    // Método para listar todos os professores
     public List<Professor> listar() {
         return professores;
     }
 
+    // Método para atualizar um professor existente
     public boolean atualizar(Professor professor) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p = professores.get(i);
-            if (p.getIdProfessor() == professor.getIdProfessor()){
-                professores.set(i, professor);
-                salvarJson();
-                return true;
+            if (p.getIdProfessor() == professor.getIdProfessor()) {
+                professores.set(i, professor);  // Substitui o professor existente
+                salvarJson();  // Atualiza o arquivo JSON
+                return true;  // Retorna true indicando que o professor foi atualizado
             }
         }
-        return false;
-    }
-    public boolean deletar(int id) {
-        for (int i = 0; i < professores.size(); i++) {
-            Professor p  = professores.get(i);
-            if (p.getIdProfessor() == id) {
-                professores.remove(i); // Remove o aluno da lista
-                salvarJson(); // Atualiza o arquivo JSON
-                return true; // Indica que o aluno foi removido com sucesso
-            }
-        }
-        return false;
+        return false;  // Retorna false se o professor não foi encontrado
     }
 
+    // Método para deletar um professor pelo ID
+    public boolean deletar(int id) {
+        for (int i = 0; i < professores.size(); i++) {
+            Professor p = professores.get(i);
+            if (p.getIdProfessor() == id) {
+                professores.remove(i);  // Remove o professor da lista
+                salvarJson();  // Atualiza o arquivo JSON
+                return true;  // Retorna true indicando que o professor foi deletado
+            }
+        }
+        return false;  // Retorna false se o professor não foi encontrado
+    }
+
+
+    public Professor procurar(int id) {
+        for (Professor p : professores) {
+            if (p.getIdProfessor() == id) {
+                return p;  // Retorna o professor se encontrado
+            }
+        }
+        return null;  // Retorna null se o professor não for encontrado
+    }
 }

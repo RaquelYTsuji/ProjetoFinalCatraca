@@ -1,6 +1,5 @@
 package com.senai.model;
 
-//Aqui segue o mesmo padrão do POO, onde criamos os atributos e chamos construtores, getter e setters e fazemos o toString
 public class UnidadeCurricular {
 
     private int id;
@@ -16,7 +15,6 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
         this.professorResponsavel = professorResponsavel;
         this.cargaHoraria = cargaHoraria;
-        //this.metodoAvaliacao = metodoAvaliacao;
     }
 
 
@@ -76,7 +74,6 @@ public class UnidadeCurricular {
             Disciplina:           %s
             Professor Responsável:%s
             Carga Horária:        %s
-            Método de Avaliação:  %s
-            """, id, nome, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao);
+            """, id, nome, disciplina, professorResponsavel, cargaHoraria);
     }
 }

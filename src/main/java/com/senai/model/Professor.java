@@ -20,6 +20,8 @@ public class Professor extends Usuario{
         unidadeCurricular = unidadeCurricular;
     }
 
+
+
     public Professor(String nome, String login, String senha, int idProfessor, String unidadeCurricular) {
         super(nome, login, senha);
         this.idProfessor = idProfessor;

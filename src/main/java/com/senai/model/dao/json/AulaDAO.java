@@ -26,11 +26,14 @@ public class AulaDAO {
             .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
             .create();
 
+    private int proximoId = 1; // controle de ID
+
+    // Carrega as aulas do arquivo
     private List<Aula> carregar() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Aula>>() {
-            }.getType();
-            return gson.fromJson(reader, listType);
+            Type listType = new TypeToken<ArrayList<Aula>>() {}.getType();
+            List<Aula> aulasCarregadas = gson.fromJson(reader, listType);
+            return (aulasCarregadas != null) ? aulasCarregadas : new ArrayList<>();
         } catch (IOException e) {
             return new ArrayList<>();
         }
@@ -38,9 +41,15 @@ public class AulaDAO {
 
     public AulaDAO() {
         aulas = carregar();
+        for (Aula aula : aulas) {
+            if (aula.getId() >= proximoId) {
+                proximoId = aula.getId() + 1;
+            }
+        }
     }
 
-    public void salvarJson() {
+    // Salva a lista inteira em JSON
+    private void salvarJson() {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(aulas, writer);
         } catch (IOException e) {
@@ -48,39 +57,44 @@ public class AulaDAO {
         }
     }
 
+    // Salva uma nova aula
     public void salvar(Aula aula) {
+        aula.setId(proximoId++);
         aulas.add(aula);
         salvarJson();
     }
-    public List <Aula> listar (){
+
+    // Lista todas as aulas
+    public List<Aula> listar() {
         return aulas;
     }
 
+    // Atualiza uma aula existente
     public void atualizar(Aula aulaAtualizada) {
         if (aulaAtualizada == null) return;
         for (Aula aula : aulas) {
             if (aula.getId() == aulaAtualizada.getId()) {
                 aula.setAulaCurricular(aulaAtualizada.getAulaCurricular());
                 aula.setProfessores(aulaAtualizada.getProfessores());
-                aula.setUnidadeCurriculares(aulaAtualizada.getUnidadeCurriculares());
+                aula.setListaUC(aulaAtualizada.getListaUC());
                 aula.setUnidadeHorario(aulaAtualizada.getUnidadeHorario());
                 salvarJson();
-                break;  // Encerra o loop após encontrar e atualizar a aula
+                break;
             }
         }
     }
 
-    public boolean deletar(int id){
+    // Deleta uma aula por ID
+    public boolean deletar(int id) {
         Iterator<Aula> iterator = aulas.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Aula a = iterator.next();
-            if(a.getId() == id){
+            if (a.getId() == id) {
                 iterator.remove();
                 salvarJson();
                 return true;
             }
         }
         return false;
-
     }
 }
