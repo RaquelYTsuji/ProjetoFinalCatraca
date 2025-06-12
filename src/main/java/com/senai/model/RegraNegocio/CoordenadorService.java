@@ -7,24 +7,20 @@ import com.senai.model.dao.json.OcorrenciaDAO;
 import com.senai.websocket.WebSocketClienteConsole;
 import com.senai.websocket.WebSocketSender;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class CoordenadorService {
     private final Coordenador coordenador;
-    private final CoordenadorDAO coordenadorDAO;
-    private final OcorrenciaDAO ocorrenciaDAO;
-    private final JustificativaDao justificativaDAO;
-    private final Aluno aluno;
-    private final UnidadeCurricular uc;
+    private final CoordenadorDAO coordenadorDAO = new CoordenadorDAO();
+    private final OcorrenciaDAO ocorrenciaDAO = new OcorrenciaDAO();
+    private final JustificativaDao justificativaDAO = new JustificativaDao();
+    private final Aluno aluno = new Aluno("", "", "", 0, "", LocalDate.now());
+    private final UnidadeCurricular uc = new UnidadeCurricular(0, "", "", "", "", "");
 
 
-    public CoordenadorService(Coordenador coordenador, CoordenadorDAO coordenadorDAO, OcorrenciaDAO ocorrenciaDAO, JustificativaDao justificativaDAO, com.senai.model.Aluno aluno, UnidadeCurricular uc) {
+    public CoordenadorService(Coordenador coordenador) {
         this.coordenador = coordenador;
-        this.coordenadorDAO = coordenadorDAO;
-        this.ocorrenciaDAO = ocorrenciaDAO;
-        this.justificativaDAO = justificativaDAO;
-        this.aluno = aluno;
-        this.uc = uc;
     }
 
     // Notifica o coordenador e salva a ocorrência
@@ -69,37 +65,27 @@ public class CoordenadorService {
     public void gerarRelatorioAtrasosPorAluno() {
         List<Ocorrencia> ocorrencias = ocorrenciaDAO.listar();
         Map<String, List<Ocorrencia>> atrasosPorAluno = new HashMap<>();
+        if (ocorrencias.isEmpty()){
+            System.out.println("Não há ocorrencias");
+        }else {
+            for (Ocorrencia o : ocorrencias) {
+                if (o.getStatus().equalsIgnoreCase("atrasado") || o.getStatus().equalsIgnoreCase("justificado")) {
+                    String nomeAluno = aluno.getNome();
+                    atrasosPorAluno.putIfAbsent(nomeAluno, new ArrayList<>());
+                    atrasosPorAluno.get(nomeAluno).add(o);
+                }
+            }
 
-        for (Ocorrencia o : ocorrencias) {
-            if (o.getStatus().equalsIgnoreCase("atrasado") || o.getStatus().equalsIgnoreCase("justificado")) {
-                String nomeAluno = aluno.getNome();
-                atrasosPorAluno.putIfAbsent(nomeAluno, new ArrayList<>());
-                atrasosPorAluno.get(nomeAluno).add(o);
+            for (Map.Entry<String, List<Ocorrencia>> entry : atrasosPorAluno.entrySet()) {
+                System.out.println("Aluno: " + entry.getKey());
+                for (Ocorrencia o : entry.getValue()) {
+                    System.out.println(" - Data: " + o.getDataHora() +
+                            ", UC: " + uc.getNome() +
+                            ", Status: " + o.getStatus());
+                }
             }
         }
 
-        for (Map.Entry<String, List<Ocorrencia>> entry : atrasosPorAluno.entrySet()) {
-            System.out.println("Aluno: " + entry.getKey());
-            for (Ocorrencia o : entry.getValue()) {
-                System.out.println(" - Data: " + o.getDataHora() +
-                        ", UC: " + uc.getNome() +
-                        ", Status: " + o.getStatus());
-            }
-        }
     }
-
-    // Gera relatório geral por curso
-//    public void gerarRelatorioPorCurso(String curso) {
-//        List<Ocorrencia> ocorrencias = ocorrenciaDAO.listar();
-//
-//        for (Ocorrencia o : ocorrencias) {
-//            if (uc.getNome().equalsIgnoreCase(curso)) {
-//                System.out.println("Aluno: " + aluno.getNome() +
-//                        " - Data: " + o.getDataHora() +
-//                        " - UC: " + uc.getNome() +
-//                        " - Status: " + o.getStatus());
-//            }
-//        }
-//    }
 }
 
