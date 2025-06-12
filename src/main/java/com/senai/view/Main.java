@@ -52,6 +52,7 @@ public class Main {
         }
     }
 
+    //tentativa de commit
     private static void menuCoordenador(Coordenador coordenador) {
         UnidadeCurricular unidadeCurricular;
         CoordenadorService coordenadorService = new CoordenadorService(coordenador);

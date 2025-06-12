@@ -23,14 +23,12 @@ public class CoordenadorService {
         this.coordenador = coordenador;
     }
 
-    // Notifica o coordenador e salva a ocorrência
     public void receberNotificacao(Ocorrencia ocorrencia) {
         WebSocketClienteConsole.conectar();
         WebSocketSender.enviarMensagem(ocorrencia);
         ocorrenciaDAO.salvar(ocorrencia);
     }
 
-    // Lista todas as justificativas disponíveis
     public void listarJustificativas() {
         List<Justificativa> justificativas = justificativaDAO.listar();
 
@@ -60,8 +58,6 @@ public class CoordenadorService {
         }
     }
 
-
-    // Gera relatório de atrasos por aluno
     public void gerarRelatorioAtrasosPorAluno() {
         List<Ocorrencia> ocorrencias = ocorrenciaDAO.listar();
         Map<String, List<Ocorrencia>> atrasosPorAluno = new HashMap<>();
