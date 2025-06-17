@@ -5,6 +5,9 @@ import com.senai.controller.TurmaController;
 import com.senai.model.Aluno;
 import com.senai.model.Horario;
 import com.senai.model.Turma;
+import com.senai.controller.UsuarioController;
+import com.senai.model.Aluno;
+import com.senai.model.Professor;
 
 import java.time.LocalTime;
 import java.util.Optional;

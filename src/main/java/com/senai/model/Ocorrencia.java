@@ -18,6 +18,8 @@ public class Ocorrencia {
         this.dataHora = dataHora;
     }
 
+    public Ocorrencia() {
+    }
 
     public int getId() {
         return id;

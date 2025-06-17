@@ -24,4 +24,4 @@ public class Coordenador extends Usuario {
         public String getTipo() {
             return "Coordenador";
         }
-    }
+}

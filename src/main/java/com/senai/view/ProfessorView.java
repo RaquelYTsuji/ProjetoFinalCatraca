@@ -10,7 +10,7 @@ public class ProfessorView {
     private static final ProfessorController controller = new ProfessorController();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void menuProfessor() {
+    public static void menuProfessor(Scanner scanner, ProfessorController pController) {
         String opcao;
         String menuProfessor = """
                 --- MENU DE Professor---
@@ -25,11 +25,11 @@ public class ProfessorView {
 
         do {
             System.out.print(menuProfessor);
-            opcao = scanner.nextLine();
+            opcao = ProfessorView.scanner.nextLine();
             switch (opcao) {
-                case "1" -> cadastrarProfessor(scanner, controller);
-                case "2" -> atualizarProfessor(scanner, controller);
-                case "3" -> deletarProfessor(scanner, controller);
+                case "1" -> cadastrarProfessor(ProfessorView.scanner, controller);
+                case "2" -> atualizarProfessor(ProfessorView.scanner, controller);
+                case "3" -> deletarProfessor(ProfessorView.scanner, controller);
                 case "4" -> listarProfessores(controller);
                 case "0" -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");

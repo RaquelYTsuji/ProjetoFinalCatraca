@@ -50,6 +50,7 @@ public class AlunoDAO {
         }
     }
 
+
     public List<Aluno> listar() {
         return alunos;
     }

@@ -2,6 +2,7 @@ package com.senai.controller;
 
 import com.senai.model.*;
 import com.senai.model.dao.json.*;
+import com.senai.model.dao.json.HorarioDAO;
 import com.senai.websocket.WebSocketSender;
 
 import java.time.LocalDateTime;

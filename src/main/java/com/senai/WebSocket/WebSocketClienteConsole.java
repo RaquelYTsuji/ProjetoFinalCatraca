@@ -1,4 +1,4 @@
-package com.senai.websocket;
+package com.senai.WebSocket;
 
 import jakarta.websocket.*;
 
