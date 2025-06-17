@@ -3,6 +3,7 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Coordenador;
 import com.senai.model.Professor;
 
 import java.io.FileReader;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProfessorDAO {
     private List<Professor> professores;
@@ -57,7 +59,7 @@ public class ProfessorDAO {
     public boolean atualizar(Professor professor) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p = professores.get(i);
-            if (p.getIdProfessor() == professor.getIdProfessor()) {
+            if (p.getId() == professor.getId()) {
                 professores.set(i, professor);  // Substitui o professor existente
                 salvarJson();  // Atualiza o arquivo JSON
                 return true;  // Retorna true indicando que o professor foi atualizado
@@ -70,7 +72,7 @@ public class ProfessorDAO {
     public boolean deletar(int id) {
         for (int i = 0; i < professores.size(); i++) {
             Professor p = professores.get(i);
-            if (p.getIdProfessor() == id) {
+            if (p.getId() == id) {
                 professores.remove(i);  // Remove o professor da lista
                 salvarJson();  // Atualiza o arquivo JSON
                 return true;  // Retorna true indicando que o professor foi deletado
@@ -82,10 +84,17 @@ public class ProfessorDAO {
 
     public Professor procurar(int id) {
         for (Professor p : professores) {
-            if (p.getIdProfessor() == id) {
+            if (p.getId() == id) {
                 return p;  // Retorna o professor se encontrado
             }
         }
         return null;  // Retorna null se o professor não for encontrado
+    }
+    public Optional<Professor> buscarPorLogin(String login) {
+        return professores.stream().filter(p -> p.getLogin().equals(login)).findFirst();
+    }
+
+    public Optional<Professor> buscarPorId(int id) {
+        return carregar().stream().filter(p -> p.getId() == id).findFirst();
     }
 }

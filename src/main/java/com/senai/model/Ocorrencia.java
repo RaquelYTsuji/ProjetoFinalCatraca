@@ -7,9 +7,12 @@ public class Ocorrencia {
     private String descricao;
     private LocalDateTime dataHora;
     private boolean cancelar;
-    private boolean status;
+    private String status;
 
-    public Ocorrencia( int id, String tipo, String descricao, boolean cancelar, boolean status) {
+    public Ocorrencia() {
+    }
+
+    public Ocorrencia(int id, String tipo, String descricao, boolean cancelar, String status) {
         this.id = id;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -66,11 +69,11 @@ public class Ocorrencia {
         this.cancelar = cancelar;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

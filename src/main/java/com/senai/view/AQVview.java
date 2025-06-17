@@ -2,6 +2,7 @@ package com.senai.view;
 
 import com.senai.controller.AQVcontroller;
 import com.senai.model.AQV;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.List;
 import java.util.Scanner;
@@ -50,10 +51,13 @@ public class AQVview {
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
 
-        controller.adicionarAQV(id, nome, email);
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        controller.adicionarAQV(id, nome, login, CriptografiaUtil.hash(senha));
 
         System.out.println("AQV adicionado com sucesso!");
     }
@@ -86,10 +90,13 @@ public class AQVview {
         System.out.print("Novo nome: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Novo email: ");
-        String email = scanner.nextLine();
+        System.out.print("Novo login: ");
+        String login = scanner.nextLine();
 
-        controller.atualizarAQV(id, nome, email);
+        System.out.print("Nova senha: ");
+        String senha = scanner.nextLine();
+
+        controller.atualizarAQV(id, nome, login, CriptografiaUtil.hash(senha));
     }
 
     private void deletar() {

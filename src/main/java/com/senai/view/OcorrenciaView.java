@@ -12,12 +12,6 @@ public class OcorrenciaView {
     static Scanner scanner = new Scanner(System.in);
     final Scanner Scanner = new Scanner(System.in);
 
-    static OcorrenciaView ocorrenciaView = new OcorrenciaView();
-
-    public static void main(String[] args) {
-       ocorrenciaView.menu();
-    }
-
     public void menu() {
         String opcao;
         String menuOcorrencia = """
@@ -73,6 +67,11 @@ public class OcorrenciaView {
             System.out.printf("ID: %d | Tipo: %s | Descrição: %s | dataHora: %s\n",
                     h.getId(), h.getTipo(), h.getDescricao(), h.getDataHora());
         }
+    }
+
+    public void aceitar() {
+        int id = scannerPromptInt("ID: ");
+        System.out.println(controller.aceitarOcorrencias(id));
     }
 
     private String scannerPromptString(String msg) {

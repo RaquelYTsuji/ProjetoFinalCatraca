@@ -41,7 +41,7 @@ public class Aula {
         sb.append("Professores: [");
         for (int i = 0; i < professores.size(); i++) {
             Professor prof = professores.get(i);
-            sb.append("ID: ").append(prof.getIdProfessor()).append(", Nome: ").append(prof.getNome());
+            sb.append("ID: ").append(prof.getId()).append(", Nome: ").append(prof.getNome());
             if (i < professores.size() - 1) sb.append("; ");
         }
         sb.append("]\n");

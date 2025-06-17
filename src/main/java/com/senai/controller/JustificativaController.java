@@ -40,6 +40,11 @@ public class JustificativaController{
         return sucesso ? "Justificativa removida com sucesso." : "Justificativa não encontrada.";
     }
 
+    public String aceitarJustificativa(int id, String status) {
+        justificativaDao.aceitar(id, status);
+        return "Justificativa aceitada com sucesso.";
+    }
+
     public List<Justificativa> listarJustificativas() {
         return justificativaDao.listar();
     }
