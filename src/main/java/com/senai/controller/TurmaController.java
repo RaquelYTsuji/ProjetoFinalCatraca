@@ -4,6 +4,7 @@ import com.senai.model.Turma;
 import com.senai.model.dao.json.TurmaDAO;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TurmaController {
     private TurmaDAO turmaDAO = new TurmaDAO();
@@ -34,5 +35,12 @@ public class TurmaController {
             return true;
         }
         return false;
+    }
+
+    public Optional<Turma> buscarTurmaDoAluno(int idAluno){
+        if(idAluno >= 0){
+            return turmaDAO.buscarTurmaDoAluno(idAluno);
+        }
+        return null;
     }
 }

@@ -10,19 +10,16 @@ public class UnidadeCurricular {
     private String disciplina;
     private List<Professor> idProfessor;
     private String cargaHoraria;
-    private String metodoAvaliacao;
 
-    public UnidadeCurricular(int id, String nome, String disciplina, List<Professor> idProfessor, String cargaHoraria, String metodoAvaliacao) {
+    public UnidadeCurricular(int id, String nome, String disciplina, List<Professor> idProfessor, String cargaHoraria) {
         this.id = id;
         this.nome = nome;
         this.disciplina = disciplina;
         this.idProfessor = idProfessor;
         this.cargaHoraria = cargaHoraria;
-        this.metodoAvaliacao = metodoAvaliacao;
     }
 
     public UnidadeCurricular() {
-
     }
 
     public int getId() {
@@ -49,13 +46,14 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
     }
 
-    public List<Professor> idProfessor() {
+    public List<Professor> getIdProfessor() {
         return idProfessor;
     }
 
     public void setIdProfessor(List<Professor> idProfessor) {
         this.idProfessor = idProfessor;;
     }
+
     public String getCargaHoraria() {
         return cargaHoraria;
     }
@@ -64,27 +62,14 @@ public class UnidadeCurricular {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getMetodoAvaliacao() {
-        return metodoAvaliacao;
-    }
-
-    public List<Professor> getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setMetodoAvaliacao(String metodoAvaliacao) {
-        this.metodoAvaliacao = metodoAvaliacao;
-    }
-
     @Override
     public String toString() {
         return String.format("""
             id da UC:             %d
             Nome da UC:           %s
             Disciplina:           %s
-            Id Professor:%s
+            Professor Responsável:%s
             Carga Horária:        %s
-            Método de Avaliação:  %s
-            """, id, nome, disciplina, idProfessor, cargaHoraria, metodoAvaliacao);
+            """, id, nome, disciplina, idProfessor, cargaHoraria);
     }
 }

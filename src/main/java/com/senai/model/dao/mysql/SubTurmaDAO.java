@@ -126,7 +126,7 @@ public class SubTurmaDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Aluno a = new Aluno();
-                    a.setIdAluno(rs.getInt("id"));
+                    a.setId(rs.getInt("id"));
                     a.setNome(rs.getString("nome"));
                     a.setLogin(rs.getString("login"));
                     a.setSenha(rs.getString("senha"));

@@ -14,7 +14,7 @@ public class ProfessorDAO {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getLogin());
             stmt.setString(3, professor.getSenha());
-            stmt.setString(4, String.valueOf(professor.getIdProfessor()));
+            stmt.setString(4, String.valueOf(professor.getId()));
             stmt.executeUpdate();//Executa a inserção no banco
         } catch (SQLException e) {
             e.printStackTrace();//Captura e imprime qualquer erro de SQL.
@@ -27,7 +27,7 @@ public class ProfessorDAO {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getLogin());
             stmt.setString(3, professor.getSenha());
-            stmt.setInt(4, professor.getIdProfessor());
+            stmt.setInt(4, professor.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,7 +81,8 @@ public class ProfessorDAO {
                 rs.getString("nome"),
                 rs.getString("login"),
                 rs.getString("senha"),
-                rs.getInt("idProfessor")
+                rs.getInt("idProfessor"),
+                rs.getString("unidadeCurricular")
         );
     }
 }

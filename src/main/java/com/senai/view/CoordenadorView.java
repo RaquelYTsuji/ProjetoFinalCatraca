@@ -1,6 +1,7 @@
 package com.senai.view;
 import com.senai.controller.CoordenadorController;
 import com.senai.model.Coordenador;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.List;
 import java.util.Scanner;
@@ -49,10 +50,13 @@ public class CoordenadorView {
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
 
-        controller.adicionarCoordenador(id, nome, email);
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        controller.adicionarCoordenador(id, nome, login, CriptografiaUtil.hash(senha));
 
         System.out.println("Coordenador adicionado com sucesso!");
     }
@@ -85,10 +89,13 @@ public class CoordenadorView {
         System.out.print("Novo nome: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Novo email: ");
-        String email = scanner.nextLine();
+        System.out.print("Novo login: ");
+        String login = scanner.nextLine();
 
-        controller.atualizarCoordenador(id, nome, email);
+        System.out.print("Nova senha: ");
+        String senha = scanner.nextLine();
+
+        controller.atualizarCoordenador(id, nome, login, CriptografiaUtil.hash(senha));
     }
 
     private void deletar() {

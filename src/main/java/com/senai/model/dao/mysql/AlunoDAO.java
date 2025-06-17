@@ -16,8 +16,8 @@ public class AlunoDAO {
             stmt.setString(1, aluno.getNome());
             stmt.setString(2, aluno.getLogin());
             stmt.setString(3, aluno.getSenha());
-            stmt.setString(4, String.valueOf(aluno.getIdAluno()));
-            stmt.setString(5, aluno.getIdDeAcesso());
+            stmt.setString(4, String.valueOf(aluno.getId()));
+            stmt.setString(5, aluno.getIdAcesso());
 
             stmt.executeUpdate();//Executa a inserção no banco
         } catch (SQLException e) {
@@ -32,8 +32,8 @@ public class AlunoDAO {
             stmt.setString(1, aluno.getNome());
             stmt.setString(2, aluno.getLogin());
             stmt.setString(3, aluno.getSenha());
-            stmt.setString(4, aluno.getIdDeAcesso());
-            stmt.setInt(5, aluno.getIdAluno());
+            stmt.setString(4, aluno.getIdAcesso());
+            stmt.setInt(5, aluno.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,7 +101,9 @@ public class AlunoDAO {
                 rs.getString("nome"),
                 rs.getString("login"),
                 rs.getString("senha"),
-                rs.getInt("id")
+                rs.getInt("id"),
+                rs.getString("idAcesso"),
+                rs.getTimestamp("dataNascimento").toLocalDateTime().toLocalDate()
         );
     }
 }

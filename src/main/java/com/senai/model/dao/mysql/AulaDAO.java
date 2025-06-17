@@ -1,13 +1,12 @@
 package com.senai.model.dao.mysql;
+import com.senai.model.Aula;
 import com.senai.model.Professor;
 import com.senai.model.UnidadeCurricular;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AulaDAO {
     public void inserir(Aula aula) {
@@ -22,17 +21,17 @@ public class AulaDAO {
 
             stmtAula.setInt(1, aula.getId());
             stmtAula.setString(2, aula.getAulaCurricular());
-            stmtAula.setTimestamp(3, Timestamp.valueOf(aula.getUnidadeHorario()));
+            stmtAula.setTimestamp(3, Timestamp.valueOf(aula.getUnidadeHorario().toString()));
             stmtAula.executeUpdate();
 
-            for (UnidadeCurricular uc : aula.getUnidadeCurriculares()) {
+            for (UnidadeCurricular uc : aula.getListaUC()) {
                 stmtUnidade.setString(1, uc.getNome());
                 stmtUnidade.setString(2, uc.getCargaHoraria());
                 stmtUnidade.setInt(3, aula.getId());
                 stmtUnidade.executeUpdate();
             }
             for (Professor p : aula.getProfessores()) {
-                stmtProfessor.setInt(1, p.getIdProfessor());
+                stmtProfessor.setInt(1, p.getId());
                 stmtProfessor.setString(2, p.getNome());
                 stmtProfessor.setString(3, p.getLogin());
                 stmtProfessor.setString(4, p.getSenha());
@@ -59,7 +58,7 @@ public class AulaDAO {
              PreparedStatement stmtInsertProf = conn.prepareStatement(sqlInsertProf)) {
 
             stmtUpdateAula.setString(1, aula.getAulaCurricular());
-            stmtUpdateAula.setTimestamp(2, Timestamp.valueOf(aula.getUnidadeHorario()));
+            stmtUpdateAula.setTimestamp(2, Timestamp.valueOf(aula.getUnidadeHorario().toString()));
             stmtUpdateAula.setInt(3, aula.getId());
             stmtUpdateAula.executeUpdate();
 
@@ -69,7 +68,7 @@ public class AulaDAO {
             stmtDeleteProf.setInt(1, aula.getId());
             stmtDeleteProf.executeUpdate();
 
-            for (UnidadeCurricular uc : aula.getUnidadeCurriculares()) {
+            for (UnidadeCurricular uc : aula.getListaUC()) {
                 stmtInsertUC.setString(1, uc.getNome());
                 stmtInsertUC.setString(2, uc.getDisciplina());
                 stmtInsertUC.setString(3, uc.getCargaHoraria());
@@ -77,7 +76,7 @@ public class AulaDAO {
                 stmtInsertUC.executeUpdate();
             }
             for (Professor p : aula.getProfessores()) {
-                stmtInsertProf.setInt(1, p.getIdProfessor());
+                stmtInsertProf.setInt(1, p.getId());
                 stmtInsertProf.setString(2, p.getNome());
                 stmtInsertProf.setString(3, p.getLogin());
                 stmtInsertProf.setString(4, p.getSenha());
@@ -159,9 +158,9 @@ public class AulaDAO {
         return new Aula(
                 aulaId,
                 rs.getString("aula_curricular"),
-                buscarUnidadesCurricularesPorAulaId(aulaId),
                 buscarProfessoresPorAulaId(aulaId),
-                rs.getTimestamp("unidadeHorario").toLocalDateTime()
+                buscarUnidadesCurricularesPorAulaId(aulaId),
+                rs.getTimestamp("unidadeHorario").toLocalDateTime().toLocalTime()
         );
     }
 
@@ -198,7 +197,7 @@ public class AulaDAO {
 
             while (rs.next()) {
                 Professor prof = new Professor();
-                prof.setIdProfessor(rs.getInt("id"));
+                prof.setId(rs.getInt("id"));
                 prof.setNome(rs.getString("nome"));
                 prof.setLogin(rs.getString("login"));
                 prof.setSenha(rs.getString("senha"));

@@ -3,6 +3,9 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.senai.model.Aluno;
+import com.senai.model.Horario;
+import com.senai.model.SubTurma;
 import com.senai.model.Turma;
 import com.senai.util.LocalDateAdapter;
 import com.senai.util.LocalTimeAdapter;
@@ -16,6 +19,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class TurmaDAO {
     private List<Turma> turmas;
@@ -82,5 +86,23 @@ public class TurmaDAO {
             }
         }
         return false;
+    }
+
+    public Optional<Turma> buscarTurmaDoAluno(int idAluno) {
+        final Turma[] turma = new Turma[1];
+        turmas.stream().forEach(t -> {
+            List<SubTurma> subTurmas = t.getSubTurmas();
+                subTurmas.forEach(s -> {
+                    if(s != null){
+                        List<Aluno> alunos = s.getAlunos();
+                        alunos.forEach(a -> {
+                            if(a.getId() == idAluno) {
+                                turma[0] = t;
+                            }
+                        });
+                    }
+                });
+        });
+        return Optional.ofNullable(turma[0]);
     }
 }

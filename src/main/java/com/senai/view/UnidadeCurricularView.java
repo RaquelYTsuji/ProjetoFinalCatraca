@@ -1,8 +1,12 @@
 package com.senai.view;
 
+import com.senai.controller.ProfessorController;
 import com.senai.controller.UnidadeCurricularController;
+import com.senai.model.Professor;
+import com.senai.model.SubTurma;
 import com.senai.model.UnidadeCurricular;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +14,7 @@ public class UnidadeCurricularView {
     //Essas duas classes estão estáticas para serem acessadas no código por completo.
     static Scanner scanner = new Scanner(System.in);
     static UnidadeCurricularController Controller = new UnidadeCurricularController();
+    static ProfessorController professorController = new ProfessorController();
 
     public static void main(String[] args) {
         String login = scannerPrompt("Digite o seu login: "); //Uso de scannerPrompt (orientações do professor) para evitar repetições de scanner.nextLine e vários souts
@@ -45,11 +50,20 @@ public class UnidadeCurricularView {
         String idUC = scannerPrompt("Digite o id da sua Unidade Vurricular: ");
         String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String disciplina = scannerPrompt("Digite as disciplinas presentes da UC: ");
-        String professor = scannerPrompt("Professor responsável: ");
+        System.out.print("Professores: \n");
+        professorController.listarProfessores().forEach(System.out::println);
+        List<Professor> professores = new ArrayList<>();
+        int idProfessor = 0;
+        do{
+            System.out.print("Insira o id do professor a adicionar (ou sair com -1): ");
+            idProfessor = scanner.nextInt();
+            Professor professor = professorController.procurarProfessorPorID(idProfessor);
+            professores.add(professor);
+        } while(idProfessor != -1);
+        scanner.nextLine();
         String cargaHoraria = scannerPrompt("Carga horária: ");
-        String metodoAvaliacao = scannerPrompt("Método de avaliação: ");
 
-        Controller.cadastrarUC(Integer.parseInt(idUC), nomeUC, disciplina, professor, cargaHoraria, metodoAvaliacao);
+        Controller.cadastrarUC(Integer.parseInt(idUC), nomeUC, disciplina, professores, cargaHoraria);
     }
 
     //No atualizar, o uso de Menu, foi escolhido para que o usuário escolha o que ele quer editar.
@@ -62,7 +76,6 @@ public class UnidadeCurricularView {
                 1 - Nome da UC
                 2 - Disciplinas
                 3 - Professor Responsável
-                4 - Método de Avaliação
                 0 - Voltar
                 """;
 
@@ -71,12 +84,31 @@ public class UnidadeCurricularView {
             opcao = scanner.nextLine();
 
             switch (opcao) {
-                case "1" -> Controller.atualizarNomeUC(nomeUC, scannerPrompt("Novo nome: "));
-                case "2" -> Controller.atualizarDisciplina(nomeUC, scannerPrompt("Nova disciplina: "));
-                case "3" -> Controller.atualizarProfessor(nomeUC, scannerPrompt("Novo professor: "));
-                case "4" -> Controller.atualizarMetodo(nomeUC, scannerPrompt("Novo método: "));
-                case "0" -> System.out.println("Voltando...");
-                default -> System.out.println("Opção inválida.");
+                case "1":
+                    Controller.atualizarNomeUC(nomeUC, scannerPrompt("Novo nome: "));
+                    break;
+                case "2" :
+                    Controller.atualizarDisciplina(nomeUC, scannerPrompt("Nova disciplina: "));
+                    break;
+                case "3" :
+                    System.out.print("Professores: \n");
+                    professorController.listarProfessores().forEach(System.out::println);
+                    List<Professor> professores = new ArrayList<>();
+                    int idProfessor = 0;
+                    do{
+                        System.out.print("Insira o id do professor a adicionar (ou sair com -1): ");
+                        idProfessor = scanner.nextInt();
+                        Professor professor = professorController.procurarProfessorPorID(idProfessor);
+                        professores.add(professor);
+                    } while(idProfessor != -1);
+                    scanner.nextLine();
+                    break;
+                case "0" :
+                    System.out.println("Voltando...");
+                    break;
+                default :
+                    System.out.println("Opção inválida.");
+                    break;
             }
         } while (!opcao.equals("0"));
     }

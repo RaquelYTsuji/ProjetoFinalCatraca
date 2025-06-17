@@ -52,8 +52,7 @@ public class UnidadeCurricularDAO {
                 stmtUnidade.setString(1, unidadeCurricular.getNome());
                 stmtUnidade.setString(2, unidadeCurricular.getDisciplina());
                 stmtUnidade.setString(3, unidadeCurricular.getCargaHoraria());
-                stmtUnidade.setString(4, unidadeCurricular.getMetodoAvaliacao());
-                stmtUnidade.setInt(5, unidadeCurricular.getId());
+                stmtUnidade.setInt(4, unidadeCurricular.getId());
                 stmtUnidade.executeUpdate();
 
                 stmtDeleteProfessores.setInt(1, unidadeCurricular.getId());
@@ -129,11 +128,10 @@ public class UnidadeCurricularDAO {
             String nome = rs.getString("nome");
             String disciplina = rs.getString("disciplina");
             String cargaHoraria = rs.getString("cargaHoraria");
-            String metodoAvaliacao = rs.getString("metodoAvaliacao");
 
             List<Professor> professores = buscarProfessoresPorUnidade(id);
 
-            return new UnidadeCurricular(id, nome, disciplina, professores, cargaHoraria, metodoAvaliacao);
+            return new UnidadeCurricular(id, nome, disciplina, professores, cargaHoraria);
         }
 
         private List<Professor> buscarProfessoresPorUnidade(int unidadeId) throws SQLException {
@@ -150,7 +148,8 @@ public class UnidadeCurricularDAO {
                             rs.getString("nome"),
                             rs.getString("login"),
                             rs.getString("senha"),
-                            rs.getInt("id") // ID do professor
+                            rs.getInt("id"), // ID do professor
+                            rs.getString("unidadeCurricular")
                     );
                     professores.add(professor);
                 }

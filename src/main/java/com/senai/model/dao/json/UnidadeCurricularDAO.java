@@ -13,11 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UnidadeCurricularDAO {
-    //Final, já que não ocorrerão alterações de variáveis
     private final String caminhoArquivo = "unidadesCurriculares.json";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    //Aqui ele cria o caminho/procura se já existe
+
     public UnidadeCurricularDAO() {
         File file = new File(caminhoArquivo);
         if (!file.exists()) salvarUC(new ArrayList<>());
@@ -33,7 +32,7 @@ public class UnidadeCurricularDAO {
         }
     }
 
-    //Aqui ele salva as informações que o usuário passar
+
     public boolean salvarUC(List<UnidadeCurricular> listaUC) {
         try (Writer writer = new FileWriter(caminhoArquivo)) {
             gson.toJson(listaUC, writer);
@@ -43,5 +42,10 @@ public class UnidadeCurricularDAO {
         }
         return false;
     }
+
+    public List<UnidadeCurricular> listarUC() {
+        return carregarUC(); // Retorna a lista de unidades curriculares carregada do arquivo
+    }
+
 }
 
