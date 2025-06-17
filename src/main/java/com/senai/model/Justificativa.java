@@ -113,19 +113,18 @@ public class Justificativa {
 
 
 
-//    // Metodo toString para facilitar a visualização do objeto
-//    @Override
-//    public String toString() {
-//        return "Justificativa{" +
-//                "id=" + id +
-//                ", tipo='" + tipo + '\'' +
-//                ", descricao='" + descricao + '\'' +
-//                ", dataHoraJustificatida=" + dataHoraJustificatida +
-//                ", quantidadeDias=" + quantidadeDias +
-//                ", prazoDeAceite=" + prazoDeAceite +
-//                ", anexo='" + anexo + '\'' +
-//                ", status=" + status +
-//                ", cancelar=" + cancelar +
-//                '}';
-//    }
+    @Override
+public String toString() {
+ return "Justificativa{" +
+"id=" + id +
+", tipo='" + tipo + '\'' +
+", descricao='" + descricao + '\'' +
+", dataHoraJustificatida=" + dataHoraJustificatida +
+", quantidadeDias=" + quantidadeDias +
+", prazoDeAceite=" + prazoDeAceite +
+", anexo='" + anexo + '\'' +
+", status=" + status +
+", cancelar=" + cancelar +
+'}';
+}
 }

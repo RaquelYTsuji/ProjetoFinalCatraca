@@ -1,5 +1,6 @@
 package com.senai.controller;
 
+import com.senai.model.Professor;
 import com.senai.model.UnidadeCurricular;
 import com.senai.model.dao.json.UnidadeCurricularDAO;
 
@@ -16,8 +17,8 @@ public class UnidadeCurricularController {
     }
 
 
-    public void cadastrarUC(int id, String nome, String disciplina, String professor, String cargaHoraria, String metodoAvaliacao) {
-        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
+    public void cadastrarUC(int id, String nome, String disciplina, List<Professor> professor, String cargaHoraria) {
+        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria);
         listaUC.add(novaUC);
         UCdao.salvarUC(listaUC);
         System.out.println("Unidade Curricular cadastrada com sucesso!");
@@ -54,29 +55,16 @@ public class UnidadeCurricularController {
     }
 
 
-    public boolean atualizarProfessor(String nomeUC, String novoProfessor) {
+    public boolean atualizarProfessor(String nomeUC, List<Professor> novoProfessor) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setProfessorResponsavel(novoProfessor);
+                uc.setIdProfessor(novoProfessor);
                 UCdao.salvarUC(listaUC);
                 return true;
             }
         }
         return false;
     }
-
-
-    public boolean atualizarMetodo(String nomeUC, String novoMetodo) {
-        for (UnidadeCurricular uc : listaUC) {
-            if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setMetodoAvaliacao(novoMetodo);
-                UCdao.salvarUC(listaUC);
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public boolean removerUC(String nome, String confirmacao) {
         if (!confirmacao.equalsIgnoreCase("s")) return false;

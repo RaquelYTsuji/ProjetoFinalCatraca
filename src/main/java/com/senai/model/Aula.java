@@ -19,17 +19,45 @@ public class Aula {
         this.unidadeHorario = unidadeHorario;
     }
 
-    public int getId() { return id; }
-    public String getAulaCurricular() { return aulaCurricular; }
-    public List<Professor> getProfessores() { return professores; }
-    public List<UnidadeCurricular> getListaUC() { return listaUC; }
-    public LocalTime getUnidadeHorario() { return unidadeHorario; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
-    public void setAulaCurricular(String aulaCurricular) { this.aulaCurricular = aulaCurricular; }
-    public void setProfessores(List<Professor> professores) { this.professores = professores; }
-    public void setListaUC(List<UnidadeCurricular> listaUC) { this.listaUC = listaUC; }
-    public void setUnidadeHorario(LocalTime unidadeHorario) { this.unidadeHorario = unidadeHorario; }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAulaCurricular() {
+        return aulaCurricular;
+    }
+
+    public void setAulaCurricular(String aulaCurricular) {
+        this.aulaCurricular = aulaCurricular;
+    }
+
+    public List<Professor> getProfessores() {
+        return professores;
+    }
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
+    }
+
+    public List<UnidadeCurricular> getListaUC() {
+        return listaUC;
+    }
+
+    public void setListaUC(List<UnidadeCurricular> listaUC) {
+        this.listaUC = listaUC;
+    }
+
+    public LocalTime getUnidadeHorario() {
+        return unidadeHorario;
+    }
+
+    public void setUnidadeHorario(LocalTime unidadeHorario) {
+        this.unidadeHorario = unidadeHorario;
+    }
 
     @Override
     public String toString() {
