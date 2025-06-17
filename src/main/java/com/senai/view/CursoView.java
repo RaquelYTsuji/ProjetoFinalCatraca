@@ -1,7 +1,9 @@
 package com.senai.view;
 
 import com.senai.controller.CursoController;
+import com.senai.controller.UnidadeCurricularController;
 import com.senai.model.Curso;
+import com.senai.model.SubTurma;
 import com.senai.model.UnidadeCurricular;
 
 import java.util.ArrayList;
@@ -87,16 +89,22 @@ public class CursoView {
 
     public static Curso dados(){
         Scanner scanner = new Scanner(System.in);
+        UnidadeCurricularController unidadeCurricularController = new UnidadeCurricularController();
 
         System.out.print("Titulo: ");
         String titulo = scanner.nextLine();
 
-        //TODO: lista unidade curriculares
-        System.out.print("UC: ");
-        int idUC = scanner.nextInt();
-        scanner.nextLine();
-
+        System.out.print("UC: \n");
+        unidadeCurricularController.listarUC().forEach(System.out::println);
         List<UnidadeCurricular> unidadeCurriculares = new ArrayList<>();
+        int idUCCadastrar = 0;
+        do{
+            System.out.print("Insira o id da unidade curricular a adicionar (ou sair com -1): ");
+            idUCCadastrar = scanner.nextInt();
+            UnidadeCurricular unidadeCurricular = unidadeCurricularController.procurarUnidadeCurriculares(idUCCadastrar);
+            unidadeCurriculares.add(unidadeCurricular);
+        } while(idUCCadastrar != -1);
+        scanner.nextLine();
 
         System.out.print("Carga Horaria (horas): ");
         int cargaHoraria = scanner.nextInt();

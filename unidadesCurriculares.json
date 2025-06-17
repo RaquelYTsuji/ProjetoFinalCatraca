@@ -1,10 +1,19 @@
 [
   {
     "id": 1,
-    "nome": "MAtematica",
-    "disciplina": "Algebra",
-    "professorResponsavel": "T",
-    "cargaHoraria": "66",
-    "metodoAvaliacao": "Provas"
+    "nome": "backend",
+    "disciplina": "logica de programacao",
+    "idProfessor": [
+      {
+        "unidadeCurricular": "TI",
+        "id": 15,
+        "nome": "Nicoly",
+        "login": "nickmachado",
+        "senha": "12345",
+        "ativado": true
+      },
+      null
+    ],
+    "cargaHoraria": "120"
   }
 ]

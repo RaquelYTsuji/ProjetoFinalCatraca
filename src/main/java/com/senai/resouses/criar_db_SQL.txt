@@ -1,0 +1,144 @@
+CREATE DATABASE IF NOT EXISTS controle_atrasos;
+USE controle_atrasos;
+
+-- Tabela de alunos
+CREATE TABLE aluno (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100) NOT NULL,
+login VARCHAR(100) NOT NULL,
+senha VARCHAR(100) NOT NULL,
+ativado BOOLEAN
+);
+
+-- Tabela de professores
+CREATE TABLE professor (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100) NOT NULL,
+login VARCHAR(100) NOT NULL,
+senha VARCHAR(100) NOT NULL,
+ativado BOOLEAN
+);
+
+-- Tabela de unidade curricular
+CREATE TABLE unidade_curricular (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100) NOT NULL,
+disciplina VARCHAR(100) NOT NULL,
+carga_horaria INT,
+/*metodo_avaliacao VARCHAR(100),*/
+id_professor INT,
+FOREIGN KEY (id_professor) REFERENCES professor(id)
+);
+
+-- Tabela de justificativas
+CREATE TABLE justificativa (
+id INT PRIMARY KEY NOT NULL,
+tipo VARCHAR(100) NOT NULL,
+descricao VARCHAR(100) NOT NULL,
+data_hora_justificada DATETIME NOT NULL,
+quantidadeDias INT,
+prazoDeAceite INT,
+anexo VARCHAR(255),
+status BOOLEAN NOT NULL,
+cancelar BOOLEAN,
+id_aluno INT,
+id_unidade_curricular INT,
+FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
+);
+
+-- Tabela de ocorrências
+CREATE TABLE ocorrencia (
+id INT PRIMARY KEY NOT NULL,
+tipo VARCHAR(100) NOT NULL,
+descricao VARCHAR(100) NOT NULL,
+data_hora DATETIME NOT NULL,
+cancelar BOOLEAN,
+status BOOLEAN,
+id_aluno INT,
+id_professor INT,
+id_unidade_curricular INT,
+FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+FOREIGN KEY (id_professor) REFERENCES professor(id),
+FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
+);
+
+-- Tabela AQV
+CREATE TABLE aqv (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100) NOT NULL,
+login VARCHAR(100) NOT NULL,
+senha VARCHAR(100) NOT NULL,
+ativado BOOLEAN
+);
+
+-- Tabela de coordenadores
+CREATE TABLE coordenador (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100) NOT NULL,
+login VARCHAR(100) NOT NULL,
+senha VARCHAR(100) NOT NULL,
+status BOOLEAN
+);
+
+-- Tabela de ambiente
+CREATE TABLE ambiente (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(100)
+);
+
+-- Tabela de horário
+CREATE TABLE horario (
+id INT PRIMARY KEY NOT NULL,
+horario_inicio TIME,
+id_aluno INT,
+id_professor INT,
+FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+FOREIGN KEY (id_professor) REFERENCES professor(id)
+);
+
+-- Tabela de aula
+CREATE TABLE aula (
+id INT PRIMARY KEY NOT NULL,
+aula_curricular VARCHAR(1000),
+id_professor INT,
+id_ambiente INT,
+id_unidade_curricular INT,
+unidade_horario TIME,
+
+FOREIGN KEY (id_ambiente) REFERENCES ambiente(id),
+FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
+
+);
+
+-- Tabela de curso
+CREATE TABLE curso (
+id INT PRIMARY KEY NOT NULL,
+titulo VARCHAR(150),
+id_unidade_curricular INT,
+id_carga_horaria INT,
+tipo BOOLEAN,
+tolerancia INT,
+FOREIGN KEY (id_unidade_curricular) REFERENCES unidade_curricular(id)
+);
+
+-- Tabela de subturma
+CREATE TABLE subturma (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(150),
+id_aluno INT,
+FOREIGN KEY (id_aluno) REFERENCES aluno(id)
+);
+
+-- Tabela de turma
+CREATE TABLE turma (
+id INT PRIMARY KEY NOT NULL,
+nome VARCHAR(150),
+id_curso INT,
+id_subturma INT,
+data_inicio DATETIME,
+qtd_semestre INT,
+horario_entrada TIME,
+FOREIGN KEY (id_curso) REFERENCES curso(id),
+FOREIGN KEY (id_subturma) REFERENCES subturma(id)
+);

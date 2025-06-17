@@ -16,7 +16,8 @@ public class CoordenadorService {
     private final OcorrenciaDAO ocorrenciaDAO = new OcorrenciaDAO();
     private final JustificativaDao justificativaDAO = new JustificativaDao();
     private final Aluno aluno = new Aluno("", "", "", 0, "", LocalDate.now());
-    private final UnidadeCurricular uc = new UnidadeCurricular(0, "", "", "", "", "");
+    private final List<Professor> idProfessor =new ArrayList<>();
+    private final UnidadeCurricular uc = new UnidadeCurricular(0, "", "", idProfessor, "");
 
 
     public CoordenadorService(Coordenador coordenador) {

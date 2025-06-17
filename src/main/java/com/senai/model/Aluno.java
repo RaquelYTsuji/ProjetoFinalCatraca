@@ -31,6 +31,11 @@ public class Aluno extends Usuario {
         this.dataNascimento = dataNascimento;
     }
 
+
+    public Aluno() {
+
+    }
+
     @Override
     public String toString() {
         return "Aluno{" +

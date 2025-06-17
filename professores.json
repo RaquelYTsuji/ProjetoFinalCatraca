@@ -1,6 +1,6 @@
 [
   {
-    "idProfessor": 15,
+    "id": 15,
     "unidadeCurricular": "TI",
     "nome": "Nicoly",
     "login": "nickmachado",
@@ -8,7 +8,7 @@
     "ativado": true
   },
   {
-    "idProfessor": 26,
+    "id": 26,
     "unidadeCurricular": "Eletrônica",
     "nome": "Guilherme",
     "login": "guioliveira",
@@ -16,7 +16,7 @@
     "ativado": true
   },
   {
-    "idProfessor": 14,
+    "id": 14,
     "unidadeCurricular": "Eletrônica",
     "nome": "ìetra",
     "login": "pietrarocha",

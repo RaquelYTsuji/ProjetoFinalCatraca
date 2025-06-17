@@ -36,6 +36,10 @@ public class AlunoController {
         return false;
 
     }
+
+    public Aluno procurarAlunos(int id){
+        return alunoDAO.procurar(id);
+    }
 }
 
 

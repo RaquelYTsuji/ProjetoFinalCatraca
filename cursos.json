@@ -6,5 +6,30 @@
     "cargaHoraria": 20,
     "tipo": true,
     "tolerancia": 15
+  },
+  {
+    "id": 2,
+    "titulo": "ti",
+    "unidadeCurriculares": [
+      {
+        "id": 1,
+        "nome": "nome",
+        "disciplina": "logica",
+        "professorResponsavel": {
+          "unidadeCurricular": "TI",
+          "id": 15,
+          "nome": "Nicoly",
+          "login": "nickmachado",
+          "senha": "12345",
+          "ativado": true
+        },
+        "cargaHoraria": "12",
+        "metodoAvaliacao": "sa"
+      },
+      null
+    ],
+    "cargaHoraria": 12,
+    "tipo": false,
+    "tolerancia": 12
   }
 ]

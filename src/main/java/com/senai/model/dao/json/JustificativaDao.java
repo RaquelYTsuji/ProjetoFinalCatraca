@@ -54,18 +54,14 @@ public class JustificativaDao {
         return justificativas;
     }
 
+    public List<Justificativa> listarDoAluno(int idAluno) {
+        return justificativas.stream().filter(j -> idAluno == j.getIdAluno()).toList();
+    }
+
     public void atualizar(Justificativa justificativa) {
-        for (Justificativa j : justificativas) {
-            if (j.getId() == justificativa.getId()) {
-                j.setTipo(justificativa.getTipo());
-                j.setDescricao(justificativa.getDescricao());
-                j.setDataHoraJustificatida(justificativa.getDataHoraJustificatida());
-                j.setQuantidadeDias(justificativa.getQuantidadeDias());
-                j.setPrazoDeAceite(justificativa.getPrazoDeAceite());
-                j.setAnexo(justificativa.getAnexo());
-                j.setStatus(justificativa.getStatus());
-                j.setCancelar(justificativa.isCancelar());
-                salvarJson();
+        for (int i = 0; i < justificativas.size(); i++) {
+            if (justificativas.get(i).getId() == justificativa.getId()) {
+                salvar(justificativa);
                 break;
             }
         }
@@ -76,6 +72,28 @@ public class JustificativaDao {
         while (iterator.hasNext()) {
             Justificativa j = iterator.next();
             if (j.getId() == id) {
+                iterator.remove();
+                salvarJson();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void atualizarDoAluno(Justificativa justificativa) {
+        for (int i = 0; i < justificativas.size(); i++) {
+            if (justificativas.get(i).getId() == justificativa.getId() && justificativas.get(i).getIdAluno() == justificativa.getIdAluno()) {
+                salvar(justificativa);
+                break;
+            }
+        }
+    }
+
+    public boolean deletarDoAluno(int id, int idAluno) {
+        Iterator<Justificativa> iterator = justificativas.iterator();
+        while (iterator.hasNext()) {
+            Justificativa j = iterator.next();
+            if (j.getId() == id && j.getIdAluno() == idAluno) {
                 iterator.remove();
                 salvarJson();
                 return true;

@@ -2,6 +2,7 @@ package com.senai.view;
 
 import com.senai.controller.HorarioController;
 import com.senai.controller.TurmaController;
+import com.senai.model.Aluno;
 import com.senai.model.Horario;
 import com.senai.model.Turma;
 import com.senai.controller.UsuarioController;
@@ -70,6 +71,13 @@ public class HorarioView {
 
     public void listar() {
         for (Horario h : controller.listarHorarios()) {
+            System.out.printf("ID: %d | Aluno ID: %d | Professor ID: %d | Início: %s\n",
+                    h.getId(), h.getIdAluno(), h.getIdProfessor(), h.getHoraInicio());
+        }
+    }
+
+    public void listarDoAluno(Aluno aluno) {
+        for (Horario h : controller.listarHorariosDoAluno(aluno.getId())) {
             System.out.printf("ID: %d | Aluno ID: %d | Professor ID: %d | Início: %s\n",
                     h.getId(), h.getIdAluno(), h.getIdProfessor(), h.getHoraInicio());
         }
