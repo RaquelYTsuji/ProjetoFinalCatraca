@@ -1,16 +1,7 @@
 package com.senai.model;
 
 public class Professor extends Usuario{
-    int idProfessor;
     String unidadeCurricular;
-
-    public int getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setIdProfessor(int idProfessor) {
-        this.idProfessor = idProfessor;
-    }
 
     public String getUnidadeCurricular() {
         return unidadeCurricular;
@@ -21,8 +12,7 @@ public class Professor extends Usuario{
     }
 
     public Professor(String nome, String login, String senha, int idProfessor, String unidadeCurricular) {
-        super(nome, login, senha);
-        this.idProfessor = idProfessor;
+        super(idProfessor, nome, login, senha);
         this.unidadeCurricular = unidadeCurricular;
 
     }
@@ -30,11 +20,16 @@ public class Professor extends Usuario{
     @Override
     public String toString() {
         return "Professor{" +
-                "ID=" + idProfessor +
+                "ID=" + getId() +
                 ", UC= " + getUnidadeCurricular() +
                 ", Nome='" + getNome() +  '\'' +
                 ", Login='" + getLogin() + '\'' +
                 ", Senha='" + getSenha() + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getTipo() {
+        return "Professor";
     }
 }

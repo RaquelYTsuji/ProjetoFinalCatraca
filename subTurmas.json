@@ -2,6 +2,16 @@
   {
     "id": 2,
     "nome": "SubTurma2",
-    "alunos": []
+    "alunos": [
+      {
+        "idAluno": 15,
+        "nome": "Aluno",
+        "idCartaoRfid": 1111,
+        "dataNascimento": "20/10/2024",
+        "login": "aluno",
+        "senha": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "ativado": true
+      }
+    ]
   }
 ]
