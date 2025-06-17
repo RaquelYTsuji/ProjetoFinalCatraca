@@ -101,7 +101,9 @@ public class OcorrenciaController {
 
             professorOpt.ifPresent(professor -> {
                 Random random = new Random();
-                Ocorrencia ocorrencia = new Ocorrencia(random.nextInt(), aluno.getId(), "Entrada", "Entrada atrasada", LocalDateTime.now());
+                int id = random.nextInt();
+                Ocorrencia ocorrencia = new Ocorrencia(id, aluno.getId(), "Entrada", "Entrada atrasada", LocalDateTime.now());
+                ocorrenciaDAO.salvar(ocorrencia);
                 WebSocketSender.enviarMensagem(ocorrencia);
             });
             return "[ATRASO DETECTADO] Aluno: " + aluno.getNome();

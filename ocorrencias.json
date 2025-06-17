@@ -6,5 +6,29 @@
     "descricao": "desc",
     "dataHora": "20/10/2024 12:00:00",
     "cancelar": false
+  },
+  {
+    "id": 749865872,
+    "idAluno": 15,
+    "tipo": "Entrada",
+    "descricao": "Entrada atrasada",
+    "dataHora": "17/06/2025 10:24:03",
+    "cancelar": false
+  },
+  {
+    "id": -2015599100,
+    "idAluno": 15,
+    "tipo": "Entrada",
+    "descricao": "Entrada atrasada",
+    "dataHora": "17/06/2025 10:25:28",
+    "cancelar": false
+  },
+  {
+    "id": -1407201159,
+    "idAluno": 15,
+    "tipo": "Entrada",
+    "descricao": "Entrada atrasada",
+    "dataHora": "17/06/2025 10:26:34",
+    "cancelar": false
   }
 ]
