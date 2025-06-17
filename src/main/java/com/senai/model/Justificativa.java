@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Justificativa {
 
     private int id;
+    private int idAluno;
     private String tipo;
     private String descricao;
     private LocalDateTime dataHoraJustificatida;
@@ -15,7 +16,7 @@ public class Justificativa {
     private boolean cancelar;
 
 
-    public Justificativa(int id, String tipo, String descricao,
+    public Justificativa(int id, int idAluno, String tipo, String descricao,
                          LocalDateTime now, int quantidadeDias, int prazoDeAceite,
                          String anexo, String status, boolean cancelar) {
         this.id = id;
@@ -44,6 +45,14 @@ public class Justificativa {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
 
     public String getTipo() {

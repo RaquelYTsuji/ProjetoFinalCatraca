@@ -1,6 +1,7 @@
 [
   {
     "id": 2,
+    "idAluno": 15,
     "tipo": "saida",
     "descricao": "quero ir embora",
     "dataHoraJustificatida": "27/05/2025 10:31:37",

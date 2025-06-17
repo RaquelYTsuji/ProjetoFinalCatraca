@@ -4,6 +4,7 @@ import com.senai.controller.ProfessorController;
 import com.senai.controller.UnidadeCurricularController;
 import com.senai.model.Professor;
 import com.senai.model.SubTurma;
+import com.senai.model.Professor;
 import com.senai.model.UnidadeCurricular;
 
 import java.util.ArrayList;
@@ -17,9 +18,6 @@ public class UnidadeCurricularView {
     static ProfessorController professorController = new ProfessorController();
 
     public static void main(String[] args) {
-        String login = scannerPrompt("Digite o seu login: "); //Uso de scannerPrompt (orientações do professor) para evitar repetições de scanner.nextLine e vários souts
-        System.out.println("Bem-vindo(a), " + login + "!");
-
         String opcao;
         //Menu para interação com o usuário, onde ele escolhe o que deseja fazer.
         String menuUC = """
@@ -47,7 +45,9 @@ public class UnidadeCurricularView {
     }
 
     private static void cadastrar() {
-        String idUC = scannerPrompt("Digite o id da sua Unidade Vurricular: ");
+        ProfessorController professorController = new ProfessorController();
+
+        String idUC = scannerPrompt("Digite o id da sua Unidade Curricular: ");
         String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String disciplina = scannerPrompt("Digite as disciplinas presentes da UC: ");
         System.out.print("Professores: \n");
@@ -69,6 +69,7 @@ public class UnidadeCurricularView {
     //No atualizar, o uso de Menu, foi escolhido para que o usuário escolha o que ele quer editar.
     private static void atualizar() {
         String nomeUC = scannerPrompt("Digite o nome da UC que deseja atualizar: ");
+        ProfessorController professorController = new ProfessorController();
 
         String opcao;
         String opcoesAtt = """

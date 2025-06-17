@@ -76,6 +76,7 @@ public class OcorrenciaDAO {
     private Ocorrencia mapResultSet(ResultSet rs) throws SQLException {
         return new Ocorrencia(
                 rs.getInt("id"),
+                rs.getInt("idAluno"),
                 rs.getString("tipo"),
                 rs.getString("descricao"),
                 rs.getTimestamp("dataHora").toLocalDateTime()

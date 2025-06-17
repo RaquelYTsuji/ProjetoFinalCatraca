@@ -45,5 +45,8 @@ public class ProfessorController {
         }
         return null; // Retorna null se o ID não for válido
     }
+    public Professor procurarProfessores(int id){
+        return professorDAO.procurar(id);
+    }
 }
 

@@ -9,7 +9,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.UUID;
 
 
 public class OcorrenciaController {
@@ -21,6 +20,10 @@ public class OcorrenciaController {
 
     public List<Ocorrencia> listarOcorrencias() {
         return (List<Ocorrencia>) ocorrenciaDAO.listar();
+    }
+
+    public List<Ocorrencia> listarOcorrenciasDoAluno(int idAluno) {
+        return ocorrenciaDAO.listarDoAluno(idAluno);
     }
 
     public boolean cadastrarOcorrencias(Ocorrencia ocorrencia) {
@@ -46,6 +49,23 @@ public class OcorrenciaController {
         }
         return false;
     }
+
+    public boolean atualizarOcorrenciasDoAluno(Ocorrencia ocorrencia) {
+        if (ocorrencia != null) {
+            ocorrenciaDAO.atualizar(ocorrencia);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deletarOcorrenciasDoAluno(int id, int idAluno) {
+        if (id >= 0) {
+            ocorrenciaDAO.deletarDoAluno(id, idAluno);
+            return true;
+        }
+        return false;
+    }
+
     public boolean aceitarOcorrencias ( int id){
         if (id >= 0) {
             ocorrenciaDAO.deletar(id);
@@ -66,16 +86,13 @@ public class OcorrenciaController {
         }
 
         Turma turma = turmaOpt.get();
-        Optional<Horario> horarioOpt = horarioDAO.buscarHorarioDaTurma(turmaOpt.get().getId());
+        Optional<Horario> horarioOpt = horarioDAO.buscarHorarioDoAluno(aluno.getId());
 
         if (horarioOpt.isEmpty()) {
             return "[ACESSO] Aluno: " + aluno.getNome() + " - Nenhum horário atribuído.";
         }
 
         Horario horario = horarioOpt.get();
-        LocalTime horarioDeEntrada = turma.getHorarioEntrada();
-        int tolerancia = turma.getCurso().getTolerancia();
-
         boolean atrasado = aluno.estaAtrasado(aluno.getId());
 
         if (atrasado) {
@@ -83,7 +100,7 @@ public class OcorrenciaController {
 
             professorOpt.ifPresent(professor -> {
                 Random random = new Random();
-                Ocorrencia ocorrencia = new Ocorrencia(random.nextInt(), "Entrada", "Entrada atrasada", LocalDateTime.now());
+                Ocorrencia ocorrencia = new Ocorrencia(random.nextInt(), aluno.getId(), "Entrada", "Entrada atrasada", LocalDateTime.now());
                 WebSocketSender.enviarMensagem(ocorrencia);
             });
             return "[ATRASO DETECTADO] Aluno: " + aluno.getNome();

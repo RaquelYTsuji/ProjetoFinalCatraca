@@ -3,7 +3,6 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.senai.model.Coordenador;
 import com.senai.model.Professor;
 
 import java.io.FileReader;
@@ -82,19 +81,23 @@ public class ProfessorDAO {
     }
 
 
-    public Professor procurar(int id) {
-        for (Professor p : professores) {
-            if (p.getId() == id) {
-                return p;  // Retorna o professor se encontrado
-            }
-        }
-        return null;  // Retorna null se o professor não for encontrado
-    }
+
     public Optional<Professor> buscarPorLogin(String login) {
         return professores.stream().filter(p -> p.getLogin().equals(login)).findFirst();
     }
 
     public Optional<Professor> buscarPorId(int id) {
         return carregar().stream().filter(p -> p.getId() == id).findFirst();
+    }
+
+    public Professor procurar(int id){
+        Professor professor = null;
+        for (Professor p : professores) {
+            if (p.getId() == id) {
+                professor = new Professor(p.getNome(), p.getLogin(), p.getSenha(), p.getId(), p.getUnidadeCurricular());
+                break;
+            }
+        }
+        return professor;
     }
 }

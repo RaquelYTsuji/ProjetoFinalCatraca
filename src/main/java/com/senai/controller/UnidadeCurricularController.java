@@ -83,4 +83,8 @@ public class UnidadeCurricularController {
         }
         return null; // Retorna null se não encontrar
     }
+
+    public UnidadeCurricular procurarUnidadeCurriculares(int id){
+        return UCdao.procurar(id, listaUC);
+    }
 }

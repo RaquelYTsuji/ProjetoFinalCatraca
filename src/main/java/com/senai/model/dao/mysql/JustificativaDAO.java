@@ -82,6 +82,7 @@ public class JustificativaDAO {
     private Justificativa mapResultSet(ResultSet rs) throws SQLException {
         return new Justificativa(
                 rs.getInt("id"),
+                rs.getInt("idAluno"),
                 rs.getString("tipo"),
                 rs.getString("descricao"),
                 rs.getTimestamp("dataHoraJustificada").toLocalDateTime(),

@@ -10,7 +10,8 @@ import java.util.Scanner;
 import static com.senai.mqtt.MqttSubscriber.iniciarMqtt;
 import static com.senai.websocket.WebSocketSender.iniciarWebSocket;
 
-public class Main {
+public class
+Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -108,9 +109,9 @@ public class Main {
                     """,
                 opcao -> {
                     switch (opcao) {
-                        case "1" -> ocorrenciaView.menu();
-                        case "2" -> justificativaView.menu();
-                        case "3" -> horarioView.listar();
+                        case "1" -> ocorrenciaView.menuAluno(aluno);
+                        case "2" -> justificativaView.menuAluno(aluno);
+                        case "3" -> horarioView.listarDoAluno(aluno);
                         case "4" -> logar();
                         case "0" -> {
                             System.out.println("Saindo...");

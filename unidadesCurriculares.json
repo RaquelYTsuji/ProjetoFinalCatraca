@@ -1,9 +1,19 @@
 [
   {
     "id": 1,
-    "nome": "matematica",
-    "disciplina": "todas",
-    "professorResponsavel": "tercio",
-    "cargaHoraria": "12"
+    "nome": "backend",
+    "disciplina": "logica de programacao",
+    "idProfessor": [
+      {
+        "unidadeCurricular": "TI",
+        "id": 15,
+        "nome": "Nicoly",
+        "login": "nickmachado",
+        "senha": "12345",
+        "ativado": true
+      },
+      null
+    ],
+    "cargaHoraria": "120"
   }
 ]

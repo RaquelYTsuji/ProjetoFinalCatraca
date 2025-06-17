@@ -3,7 +3,6 @@ package com.senai.model.dao.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.senai.model.Aluno;
 import com.senai.model.Ocorrencia;
 import com.senai.util.LocalDateTimeAdapter;
 
@@ -58,7 +57,7 @@ public class OcorrenciaDAO {
 
     public void atualizar(Ocorrencia ocorrencia) {
         ocorrencias.forEach(o -> {
-            if (o.getId() == ocorrencia.getId()) {
+            if (o.getId() == ocorrencia.getId() && o.getIdAluno() == ocorrencia.getIdAluno()) {
                 o.setTipo(ocorrencia.getTipo());
                 o.setDescricao(ocorrencia.getDescricao());
                 o.setDataHora(ocorrencia.getDataHora());
@@ -72,6 +71,34 @@ public class OcorrenciaDAO {
         while (iterator.hasNext()) {
             Ocorrencia o = iterator.next();
             if (o.getId() == id) {
+                iterator.remove();
+                salvarJson();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Ocorrencia> listarDoAluno(int idAluno) {
+        return ocorrencias.stream().filter(o -> idAluno == o.getIdAluno()).toList();
+    }
+
+    public void atualizarDoAluno(Ocorrencia ocorrencia) {
+        ocorrencias.forEach(o -> {
+            if (o.getId() == ocorrencia.getId()) {
+                o.setTipo(ocorrencia.getTipo());
+                o.setDescricao(ocorrencia.getDescricao());
+                o.setDataHora(ocorrencia.getDataHora());
+                salvarJson();
+            }
+        });
+    }
+
+    public boolean deletarDoAluno(int id, int idAluno) {
+        Iterator<Ocorrencia> iterator = ocorrencias.iterator();
+        while (iterator.hasNext()) {
+            Ocorrencia o = iterator.next();
+            if (o.getId() == id && o.getIdAluno() == idAluno) {
                 iterator.remove();
                 salvarJson();
                 return true;

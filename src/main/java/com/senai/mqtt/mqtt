@@ -1,0 +1,1 @@
+mosquitto_pub -h localhost -p 1883 -t catraca/idAcesso -m "numero_idAcesso"

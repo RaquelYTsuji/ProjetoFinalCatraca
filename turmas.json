@@ -16,7 +16,7 @@
         "nome": "SubTurma2",
         "alunos": [
           {
-            "idAluno": 15,
+            "id": 15,
             "nome": "Aluno",
             "idCartaoRfid": 1111,
             "dataNascimento": "20/10/2024",
