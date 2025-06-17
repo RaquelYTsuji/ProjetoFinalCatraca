@@ -47,11 +47,16 @@ public class UnidadeCurricularDAO {
         UnidadeCurricular unidadeCurricular = null;
         for (UnidadeCurricular u : listaUC) {
             if (u.getId() == id) {
-                unidadeCurricular = new UnidadeCurricular(u.getId(), u.getNome(), u.getDisciplina(), u.getProfessorResponsavel(), u.getCargaHoraria(), u.getMetodoAvaliacao());
+                unidadeCurricular = new UnidadeCurricular(u.getId(), u.getNome(), u.getDisciplina(), u.getIdProfessor(), u.getCargaHoraria());
                 break;
             }
         }
         return unidadeCurricular;
     }
+
+    public List<UnidadeCurricular> listarUC() {
+        return carregarUC(); // Retorna a lista de unidades curriculares carregada do arquivo
+    }
+
 }
 

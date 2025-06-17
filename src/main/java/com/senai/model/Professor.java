@@ -17,6 +17,9 @@ public class Professor extends Usuario{
 
     }
 
+    public Professor() {
+    }
+
     @Override
     public String toString() {
         return "Professor{" +

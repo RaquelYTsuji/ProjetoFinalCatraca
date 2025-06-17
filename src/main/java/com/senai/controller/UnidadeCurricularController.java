@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnidadeCurricularController {
-    //Final, já que não haverá alterações sobre essas variaveis.
     private List<UnidadeCurricular> listaUC;
     private final UnidadeCurricularDAO UCdao;
 
@@ -17,16 +16,20 @@ public class UnidadeCurricularController {
         listaUC = UCdao.carregarUC();
     }
 
-    public void cadastrarUC(int id, String nome, String disciplina, Professor professor, String cargaHoraria, String metodoAvaliacao) {
-        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria, metodoAvaliacao);
+
+    public void cadastrarUC(int id, String nome, String disciplina, List<Professor> professor, String cargaHoraria) {
+        UnidadeCurricular novaUC = new UnidadeCurricular(id, nome, disciplina, professor, cargaHoraria);
         listaUC.add(novaUC);
         UCdao.salvarUC(listaUC);
         System.out.println("Unidade Curricular cadastrada com sucesso!");
     }
 
+
     public List<UnidadeCurricular> listarUC() {
-        return new ArrayList<>(listaUC);
+        // Carrega novamente as unidades do arquivo, garantindo que a lista está atualizada.
+        return new ArrayList<>(UCdao.carregarUC());
     }
+
 
     public boolean atualizarNomeUC(String nomeAntigo, String novoNome) {
         for (UnidadeCurricular uc : listaUC) {
@@ -39,6 +42,7 @@ public class UnidadeCurricularController {
         return false;
     }
 
+
     public boolean atualizarDisciplina(String nomeUC, String novaDisciplina) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
@@ -50,21 +54,11 @@ public class UnidadeCurricularController {
         return false;
     }
 
-    public boolean atualizarProfessor(String nomeUC, Professor novoProfessor) {
-        for (UnidadeCurricular uc : listaUC) {
-            if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setProfessorResponsavel(novoProfessor);
-                UCdao.salvarUC(listaUC);
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean atualizarMetodo(String nomeUC, String novoMetodo) {
+    public boolean atualizarProfessor(String nomeUC, List<Professor> novoProfessor) {
         for (UnidadeCurricular uc : listaUC) {
             if (uc.getNome().equalsIgnoreCase(nomeUC)) {
-                uc.setMetodoAvaliacao(novoMetodo);
+                uc.setIdProfessor(novoProfessor);
                 UCdao.salvarUC(listaUC);
                 return true;
             }
@@ -77,6 +71,17 @@ public class UnidadeCurricularController {
         boolean removido = listaUC.removeIf(uc -> uc.getNome().equalsIgnoreCase(nome));
         if (removido) UCdao.salvarUC(listaUC);
         return removido;
+    }
+
+
+
+    public UnidadeCurricular procurarUCPorId(int id) {
+        for (UnidadeCurricular uc : listaUC) {
+            if (uc.getId() == id) {
+                return uc; // Retorna a Unidade Curricular se encontrar pelo ID
+            }
+        }
+        return null; // Retorna null se não encontrar
     }
 
     public UnidadeCurricular procurarUnidadeCurriculares(int id){

@@ -3,8 +3,11 @@ package com.senai.view;
 import com.senai.controller.ProfessorController;
 import com.senai.controller.UnidadeCurricularController;
 import com.senai.model.Professor;
+import com.senai.model.SubTurma;
+import com.senai.model.Professor;
 import com.senai.model.UnidadeCurricular;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +15,7 @@ public class UnidadeCurricularView {
     //Essas duas classes estão estáticas para serem acessadas no código por completo.
     static Scanner scanner = new Scanner(System.in);
     static UnidadeCurricularController Controller = new UnidadeCurricularController();
+    static ProfessorController professorController = new ProfessorController();
 
     public static void main(String[] args) {
         String opcao;
@@ -46,17 +50,20 @@ public class UnidadeCurricularView {
         String idUC = scannerPrompt("Digite o id da sua Unidade Curricular: ");
         String nomeUC = scannerPrompt("Digite o nome da Unidade Curricular: ");
         String disciplina = scannerPrompt("Digite as disciplinas presentes da UC: ");
-
+        System.out.print("Professores: \n");
         professorController.listarProfessores().forEach(System.out::println);
-        System.out.print("Professor: ");
-        int idProfessorCadastrar = scanner.nextInt();
+        List<Professor> professores = new ArrayList<>();
+        int idProfessor = 0;
+        do{
+            System.out.print("Insira o id do professor a adicionar (ou sair com -1): ");
+            idProfessor = scanner.nextInt();
+            Professor professor = professorController.procurarProfessorPorID(idProfessor);
+            professores.add(professor);
+        } while(idProfessor != -1);
         scanner.nextLine();
-        Professor professorCadastrar = professorController.procurarProfessores(idProfessorCadastrar);
-
         String cargaHoraria = scannerPrompt("Carga horária: ");
-        String metodoAvaliacao = scannerPrompt("Método de avaliação: ");
 
-        Controller.cadastrarUC(Integer.parseInt(idUC), nomeUC, disciplina, professorCadastrar, cargaHoraria, metodoAvaliacao);
+        Controller.cadastrarUC(Integer.parseInt(idUC), nomeUC, disciplina, professores, cargaHoraria);
     }
 
     //No atualizar, o uso de Menu, foi escolhido para que o usuário escolha o que ele quer editar.
@@ -70,7 +77,6 @@ public class UnidadeCurricularView {
                 1 - Nome da UC
                 2 - Disciplinas
                 3 - Professor Responsável
-                4 - Método de Avaliação
                 0 - Voltar
                 """;
 
@@ -82,24 +88,26 @@ public class UnidadeCurricularView {
                 case "1":
                     Controller.atualizarNomeUC(nomeUC, scannerPrompt("Novo nome: "));
                     break;
-                case "2":
+                case "2" :
                     Controller.atualizarDisciplina(nomeUC, scannerPrompt("Nova disciplina: "));
                     break;
-                case "3":
+                case "3" :
+                    System.out.print("Professores: \n");
                     professorController.listarProfessores().forEach(System.out::println);
-                    System.out.print("Professor: ");
-                    int idProfessorCadastrar = scanner.nextInt();
+                    List<Professor> professores = new ArrayList<>();
+                    int idProfessor = 0;
+                    do{
+                        System.out.print("Insira o id do professor a adicionar (ou sair com -1): ");
+                        idProfessor = scanner.nextInt();
+                        Professor professor = professorController.procurarProfessorPorID(idProfessor);
+                        professores.add(professor);
+                    } while(idProfessor != -1);
                     scanner.nextLine();
-                    Professor professor = professorController.procurarProfessores(idProfessorCadastrar);
-                    Controller.atualizarProfessor(nomeUC, professor);
                     break;
-                case "4":
-                    Controller.atualizarMetodo(nomeUC, scannerPrompt("Novo método: "));
-                    break;
-                case "0":
+                case "0" :
                     System.out.println("Voltando...");
                     break;
-                default:
+                default :
                     System.out.println("Opção inválida.");
                     break;
             }

@@ -10,7 +10,8 @@ import java.util.Scanner;
 import static com.senai.mqtt.MqttSubscriber.iniciarMqtt;
 import static com.senai.websocket.WebSocketSender.iniciarWebSocket;
 
-public class Main {
+public class
+Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
