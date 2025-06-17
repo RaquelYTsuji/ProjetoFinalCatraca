@@ -9,7 +9,6 @@ import com.senai.model.UnidadeCurricular;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UnidadeCurricularDAO {
@@ -43,5 +42,21 @@ public class UnidadeCurricularDAO {
         }
         return false;
     }
+
+    public UnidadeCurricular procurar(int id, List<UnidadeCurricular> listaUC){
+        UnidadeCurricular unidadeCurricular = null;
+        for (UnidadeCurricular u : listaUC) {
+            if (u.getId() == id) {
+                unidadeCurricular = new UnidadeCurricular(u.getId(), u.getNome(), u.getDisciplina(), u.getIdProfessor(), u.getCargaHoraria());
+                break;
+            }
+        }
+        return unidadeCurricular;
+    }
+
+    public List<UnidadeCurricular> listarUC() {
+        return carregarUC(); // Retorna a lista de unidades curriculares carregada do arquivo
+    }
+
 }
 

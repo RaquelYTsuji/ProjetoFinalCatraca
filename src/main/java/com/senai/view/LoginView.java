@@ -1,6 +1,5 @@
 package com.senai.view;
 
-
 import com.senai.controller.LoginController;
 import com.senai.model.Usuario;
 import com.senai.util.CriptografiaUtil;

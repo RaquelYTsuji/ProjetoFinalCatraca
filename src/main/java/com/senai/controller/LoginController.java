@@ -1,11 +1,11 @@
 package com.senai.controller;
 
-
 import com.senai.model.Usuario;
 import com.senai.model.dao.json.AQVDAO;
 import com.senai.model.dao.json.AlunoDAO;
 import com.senai.model.dao.json.CoordenadorDAO;
 import com.senai.model.dao.json.ProfessorDAO;
+import com.senai.util.CriptografiaUtil;
 
 import java.util.Optional;
 

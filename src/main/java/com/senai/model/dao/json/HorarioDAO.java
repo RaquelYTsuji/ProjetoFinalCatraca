@@ -70,5 +70,9 @@ public class HorarioDAO {
     public List<Horario> listarTodos() {
         return horarios;
     }
+
+    public List<Horario> listarTodosDoAluno(int idAluno) {
+        return horarios.stream().filter(h -> h.getIdAluno() == idAluno).toList();
+    }
 }
 

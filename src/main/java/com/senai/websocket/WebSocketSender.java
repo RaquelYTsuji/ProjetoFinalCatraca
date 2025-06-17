@@ -13,7 +13,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/ws")
 public class WebSocketSender {
-
     private static final Set<Session> sessions = new CopyOnWriteArraySet<>();
 
     @OnOpen
@@ -58,5 +57,4 @@ public class WebSocketSender {
         server.start();
         System.out.println("Servidor WebSocket Jetty iniciado em ws://localhost:8080/ws");
     }
-
 }

@@ -1,15 +1,13 @@
 package com.senai.mqtt;
 
-import com.senai.controller.ControleDeAcessoController;
-import com.senai.model.dao.json.AQVDAO;
+import com.senai.controller.OcorrenciaController;
 import org.eclipse.paho.client.mqttv3.*;
 
 public class MqttSubscriber {
     private static final String BROKER = "tcp://localhost:1883";
     private static final String CLIENT_ID = "ServidorJava";
-    private static final String TOPICO = "catraca/rfid";
-    private static final ControleDeAcessoController controller = new ControleDeAcessoController();
-    private static final AQVDAO aqvDao = new AQVDAO();
+    private static final String TOPICO = "catraca/idAcesso";
+    private static final OcorrenciaController controller = new OcorrenciaController();
 
     public static void iniciarMqtt() {
         try {
@@ -17,7 +15,7 @@ public class MqttSubscriber {
             client.connect();
             client.subscribe(TOPICO, (topic, msg) -> {
                 String payload = new String(msg.getPayload());
-                String resposta = controller.processarEntrada(payload);
+                String resposta = controller.CriarOcorrenciaAtraso(payload);
                 System.out.println(resposta); // este será redirecionado para a view em um próximo passo, se necessário
             });
             System.out.println("Inscrito no tópico MQTT: " + TOPICO);

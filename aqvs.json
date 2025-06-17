@@ -1,1 +1,16 @@
-[{"id":0,"nome":"AQV","login":"aqv","senha":"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4","ativado":true}]
+[
+  {
+    "id": 15,
+    "nome": "Nicoly Machado",
+    "login": "nicolymachado",
+    "senha": "12345",
+    "ativado": true
+  },
+  {
+    "id": 1,
+    "nome": "AQV",
+    "login": "aqv",
+    "senha": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "ativado": true
+  }
+]

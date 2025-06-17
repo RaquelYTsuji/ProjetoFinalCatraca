@@ -1,6 +1,8 @@
 package com.senai.controller;
-import com.senai.model.dao.json.HorarioDAO;
 import com.senai.model.Horario;
+import com.senai.model.dao.json.HorarioDAO;
+
+
 
 import java.time.LocalTime;
 import java.util.List;
@@ -26,5 +28,8 @@ public class HorarioController {
     public List<Horario> listarHorarios() {
         return horarioDAO.listarTodos();
     }
-}
 
+    public List<Horario> listarHorariosDoAluno(int idAluno) {
+        return horarioDAO.listarTodosDoAluno(idAluno);
+    }
+}

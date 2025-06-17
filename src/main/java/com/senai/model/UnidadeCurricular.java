@@ -1,24 +1,26 @@
 package com.senai.model;
 
+import java.util.List;
+
 //Aqui segue o mesmo padrão do POO, onde criamos os atributos e chamos construtores, getter e setters e fazemos o toString
 public class UnidadeCurricular {
 
     private int id;
     private String nome;
     private String disciplina;
-    private String professorResponsavel;
+    private List<Professor> idProfessor;
     private String cargaHoraria;
-    private String metodoAvaliacao;
 
-    public UnidadeCurricular(int id, String nome, String disciplina, String professorResponsavel, String cargaHoraria, String metodoAvaliacao) {
+    public UnidadeCurricular(int id, String nome, String disciplina, List<Professor> idProfessor, String cargaHoraria) {
         this.id = id;
         this.nome = nome;
         this.disciplina = disciplina;
-        this.professorResponsavel = professorResponsavel;
+        this.idProfessor = idProfessor;
         this.cargaHoraria = cargaHoraria;
-        this.metodoAvaliacao = metodoAvaliacao;
     }
 
+    public UnidadeCurricular() {
+    }
 
     public int getId() {
         return id;
@@ -44,12 +46,12 @@ public class UnidadeCurricular {
         this.disciplina = disciplina;
     }
 
-    public String getProfessorResponsavel() {
-        return professorResponsavel;
+    public List<Professor> getIdProfessor() {
+        return idProfessor;
     }
 
-    public void setProfessorResponsavel(String professorResponsavel) {
-        this.professorResponsavel = professorResponsavel;
+    public void setIdProfessor(List<Professor> idProfessor) {
+        this.idProfessor = idProfessor;;
     }
 
     public String getCargaHoraria() {
@@ -60,14 +62,6 @@ public class UnidadeCurricular {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getMetodoAvaliacao() {
-        return metodoAvaliacao;
-    }
-
-    public void setMetodoAvaliacao(String metodoAvaliacao) {
-        this.metodoAvaliacao = metodoAvaliacao;
-    }
-
     @Override
     public String toString() {
         return String.format("""
@@ -76,7 +70,6 @@ public class UnidadeCurricular {
             Disciplina:           %s
             Professor Responsável:%s
             Carga Horária:        %s
-            Método de Avaliação:  %s
-            """, id, nome, disciplina, professorResponsavel, cargaHoraria, metodoAvaliacao);
+            """, id, nome, disciplina, idProfessor, cargaHoraria);
     }
 }
