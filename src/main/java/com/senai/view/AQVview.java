@@ -4,6 +4,9 @@ import com.senai.controller.AQVcontroller;
 import com.senai.model.AQV;
 import com.senai.util.CriptografiaUtil;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -103,8 +106,13 @@ public class AQVview {
         System.out.print("ID a deletar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
-
-        controller.deletarAQV(id);
     }
-}
+
+
+        }
+
+
+
+
+
 
